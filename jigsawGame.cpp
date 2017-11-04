@@ -6,7 +6,7 @@
 //  Copyright © 2017 Alexander Shugaley. All rights reserved.
 //
 
-#include "jigsawGame.hpp"
+#include "jigsawGame.h"
 
 
 
@@ -20,15 +20,7 @@
  should include the following variables: set of pieces (jigsawElem), numOfPieces(int), solutionBoard (double array of jigsawElems[numOfPieces][numOfPieces])
  
  
- 
- 
- functions:
- 
- setters/getters
- isValidNextPiece(piece)
- isSumEdgesZero
- hasAllCorners
- hasEnoughEdges
+
  
  
  
