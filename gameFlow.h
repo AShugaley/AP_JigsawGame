@@ -1,5 +1,5 @@
 //
-//  gameFlow.hpp
+//  gameFlow.h
 //  AdvProgEX1
 //
 //  Created by Alexander Shugaley on 01/11/2017.
@@ -14,6 +14,7 @@
 #include <string>
 #include <iostream>
 #include <cstdio>
+#include <fstream>
 #include "jigsawGame.h"
 
 
@@ -21,4 +22,4 @@ class gameFlow{
     static bool simpleMainFlow(char* inputfilename, char* outputfilename);
 };
 
-#endif /* gameFlow_hpp */
+#endif /* gameFlow_h */

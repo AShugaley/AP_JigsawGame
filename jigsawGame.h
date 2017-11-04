@@ -13,13 +13,27 @@
 #include <vector>
 #include <string>
 #include <iostream>
-
+#include <map>
+#include <fstream>
+#include <stdio.h>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <cstdio>
+#include <fstream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <iterator>
+#include <iostream>
+#include <string>
 #include "jigsawElem.h"
 
 class jigsawGame{
     int gameSize;
     bool gameInitilized;
-    std::vector<jigsawElem> pieces;
+    std::vector<jigsawElem*> pieces;
     std::vector<std::vector<int> > solutionBoard;
     
 public:
@@ -49,6 +63,11 @@ private:
     
     // write in format, @pre -> solutionBoard already has a valid solution
     void writeSolutionToFile();
+    
+    // readfile functions
+    bool insertLines( std::map<int, std::string> elements);
+    
+    
     
     
     
