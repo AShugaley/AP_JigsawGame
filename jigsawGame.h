@@ -37,13 +37,13 @@ class jigsawGame{
     std::vector<std::vector<int> > solutionBoard;
     
 public:
-    jigsawGame(char* filename){
+    jigsawGame(const char* filename){
         gameInitilized = readGameFromFile(filename);
     }
     
     
     //initilize game and check for format errors
-    bool readGameFromFile(char* filename);
+    bool readGameFromFile(const char* filename);
     
     bool solveGame(); // solveGameWithNaiveAI() + writeSolutionToFile() //TODO
     bool isInitilized() {return gameInitilized;}

@@ -10,8 +10,7 @@
 
 using namespace std;
 
-
-bool gameFlow::simpleMainFlow(char* inputfilename, char* outputfilename){
+bool gameFlow::simpleMainFlow(const char* inputfilename, const char* outputfilename){
     freopen(outputfilename,"w",stdout);
     if(!stdout){
         cout << "cannot open output file" << endl; //check if this is the right error
@@ -25,9 +24,9 @@ bool gameFlow::simpleMainFlow(char* inputfilename, char* outputfilename){
     if(!game->isLegalPuzzle()){
         return 0; //puzzle illigal (puzzle cannot be solved due to something like missing corener etc)
     }
-    if(!game->solveGame()){
-        return 0; //puzzle cannot be solved as there's no solution.
-    }
+//    if(!game->solveGame()){
+//        return 0; //puzzle cannot be solved as there's no solution.
+//    }
     
     fclose(stdout); // close out file
     return 1; // all ok, info is already in output file.

@@ -49,7 +49,7 @@ bool is_number(const std::string& s)
 // &&&&&&& end supporting functions &&&&&&&&&&
 
 
-bool jigsawGame::readGameFromFile(char* filename){
+bool jigsawGame::readGameFromFile(const char* filename){
     
     
     

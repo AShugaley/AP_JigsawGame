@@ -7,11 +7,13 @@
 //
 
 #include <iostream>
+#include "gameFlow.h"
+
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    char const *in = "/Users/alexs/dev/APEX1/AdvProgEX1/AdvProgEX1/test_files/in1.txt";
+    char const *out = "/Users/alexs/dev/APEX1/AdvProgEX1/AdvProgEX1/test_files/test1.txt";
+    gameFlow::simpleMainFlow(in,out);
 }
 
 

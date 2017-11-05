@@ -19,7 +19,9 @@
 
 
 class gameFlow{
-    static bool simpleMainFlow(char* inputfilename, char* outputfilename);
+    public:
+
+    static bool simpleMainFlow(const char* inputfilename,  const char* outputfilename);
 };
 
 #endif /* gameFlow_h */
