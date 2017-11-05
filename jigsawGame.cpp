@@ -151,6 +151,45 @@ bool jigsawGame::insertLines( map<int, string> elements){
 }
 
 
+
+bool jigsawGame::hasAllCorners(){
+    bool tr = false, tl = false , br = false , bl = false;
+    
+    for(int i = 0; i<gameSize; i++){
+        if(pieces[i]->isTopRightCorner()){
+            tr = true;
+        }
+        if(pieces[i]->isTopLeftCorner()){
+            tl = true;
+        }
+        if(pieces[i]->isBotRightCorner()){
+            br = true;
+        }
+        if(pieces[i]->isBotLeftCorner()){
+            bl = true;
+        }
+    }
+    return tr && tl && br && bl;
+}
+
+
+bool jigsawGame::hasEnoughEdges(){
+    int count = 0;
+    for(int i = 0; i<gameSize; i++){
+        count += pieces[i]->countStraightEdges();
+    }
+    return count >= (pieces.size() + 3);
+}
+
+bool jigsawGame::isSumEdgesZero(){
+    int sum = 0;
+    for(int i = 0; i<gameSize; i++){
+        sum += pieces[i]->sumEdges();
+    }
+    return sum == 0;
+}
+
+
 /*
  
  a class represnting a Jigsaw game

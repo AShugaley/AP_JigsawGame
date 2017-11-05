@@ -45,9 +45,9 @@ public:
     //initilize game and check for format errors
     bool readGameFromFile(char* filename);
     
-    bool solveGame(); // solveGameWithNaiveAI() + writeSolutionToFile()
+    bool solveGame(); // solveGameWithNaiveAI() + writeSolutionToFile() //TODO
     bool isInitilized() {return gameInitilized;}
-    bool isLegalPuzzle(); //{ return (isSumEdgesZero() && hasAllCorners() && hasEnoughEdges());)
+    bool isLegalPuzzle(){ return (isSumEdgesZero() && hasAllCorners() && hasEnoughEdges());}
 
     //setters + getters
     void setGameSize(int newSize){ gameSize = newSize; }
@@ -62,7 +62,7 @@ private:
     bool hasEnoughEdges();
     
     // write in format, @pre -> solutionBoard already has a valid solution
-    void writeSolutionToFile();
+    void writeSolutionToFile(); //TODO
     
     // readfile functions
     bool insertLines( std::map<int, std::string> elements);
@@ -71,10 +71,10 @@ private:
     
     
     
-    bool solveGameWithNaiveAI();
+    bool solveGameWithNaiveAI(); //TODO
     
     //AI functions
-    bool isValidNextPiece(jigsawElem candidate);
+    bool isValidNextPiece(jigsawElem candidate); //TODO
 
     
 };

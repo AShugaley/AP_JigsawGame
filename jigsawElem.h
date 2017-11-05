@@ -22,6 +22,9 @@ public:
     bool isTopRightCorner(){ return ((rightEdge == 0)&&(topEdge == 0));}
     bool isBotLeftCorner(){ return ((leftEdge == 0)&&(botEdge == 0));}
     bool isBotRightCorner(){ return ((rightEdge == 0)&&(botEdge == 0));}
+    int countStraightEdges(){return (leftEdge==0) + (topEdge==0) + (rightEdge==0) + (botEdge==0);}
+    int sumEdges(){return leftEdge + rightEdge + topEdge + botEdge;}
+
     
 };
 #endif /* jigsawElem_h */

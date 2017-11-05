@@ -13,6 +13,10 @@ using namespace std;
 
 bool gameFlow::simpleMainFlow(char* inputfilename, char* outputfilename){
     freopen(outputfilename,"w",stdout);
+    if(!stdout){
+        cout << "cannot open output file" << endl; //check if this is the right error
+        return 0;
+    }
     // check that we opened output file properly
     jigsawGame* game = new jigsawGame(inputfilename);
     if(!game->isInitilized()){
