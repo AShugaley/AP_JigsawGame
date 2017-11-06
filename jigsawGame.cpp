@@ -55,7 +55,6 @@ bool jigsawGame::readGameFromFile(const char* filename){
     
     ifstream inf(filename);
     
-    
     if (!inf)
     {
         // Print an error and exit
@@ -88,7 +87,6 @@ bool jigsawGame::readGameFromFile(const char* filename){
         if (strInput.length() == 0){
             break;
         }
-        cout << split(strInput,' ')[0] << endl;
         if(!is_number(split(strInput,' ')[0])){
             //wrong format
             //EROR
@@ -97,29 +95,34 @@ bool jigsawGame::readGameFromFile(const char* filename){
         int id = atoi(split(strInput,' ')[0].c_str());
         elements.insert(pair<int,string>(id, strInput));
     }
-    insertLines(elements);
+
     
     
     
-    return true;
+    return insertLines(elements);
 }
 
 bool jigsawGame::insertLines( map<int, string> elements){
     bool print = true;
+    bool valid = true;
     
-    for(int i = 0; i<gameSize; i++){
+    for(int i = 1; i<gameSize; i++){
         map<int,string>::iterator it = elements.find(i);
         if(it == elements.end())
         {
             if(print){
                 cout << "Missing puzzle element(s) with the following IDs: " << i;
+                print = false;
+                valid = false;
             }
             else{
                 cout << ", " << i;
             }
         }
     }
-    cout << endl;
+    if(!print){
+        cout << endl;
+    }
     print= true;
     for(map<int,string>::iterator iter = elements.begin(); iter != elements.end(); ++iter)
     {
@@ -127,25 +130,31 @@ bool jigsawGame::insertLines( map<int, string> elements){
         if (k>gameSize || k < 0){
             if(print){
                 cout << "Puzzle of size " << gameSize << " cannot have the following IDs: " << k;
+                print = false;
+                valid = false;
             }
             else{
                 cout << ", " << k ;
             }
         }
     }
-    cout << endl;
+    if(!print){
+        cout << endl;
+    }
     
-    
-    for(int i = 0; i<gameSize; i++){
+    for(int i = 1; i<gameSize; i++){
         string line = elements[i];
         vector<string> vline = split(line,' ');
         if(vline.size() != 5){
             cout << "Puzzle ID " << i << " has wrong data: " << line << endl;
+            valid = false;
             continue;
         }
-        for(int i = 1; i < 5; i++){
-            if((atoi(vline[i].c_str())!= -1)||(atoi(vline[i].c_str())!= 0)||(atoi(vline[i].c_str())!= 1)){
+    
+        for(int j = 1; j < 5; j++){
+            if((atoi(vline[j].c_str())!= -1)&&(atoi(vline[j].c_str())!= 0)&&(atoi(vline[j].c_str())!= 1)){
                 cout << "Puzzle ID " << i << " has wrong data: " << line << endl;
+                valid = false;
                 continue;
             }
         }
@@ -153,7 +162,7 @@ bool jigsawGame::insertLines( map<int, string> elements){
         pieces.push_back(toInsert);
     }
     
-    return true;
+    return valid;
 }
 
 
