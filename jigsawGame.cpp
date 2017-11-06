@@ -76,7 +76,7 @@ bool jigsawGame::readGameFromFile(const char* filename){
         //EROR
         //return false
     }
-    gameSize = std::atoi(spltStr[-1].c_str());
+    gameSize = std::atoi(spltStr.back().c_str());
     
     
     
@@ -85,6 +85,10 @@ bool jigsawGame::readGameFromFile(const char* filename){
     {
         string strInput;
         getline(inf, strInput);
+        if (strInput.length() == 0){
+            break;
+        }
+        cout << split(strInput,' ')[0] << endl;
         if(!is_number(split(strInput,' ')[0])){
             //wrong format
             //EROR
@@ -93,6 +97,8 @@ bool jigsawGame::readGameFromFile(const char* filename){
         int id = atoi(split(strInput,' ')[0].c_str());
         elements.insert(pair<int,string>(id, strInput));
     }
+    insertLines(elements);
+    
     
     
     return true;
