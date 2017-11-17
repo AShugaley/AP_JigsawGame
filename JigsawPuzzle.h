@@ -29,8 +29,11 @@ private:
     string outputFile;
     map<int, string> wrongFormatLines;
     list<int> missingElementsIDs;
-    list<int> wrongElemnetsIDs;
+    list<int> wrongElementsIDs;
     vector<PuzzlePiece> correctInputPieces;
+    vector<vector<PuzzlePiece>> solutionMatrix;
+    int lastRowIndex;
+    int lastColIndex;
 //    vector<PuzzlePiece> solutionOutput;
 
     int readFirstLine(ifstream& openInputFileStream);
@@ -39,6 +42,7 @@ private:
     void updateMissingIDs();
     void updateWrongElementsIDs();
     void writeErrorsToOutput(ofstream& openOutputFileStream);
+    bool isMoveValid(PuzzlePiece& p, int row, int col);
 
 
 public:

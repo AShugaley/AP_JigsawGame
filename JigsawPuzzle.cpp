@@ -8,7 +8,8 @@
 #define CANNOT_READ_INPUT_FILE "Could not open/read the input file" << endl
 #define INVALID_FIRST_LINE "The first line of the file is not valid. It should follow the format: NumElements=<positive integer>" << endl
 
-JigsawPuzzle::JigsawPuzzle(string& filePath): outputFile("solution.txt"), cannotComputeSolution(false) {
+JigsawPuzzle::JigsawPuzzle(string& filePath):
+        outputFile("solution.txt"), cannotComputeSolution(false), lastRowIndex(-1), lastColIndex(-1) {
     ifstream inputFile;
     inputFile.open(filePath);
     ofstream outputFile;
@@ -51,7 +52,7 @@ JigsawPuzzle::JigsawPuzzle(string& filePath): outputFile("solution.txt"), cannot
     updateMissingIDs();
     updateWrongElementsIDs();
 
-    if (this->missingElementsIDs.empty() && this->wrongElemnetsIDs.empty() && this->wrongFormatLines.empty() ){
+    if (this->missingElementsIDs.empty() && this->wrongElementsIDs.empty() && this->wrongFormatLines.empty() ){
         outputFile.close();
         return;
     }
@@ -66,7 +67,7 @@ JigsawPuzzle::JigsawPuzzle(string& filePath): outputFile("solution.txt"), cannot
 //        cout << "missing element number: " << m << endl;
 //    }
 //
-//    for (int m : this->wrongElemnetsIDs){
+//    for (int m : this->wrongElementsIDs){
 //        cout << "wrong elements number: " << m << endl;
 //    }
 
@@ -199,7 +200,7 @@ void JigsawPuzzle::updateWrongElementsIDs(){
     for (PuzzlePiece& p : pieces){
         int pieceID = p.getISD();
         if (pieceID > this->numOfElements){
-            this->wrongElemnetsIDs.push_back(pieceID);
+            this->wrongElementsIDs.push_back(pieceID);
         }
     }
 }
@@ -220,9 +221,9 @@ void JigsawPuzzle::writeErrorsToOutput(ofstream& openOutputFileStream){
             }
         }
     }
-    if (!this->wrongElemnetsIDs.empty()){
-        list<int>& wrongList = this->wrongElemnetsIDs;
-        long wrongSize = this->wrongElemnetsIDs.size();
+    if (!this->wrongElementsIDs.empty()){
+        list<int>& wrongList = this->wrongElementsIDs;
+        long wrongSize = this->wrongElementsIDs.size();
         openOutputFileStream << "Puzzle of size " << wrongSize << " cannot have the following IDs: ";
         for (int i = 0; i < wrongSize; i++){
             if (i != wrongSize-1){
@@ -250,4 +251,22 @@ void JigsawPuzzle::writeErrorsToOutput(ofstream& openOutputFileStream){
             iter++;
         }
     }
+}
+
+bool JigsawPuzzle::isMoveValid(PuzzlePiece& p, int row, int col){
+    int l = p.getLeftEdge();
+    int t = p.getTopEdge();
+    int r = p.getRightEdge();
+    int b = p.getBottomEdge();
+
+    if (row == 0 && t != 0) return false;
+    if (col == 0 && l != 0) return false;
+    if (col == this->lastColIndex && r != 0) return false;
+    if (row == this->lastRowIndex && b != 0) return false;
+
+    bool noUpPiece = row == 0;
+    bool noLeftPiece = col == 0;
+
+    return ( (noUpPiece)  || (this->solutionMatrix[row-1][col].getBottomEdge() == -t) ) &&
+            ( (noLeftPiece)  || (this->solutionMatrix[row][col-1].getRightEdge() == -l) );
 }
