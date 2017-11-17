@@ -47,6 +47,9 @@ private:
     void transferAvailableToSolution(int i, int j, int k);
     void transferSolutionToAvailable(int i, int j, int k);
     bool solveGameRec(int i, int j);
+    bool hasEnoughEdges();
+    bool isSumEdgesZero();
+    bool hasAllCorners();
 
 
 
@@ -62,6 +65,9 @@ public:
     PuzzleMatrix& getSoulutionMatrix();
     int getSolutionMatrixNumRows();
     int getSolutionMatrixNumCols();
+    bool isInitilized(){return cannotComputeSolution;}
+    bool isLegalPuzzle(){return hasEnoughEdges() && isSumEdgesZero() && hasAllCorners();}
+    bool initSolveGame(){ return solveGame(); }
 };
 
 
