@@ -1,1 +1,0 @@
-Puzzle ID 2 has wrong data: 2 0 0 0 2

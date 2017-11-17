@@ -1,46 +1,103 @@
-//
-//  main.cpp
-//  AdvProgEX1
-//
-//  Created by Alexander Shugaley on 01/11/2017.
-//  Copyright © 2017 Alexander Shugaley. All rights reserved.
-//
-
 #include <iostream>
+#include "JigsawPuzzle.h"
 #include "gameFlow.h"
 
+using namespace std;
 
-int main(int argc, const char * argv[]) {
-    char const *in = "/Users/alexs/dev/APEX1/AdvProgEX1/AdvProgEX1/test_files/in1.txt";
-    char const *out = "/Users/alexs/dev/APEX1/AdvProgEX1/AdvProgEX1/test_files/test4.txt";
-    gameFlow::simpleMainFlow(in,out);
+int main() {
+    string inputPath = "test_files/input_can_solve.txt";
+    string outputPath = "solution.txt";
+    JigsawPuzzle p(inputPath, outputPath);
+    p.solveGame();
+    PuzzleMatrix& m = p.getSolutionMatrix();
+    m.printRange(cout, p.getSolutionMatrixNumRows(), p.getSolutionMatrixNumCols());
+    return 0;
 }
 
 
 
 /*
  
- so essentially we have
  
- jigSaw input+output to files
- jigSaw algo
- 
- algo will be implemented as a CLASS, which can then be inherited by better versions of the algo
- 
- input/output in a class, represent the game by a set of jigsawElem's
-
- 
- 
- the basic game flow will be implemented in a seperate file (gameFlow) - this will include functions for all basic flows (starting from one). This function or set of functions will be resposible for, you know, the event loop
+ known issues:
+ 1. doesn't work for one long row; long column should be fine -> check
  
  
  
- so-> main calles gameFlow -> calles input, AI, output. 
+ todo:
+ 1. check what happens to 1x1 puzlle
+ 2. verify flow
+ 3. print solution
+ 5. add constructors && desctructors
+ 6. check memory leaks
+ 7. clean code
  
- in the future -> a new AI inhereting from the current one, a new game flow (just one func)
-
-*/
+ */
 
 
 
 
+/*
+ set puzzlePieces
+ matrix solution
+ int i
+ int j
+ 
+ 
+ 
+ isValid(puzzlePiece, row, col, lastRow, lastCol)
+ if row == 0 && puzzlePiece->topEdge!= 0
+ return false
+ if col == 0 && puzzlePiece->leftEdge != 0
+ return false
+ if lastRow == i && puzzlePiece->bitPiece != 0
+ if lastCol == j && puzzlePieve->rightPiece != 0
+ return false
+ 
+ 
+ return ((()||())&&(()||()))
+ //return (((matrix[i][j-1]->rightEdge + puzzlePiece == 0)||(col==0))&&(()||())
+ 
+ 
+ solveGame
+ i = 0
+ j = 0
+ sol = false
+ for(elem : pieces)
+ if(isValid)
+ moveElement(set,matrix)
+ sol = recursion(i,j)
+ if sol
+ return true;
+ else
+ moveElement(matrix,set)
+ return false;
+ 
+ 
+ recursion(i,j):
+ if(lastCol == j || matrix[i,j]->rightEdge == 0 && lastCol == -1))
+ for(elem:Pieces)
+ if(isValid(i++,0) && (numofelemts%j ==0))
+ moveElem(set,matrix)
+ sol = recursion(i++,0)
+ if(sol)
+ reurn true
+ else
+ moveElement(matrix,Set)
+ 
+ if(lastCol == j)
+ reuturn false
+ 
+ 
+ for(elem:pieces)
+ if(isValid(i,j++)
+ moveElem(set,matrix)
+ sol = recursion(i,j++)
+ if(sol)
+ reurn true
+ else
+ moveElement(matrix,Set)
+ return false
+ 
+ 
+ */

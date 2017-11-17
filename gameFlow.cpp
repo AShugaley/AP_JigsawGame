@@ -10,26 +10,20 @@
 
 using namespace std;
 
-bool gameFlow::simpleMainFlow(const char* inputfilename, const char* outputfilename){
-    freopen(outputfilename,"w",stdout);
-    if(!stdout){
-        cout << "cannot open output file" << endl; //check if this is the right error
-        return 0;
-    }
-    // check that we opened output file properly
-    jigsawGame* game = new jigsawGame(inputfilename);
-    if(!game->isInitilized()){
+bool gameFlow::simpleMainFlow(string&  inputfilename, string&  outputfilename){
+
+    JigsawPuzzle game(inputfilename,outputfilename);
+    
+    if(!game.isInitialized()){
         return 0; // failed to open/read inputfile OR file was illigal in format
     }
-    
-//    if(!game->isLegalPuzzle()){
-//        return 0; //puzzle illigal (puzzle cannot be solved due to something like missing corener etc)
-//    }
-//    if(!game->solveGame()){
-//        return 0; //puzzle cannot be solved as there's no solution.
-//    }
-    
-    fclose(stdout); // close out file
+
+    if(!game.isLegalPuzzle()){
+        return 0; //puzzle illigal (puzzle cannot be solved due to something like missing corener etc)
+    }
+    if(!game.initSolveGame()){
+        return 0; //puzzle cannot be solved as there's no solution.
+    }
     return 1; // all ok, info is already in output file.
 }
 
@@ -42,7 +36,7 @@ bool gameFlow::simpleMainFlow(const char* inputfilename, const char* outputfilen
  there are 3 different errors:
  
  1. input file format - cannot be open/missing ID's/too many ID's/wrong format
-        this is checked at the constructor, verify by isInitilized()
+        this is checked at the constructor, verify by isInitialized()
  
  
  2. puzzle has no solution - not enough edges, missing coreners, sum != 0
