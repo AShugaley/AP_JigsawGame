@@ -55,17 +55,17 @@ private:
 
 
 public:
-    explicit JigsawPuzzle(string& filePath);
+    explicit JigsawPuzzle(string& inputFilePath, string& outputFilePath);
 //    JigsawPuzzle(JigsawPuzzle& puzzle);
 //    ~JigsawPuzzle();
 //    vector<PuzzlePiece> getInputPieces() const;
 //    vector<PuzzlePiece> getSolution() const = delete;
     static vector<string> split(const string&, char delimiter);
     bool solveGame();
-    PuzzleMatrix& getSoulutionMatrix();
+    PuzzleMatrix& getSolutionMatrix();
     int getSolutionMatrixNumRows();
     int getSolutionMatrixNumCols();
-    bool isInitilized(){return cannotComputeSolution;}
+    bool isInitialized(){return cannotComputeSolution;}
     bool isLegalPuzzle(){return hasEnoughEdges() && isSumEdgesZero() && hasAllCorners();}
     bool initSolveGame(){ return solveGame(); }
 };

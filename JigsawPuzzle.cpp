@@ -8,9 +8,9 @@
 #define CANNOT_READ_INPUT_FILE "Could not open/read the input file" << endl
 #define INVALID_FIRST_LINE "The first line of the file is not valid. It should follow the format: NumElements=<positive integer>" << endl
 
-JigsawPuzzle::JigsawPuzzle(string& filePath): outputFile("solution.txt"), cannotComputeSolution(false), lastRowIndex(-1), lastColIndex(-1) {
+JigsawPuzzle::JigsawPuzzle(string& inputFilePath, string& outputFilePath): outputFile(outputFilePath), cannotComputeSolution(false), lastRowIndex(-1), lastColIndex(-1) {
     ifstream inputFile;
-    inputFile.open(filePath);
+    inputFile.open(inputFilePath);
     ofstream outputFile;
     outputFile.open(this->outputFile);
 
@@ -360,7 +360,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
     // didn't find any matching piece
 }
 
-PuzzleMatrix& JigsawPuzzle::getSoulutionMatrix(){
+PuzzleMatrix& JigsawPuzzle::getSolutionMatrix(){
     return *(this->solutionMatrix);
 }
 

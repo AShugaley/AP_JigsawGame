@@ -5,10 +5,11 @@
 using namespace std;
 
 int main() {
-    string path = "test_files/input_can_solve.txt";
-    JigsawPuzzle p(path);
+    string inputPath = "test_files/input_can_solve.txt";
+    string outputPath = "solution.txt";
+    JigsawPuzzle p(inputPath, outputPath);
     p.solveGame();
-    PuzzleMatrix& m = p.getSoulutionMatrix();
+    PuzzleMatrix& m = p.getSolutionMatrix();
     m.printRange(cout, p.getSolutionMatrixNumRows(), p.getSolutionMatrixNumCols());
 
 //    auto *p = new PuzzlePiece(1, 0 ,0 ,0, 0);

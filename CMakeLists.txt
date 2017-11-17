@@ -9,6 +9,8 @@ set(SOURCE_FILES
         PuzzlePiece.h
         PuzzlePiece.cpp
         solution.txt
+        gameFlow.cpp
+        gameFlow.h
         test_files/error_input_file_1.txt
         test_files/error_input_file_2.txt
         test_files/error_input_file_3.txt

@@ -14,7 +14,7 @@ bool gameFlow::simpleMainFlow(string&  inputfilename, string&  outputfilename){
 
     JigsawPuzzle game(inputfilename,outputfilename);
     
-    if(!game.isInitilized()){
+    if(!game.isInitialized()){
         return 0; // failed to open/read inputfile OR file was illigal in format
     }
     
@@ -37,7 +37,7 @@ bool gameFlow::simpleMainFlow(string&  inputfilename, string&  outputfilename){
  there are 3 different errors:
  
  1. input file format - cannot be open/missing ID's/too many ID's/wrong format
-        this is checked at the constructor, verify by isInitilized()
+        this is checked at the constructor, verify by isInitialized()
  
  
  2. puzzle has no solution - not enough edges, missing coreners, sum != 0
