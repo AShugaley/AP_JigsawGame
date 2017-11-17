@@ -24,6 +24,7 @@ public:
     int getBottomEdge() const;
     virtual void print(std::ostream &os) const;
     virtual bool lessThan(const PuzzlePiece& p) const;
+    virtual bool isTopLeftCorner() const;
 };
 
 std::ofstream& operator<<(std::ostream &os, const PuzzlePiece& p);

@@ -42,3 +42,7 @@ std::ofstream& operator<<(std::ostream &os, const PuzzlePiece& p){
 bool operator < (const PuzzlePiece& p1, const PuzzlePiece& p2){
     return p1.lessThan(p2);
 }
+
+bool PuzzlePiece::isTopLeftCorner() const{
+    return (this->getTopEdge() == 0 && this->getLeftEdge() == 0);
+}

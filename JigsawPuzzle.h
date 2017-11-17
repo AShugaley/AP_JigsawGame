@@ -43,6 +43,10 @@ private:
     void updateWrongElementsIDs();
     void writeErrorsToOutput(ofstream& openOutputFileStream);
     bool isMoveValid(PuzzlePiece& p, int row, int col);
+    void transferAvailableToSolution(int i, int j, int k);
+    void transferSolutionToAvailable(int i, int j);
+    bool solveGameRec(int i, int j);
+
 
 
 public:
@@ -52,6 +56,7 @@ public:
 //    vector<PuzzlePiece> getInputPieces() const;
 //    vector<PuzzlePiece> getSolution() const = delete;
     static vector<string> split(const string&, char delimiter);
+    bool solveGame();
 };
 
 

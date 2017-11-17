@@ -8,8 +8,7 @@
 #define CANNOT_READ_INPUT_FILE "Could not open/read the input file" << endl
 #define INVALID_FIRST_LINE "The first line of the file is not valid. It should follow the format: NumElements=<positive integer>" << endl
 
-JigsawPuzzle::JigsawPuzzle(string& filePath):
-        outputFile("solution.txt"), cannotComputeSolution(false), lastRowIndex(-1), lastColIndex(-1) {
+JigsawPuzzle::JigsawPuzzle(string& filePath): outputFile("solution.txt"), cannotComputeSolution(false), lastRowIndex(-1), lastColIndex(-1) {
     ifstream inputFile;
     inputFile.open(filePath);
     ofstream outputFile;
@@ -269,4 +268,94 @@ bool JigsawPuzzle::isMoveValid(PuzzlePiece& p, int row, int col){
 
     return ( (noUpPiece)  || (this->solutionMatrix[row-1][col].getBottomEdge() == -t) ) &&
             ( (noLeftPiece)  || (this->solutionMatrix[row][col-1].getRightEdge() == -l) );
+}
+
+bool JigsawPuzzle::solveGame(){
+    int i = 0;
+    int j = 0;
+    bool sol = false;
+    for (int k = 0; k < this->correctInputPieces.size(); k++){
+        if (this->correctInputPieces[k].isTopLeftCorner()){
+            this->transferAvailableToSolution(i, j, k);
+            sol = this->solveGameRec(i, j);
+            if (sol == true){
+                return true;
+            }
+            else{
+                this->transferSolutionToAvailable(i, j);
+            }
+        }
+    }
+    return false;
+}
+
+void JigsawPuzzle::transferAvailableToSolution(int i, int j, int k){
+    this->solutionMatrix[i][j] = this->correctInputPieces[k];
+    this->correctInputPieces.erase(this->correctInputPieces.begin() + k);
+}
+
+void JigsawPuzzle::transferSolutionToAvailable(int i, int j){
+    this->correctInputPieces.push_back(this->solutionMatrix[i][j]);
+    this->solutionMatrix[i].erase(this->solutionMatrix[i].begin() + j);
+}
+
+bool JigsawPuzzle::solveGameRec(int i, int j){
+
+    // stop criterion
+
+    if(i==this->lastRowIndex && j==lastColIndex){
+        return true;
+    }
+
+    // if possible, try to start a new line
+
+    if( this->lastColIndex == j || ( this->solutionMatrix[i][j].getRightEdge() == 0 && this->lastColIndex == -1 )){
+
+        for (int k = 0; k < this->correctInputPieces.size(); k++){
+            if (this->numOfElements % j == 0 && this->isMoveValid(this->correctInputPieces[k], i+1, j)){
+
+                this->lastColIndex = j; // last index is now set to j
+                this->lastRowIndex = this->numOfElements / j; // j is always a divider because numOfElements mod j == 0
+
+                this->transferAvailableToSolution(i+1, j, k);
+                bool sol = this->solveGameRec(i+1, j);
+                if (sol == true){
+                    return true;
+                }
+                else{
+                    this->transferSolutionToAvailable(i+1, j);
+
+                    if (i == 0){
+                        // if we got back to the first row - now again number of elements in a row is unknown
+                        this->lastColIndex = -1;
+                        this->lastRowIndex = -1;
+
+                    }
+                }
+            }
+        }
+    }
+
+    if (this->lastColIndex == j){
+        return false;
+        // we had to start a new line but we didn't find a valid piece for it
+    }
+
+    // try to put a piece to the right of the current piece and continue the current row
+
+    for (int k = 0; k < this->correctInputPieces.size(); k++) {
+
+        if (this->isMoveValid(this->correctInputPieces[k], i, j+1)) {
+            this->transferAvailableToSolution(i, j+1, k);
+            bool sol = this->solveGameRec(i, j+1);
+            if (sol == true) {
+                return true;
+            } else {
+                this->transferSolutionToAvailable(i, j+1);
+            }
+        }
+    }
+
+    return false;
+    // didn't find any matching piece
 }
