@@ -12,6 +12,6 @@ set(SOURCE_FILES
         test_files/error_input_file_1.txt
         test_files/error_input_file_2.txt
         test_files/error_input_file_3.txt
-        main.cpp)
+        main.cpp PuzzleMatrix.cpp PuzzleMatrix.h)
 
 add_executable(AP_JigsawGame ${SOURCE_FILES})

@@ -18,6 +18,7 @@
 #include <unordered_map>
 
 #include "PuzzlePiece.h"
+#include "PuzzleMatrix.h"
 
 using namespace std;
 

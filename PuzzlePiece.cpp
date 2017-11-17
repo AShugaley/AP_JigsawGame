@@ -7,6 +7,8 @@
 PuzzlePiece::PuzzlePiece(const int ISD, int l, int t, int r, int b) :
         ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b){}
 
+PuzzlePiece:: PuzzlePiece(){};
+
 const int PuzzlePiece::getISD() const {
     return this->ISD;
 }

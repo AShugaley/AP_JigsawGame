@@ -17,6 +17,7 @@ class PuzzlePiece {
 
 public:
     PuzzlePiece(int ISD, int l, int t, int r, int b);
+    PuzzlePiece();
     const int getISD() const;
     int getLeftEdge() const;
     int getTopEdge() const;
