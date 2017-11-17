@@ -359,3 +359,41 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
     return false;
     // didn't find any matching piece
 }
+
+bool JigsawPuzzle::hasAllCorners(){
+    bool tr = false, tl = false , br = false , bl = false;
+    
+    for(int i = 0; i<this->numOfElements; i++){
+        if(correctInputPieces[i].isTopRightCorner()){
+            tr = true;
+        }
+        if(correctInputPieces[i].isTopLeftCorner()){
+            tl = true;
+        }
+        if(correctInputPieces[i].isBotRightCorner()){
+            br = true;
+        }
+        if(correctInputPieces[i].isBotLeftCorner()){
+            bl = true;
+        }
+    }
+    return tr && tl && br && bl;
+}
+
+
+bool JigsawPuzzle::hasEnoughEdges(){
+    int count = 0;
+    for(int i = 0; i<this->numOfElements; i++){
+        count += correctInputPieces[i].countStraightEdges();
+    }
+    return count >= (correctInputPieces.size() + 3); //change to sqr root
+}
+
+bool JigsawPuzzle::isSumEdgesZero(){
+    int sum = 0;
+    for(int i = 0; i<this->numOfElements; i++){
+        sum += correctInputPieces[i].sumEdges();
+    }
+    
+    return sum == 0;
+}

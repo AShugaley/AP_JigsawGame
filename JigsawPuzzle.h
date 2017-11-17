@@ -47,6 +47,9 @@ private:
     void transferAvailableToSolution(int i, int j, int k);
     void transferSolutionToAvailable(int i, int j, int k);
     bool solveGameRec(int i, int j);
+    bool hasEnoughEdges();
+    bool isSumEdgesZero();
+    bool hasAllCorners();
 
 
 
@@ -58,6 +61,9 @@ public:
 //    vector<PuzzlePiece> getSolution() const = delete;
     static vector<string> split(const string&, char delimiter);
     bool solveGame();
+    bool isInitilized(){return cannotComputeSolution;}
+    bool isLegalPuzzle(){return hasEnoughEdges() && isSumEdgesZero() && hasAllCorners();}
+    bool initSolveGame(){ return solveGame(); }
 };
 
 
