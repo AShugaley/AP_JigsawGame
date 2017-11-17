@@ -266,11 +266,12 @@ bool JigsawPuzzle::isMoveValid(PuzzlePiece& p, int row, int col){
     bool noUpPiece = row == 0;
     bool noLeftPiece = col == 0;
 
-    return ( (noUpPiece)  || (this->solutionMatrix[row-1][col].getBottomEdge() == -t) ) &&
-            ( (noLeftPiece)  || (this->solutionMatrix[row][col-1].getRightEdge() == -l) );
+    return ( (noUpPiece)  || (this->solutionMatrix->get(row-1, col).getBottomEdge() == -t) ) &&
+            ( (noLeftPiece)  || (this->solutionMatrix->get(row, col-1).getRightEdge() == -l) );
 }
 
 bool JigsawPuzzle::solveGame(){
+    this->solutionMatrix = new PuzzleMatrix(this->numOfElements);
     int i = 0;
     int j = 0;
     bool sol = false;
@@ -282,7 +283,7 @@ bool JigsawPuzzle::solveGame(){
                 return true;
             }
             else{
-                this->transferSolutionToAvailable(i, j);
+                this->transferSolutionToAvailable(i, j, k);
             }
         }
     }
@@ -290,13 +291,12 @@ bool JigsawPuzzle::solveGame(){
 }
 
 void JigsawPuzzle::transferAvailableToSolution(int i, int j, int k){
-    this->solutionMatrix[i][j] = this->correctInputPieces[k];
+    this->solutionMatrix->add(i, j, this->correctInputPieces[k]);
     this->correctInputPieces.erase(this->correctInputPieces.begin() + k);
 }
 
-void JigsawPuzzle::transferSolutionToAvailable(int i, int j){
-    this->correctInputPieces.push_back(this->solutionMatrix[i][j]);
-    this->solutionMatrix[i].erase(this->solutionMatrix[i].begin() + j);
+void JigsawPuzzle::transferSolutionToAvailable(int i, int j, int k){
+    this->correctInputPieces.insert(this->correctInputPieces.begin() + k, this->solutionMatrix->remove(i, j));
 }
 
 bool JigsawPuzzle::solveGameRec(int i, int j){
@@ -309,21 +309,21 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
 
     // if possible, try to start a new line
 
-    if( this->lastColIndex == j || ( this->solutionMatrix[i][j].getRightEdge() == 0 && this->lastColIndex == -1 )){
+    if( this->lastColIndex == j || ( this->solutionMatrix->get(i, j).getRightEdge() == 0 && this->lastColIndex == -1 )){
 
         for (int k = 0; k < this->correctInputPieces.size(); k++){
-            if (this->numOfElements % j == 0 && this->isMoveValid(this->correctInputPieces[k], i+1, j)){
+            if (this->numOfElements % (j+1) == 0 && this->isMoveValid(this->correctInputPieces[k], i+1, 0)){
 
                 this->lastColIndex = j; // last index is now set to j
-                this->lastRowIndex = this->numOfElements / j; // j is always a divider because numOfElements mod j == 0
+                this->lastRowIndex = (this->numOfElements / (j+1)) -1; // j is always a divider because numOfElements mod j == 0
 
-                this->transferAvailableToSolution(i+1, j, k);
-                bool sol = this->solveGameRec(i+1, j);
+                this->transferAvailableToSolution(i+1, 0, k);
+                bool sol = this->solveGameRec(i+1, 0);
                 if (sol == true){
                     return true;
                 }
                 else{
-                    this->transferSolutionToAvailable(i+1, j);
+                    this->transferSolutionToAvailable(i+1, 0, k);
 
                     if (i == 0){
                         // if we got back to the first row - now again number of elements in a row is unknown
@@ -351,7 +351,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
             if (sol == true) {
                 return true;
             } else {
-                this->transferSolutionToAvailable(i, j+1);
+                this->transferSolutionToAvailable(i, j+1, k);
             }
         }
     }

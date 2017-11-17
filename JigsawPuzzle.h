@@ -32,7 +32,7 @@ private:
     list<int> missingElementsIDs;
     list<int> wrongElementsIDs;
     vector<PuzzlePiece> correctInputPieces;
-    vector<vector<PuzzlePiece>> solutionMatrix;
+    PuzzleMatrix* solutionMatrix;
     int lastRowIndex;
     int lastColIndex;
 //    vector<PuzzlePiece> solutionOutput;
@@ -45,7 +45,7 @@ private:
     void writeErrorsToOutput(ofstream& openOutputFileStream);
     bool isMoveValid(PuzzlePiece& p, int row, int col);
     void transferAvailableToSolution(int i, int j, int k);
-    void transferSolutionToAvailable(int i, int j);
+    void transferSolutionToAvailable(int i, int j, int k);
     bool solveGameRec(int i, int j);
 
 
