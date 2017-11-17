@@ -11,7 +11,7 @@
 
 
 int main(int argc, const char * argv[]) {
-    char const *in = "/Users/alexs/dev/APEX1/AdvProgEX1/AdvProgEX1/test_files/in4.txt";
+    char const *in = "/Users/alexs/dev/APEX1/AdvProgEX1/AdvProgEX1/test_files/in1.txt";
     char const *out = "/Users/alexs/dev/APEX1/AdvProgEX1/AdvProgEX1/test_files/test4.txt";
     gameFlow::simpleMainFlow(in,out);
 }

@@ -193,7 +193,7 @@ bool jigsawGame::hasEnoughEdges(){
     for(int i = 0; i<gameSize; i++){
         count += pieces[i]->countStraightEdges();
     }
-    return count >= (pieces.size() + 3);
+    return count >= (pieces.size() + 3); //change to sqr root
 }
 
 bool jigsawGame::isSumEdgesZero(){
@@ -201,6 +201,7 @@ bool jigsawGame::isSumEdgesZero(){
     for(int i = 0; i<gameSize; i++){
         sum += pieces[i]->sumEdges();
     }
+    
     return sum == 0;
 }
 

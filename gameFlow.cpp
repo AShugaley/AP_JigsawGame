@@ -21,9 +21,10 @@ bool gameFlow::simpleMainFlow(const char* inputfilename, const char* outputfilen
     if(!game->isInitilized()){
         return 0; // failed to open/read inputfile OR file was illigal in format
     }
-    if(!game->isLegalPuzzle()){
-        return 0; //puzzle illigal (puzzle cannot be solved due to something like missing corener etc)
-    }
+    
+//    if(!game->isLegalPuzzle()){
+//        return 0; //puzzle illigal (puzzle cannot be solved due to something like missing corener etc)
+//    }
 //    if(!game->solveGame()){
 //        return 0; //puzzle cannot be solved as there's no solution.
 //    }
