@@ -50,6 +50,7 @@ private:
 
 
 
+
 public:
     explicit JigsawPuzzle(string& filePath);
 //    JigsawPuzzle(JigsawPuzzle& puzzle);
@@ -58,6 +59,9 @@ public:
 //    vector<PuzzlePiece> getSolution() const = delete;
     static vector<string> split(const string&, char delimiter);
     bool solveGame();
+    PuzzleMatrix& getSoulutionMatrix();
+    int getSolutionMatrixNumRows();
+    int getSolutionMatrixNumCols();
 };
 
 

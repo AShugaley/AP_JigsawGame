@@ -14,12 +14,13 @@ using namespace std;
 class PuzzleMatrix {
 private:
     vector<PuzzlePiece> arr;
-    int row;
+    int rowSize;
 public:
     PuzzleMatrix(int numElements);
     void add(int i, int j, PuzzlePiece p);
     PuzzlePiece remove(int i, int j);
     PuzzlePiece get(int i, int j);
+    void printRange(std::ostream &os, int numRealRows, int numRealCols);
 };
 
 

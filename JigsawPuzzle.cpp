@@ -359,3 +359,15 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
     return false;
     // didn't find any matching piece
 }
+
+PuzzleMatrix& JigsawPuzzle::getSoulutionMatrix(){
+    return *(this->solutionMatrix);
+}
+
+int JigsawPuzzle::getSolutionMatrixNumRows(){
+    return this->lastRowIndex + 1;
+}
+
+int JigsawPuzzle::getSolutionMatrixNumCols(){
+    return this->lastColIndex + 1;
+}
