@@ -252,16 +252,17 @@ void JigsawPuzzle::writeErrorsToOutput(ofstream& openOutputFileStream){
     }
 }
 
+//function checks if we can put a piece in a certain place.
 bool JigsawPuzzle::isMoveValid(PuzzlePiece& p, int row, int col){
     int l = p.getLeftEdge();
     int t = p.getTopEdge();
     int r = p.getRightEdge();
     int b = p.getBottomEdge();
 
-    if (row == 0 && t != 0) return false;
-    if (col == 0 && l != 0) return false;
-    if (col == this->lastColIndex && r != 0) return false;
-    if (row == this->lastRowIndex && b != 0) return false;
+    if (row == 0 && t != 0) return false; //first row has to have a stright edge
+    if (col == 0 && l != 0) return false; //first col has to have a stright edge
+    if (col == this->lastColIndex && r != 0) return false; //last row has to have a stright edge
+    if (row == this->lastRowIndex && b != 0) return false; //last col has to have a stright edge
 
     bool noUpPiece = row == 0;
     bool noLeftPiece = col == 0;
@@ -270,6 +271,7 @@ bool JigsawPuzzle::isMoveValid(PuzzlePiece& p, int row, int col){
             ( (noLeftPiece)  || (this->solutionMatrix->get(row, col-1).getRightEdge() == -l) );
 }
 
+//function solves the game
 bool JigsawPuzzle::solveGame(){
     this->solutionMatrix = new PuzzleMatrix(this->numOfElements);
     int i = 0;
@@ -289,26 +291,25 @@ bool JigsawPuzzle::solveGame(){
     }
     return false;
 }
-
+//moves piece from pieces vector to solution matrix
 void JigsawPuzzle::transferAvailableToSolution(int i, int j, int k){
     this->solutionMatrix->add(i, j, this->correctInputPieces[k]);
     this->correctInputPieces.erase(this->correctInputPieces.begin() + k);
 }
-
+//moves piece from sol matrix to pieces vector
 void JigsawPuzzle::transferSolutionToAvailable(int i, int j, int k){
     this->correctInputPieces.insert(this->correctInputPieces.begin() + k, this->solutionMatrix->remove(i, j));
 }
 
+//the recursive part of the solution algorithem
 bool JigsawPuzzle::solveGameRec(int i, int j){
 
-    // stop criterion
-
+    // stop criterion -> no more pieces to put in place
     if(i==this->lastRowIndex && j==lastColIndex){
         return true;
     }
 
-    // if possible, try to start a new line
-
+    // first we try to go down (start a new line)
     if( this->lastColIndex == j || ( this->solutionMatrix->get(i, j).getRightEdge() == 0 && this->lastColIndex == -1 )){
 
         for (int k = 0; k < this->correctInputPieces.size(); k++){
@@ -335,14 +336,13 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
             }
         }
     }
-
+    
+    // we had to start a new line but we didn't find a valid piece for it
     if (this->lastColIndex == j){
         return false;
-        // we had to start a new line but we didn't find a valid piece for it
     }
 
-    // try to put a piece to the right of the current piece and continue the current row
-
+    // now we try to go right
     for (int k = 0; k < this->correctInputPieces.size(); k++) {
 
         if (this->isMoveValid(this->correctInputPieces[k], i, j+1)) {
@@ -357,20 +357,28 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
     }
 
     return false;
-    // didn't find any matching piece
+    // didn't find any matching piece -> try again
 }
 
-PuzzleMatrix& JigsawPuzzle::getSolutionMatrix(){
-    return *(this->solutionMatrix);
+
+void JigsawPuzzle::printSolutionToFile(){
+    ofstream outputFile;
+    outputFile.open(this->outputFile);
+    if (!outputFile.is_open()){
+        cout << OUTPUT_FILE_NOT_OPEN;
+        this->cannotComputeSolution = true;
+        return;
+    }
+    this->solutionMatrix->printRange(outputFile, this->lastRowIndex, this->lastColIndex);
+    outputFile.close();
+    return;
 }
 
-int JigsawPuzzle::getSolutionMatrixNumRows(){
-    return this->lastRowIndex + 1;
-}
 
-int JigsawPuzzle::getSolutionMatrixNumCols(){
-    return this->lastColIndex + 1;
-}
+
+
+
+
 
 bool JigsawPuzzle::hasAllCorners(){
     bool tr = false, tl = false , br = false , bl = false;

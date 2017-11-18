@@ -5,6 +5,14 @@
 #ifndef AP_JIGSAWGAME_PUZZLEMATRIX_H
 #define AP_JIGSAWGAME_PUZZLEMATRIX_H
 
+
+/*
+ 
+ A simple matrix calss to represent our solution board
+ 
+ */
+
+
 #include "PuzzlePiece.h"
 #include <vector>
 

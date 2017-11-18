@@ -10,8 +10,9 @@
 
 using namespace std;
 
-bool gameFlow::simpleMainFlow(string&  inputfilename, string&  outputfilename){
-
+bool gameFlow::simpleMainFlow(char*  infile, char*  outfile){
+    string inputfilename(infile);
+    string outputfilename(outfile);
     JigsawPuzzle game(inputfilename,outputfilename);
     
     if(!game.isInitialized()){
@@ -48,10 +49,5 @@ bool gameFlow::simpleMainFlow(string&  inputfilename, string&  outputfilename){
         this is checked in solveGame
  
  all three parts will write their output directly to stdout
- 
- 
- 
- 
-
  
  */
