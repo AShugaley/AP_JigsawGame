@@ -16,7 +16,7 @@ void PuzzleMatrix::add(int i, int j, PuzzlePiece p){
 
 PuzzlePiece PuzzleMatrix::remove(int i, int j){
     PuzzlePiece p = this->get(i, j);
-    this->arr.erase(this->arr.begin() + i * rowSize + j);
+    this->arr[i * rowSize + j] = *new PuzzlePiece();
     return p;
 
 }
@@ -26,8 +26,8 @@ PuzzlePiece PuzzleMatrix::get(int i, int j){
 }
 
 void PuzzleMatrix::printRange(std::ostream &os, int numRealRows, int numRealCols){
-    for (int i = 0; i < numRealRows; i++){
-        for (int j = 0; j < numRealCols; j++){
+    for (int i = 0; i < numRealRows+1; i++){
+        for (int j = 0; j < numRealCols+1; j++){
             if (j == 0){
                 os << this->get(i, j).getISD();
             } else{
@@ -35,7 +35,7 @@ void PuzzleMatrix::printRange(std::ostream &os, int numRealRows, int numRealCols
             }
         }
 
-        if (i != numRealRows -1){
+        if (i != numRealRows){
             os << endl;
         }
     }

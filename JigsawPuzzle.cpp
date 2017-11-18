@@ -1,6 +1,3 @@
-//
-// Created by okleinfeld on 11/15/17.
-//
 
 #include "JigsawPuzzle.h"
 
@@ -274,6 +271,9 @@ bool JigsawPuzzle::isMoveValid(PuzzlePiece& p, int row, int col){
 //function solves the game
 bool JigsawPuzzle::solveGame(){
     this->solutionMatrix = new PuzzleMatrix(this->numOfElements);
+    if(this->numOfElements == 1){
+        return this->solutionForOneElem();
+    }
     int i = 0;
     int j = 0;
     bool sol = false;
@@ -291,6 +291,16 @@ bool JigsawPuzzle::solveGame(){
     }
     return false;
 }
+
+bool JigsawPuzzle::solutionForOneElem(){
+    if(this->correctInputPieces[0].isBotLeftCorner() && this->correctInputPieces[0].isTopRightCorner()){
+        transferAvailableToSolution(0, 0, 0);
+        this->lastColIndex = 0;
+        this->lastRowIndex = 0;
+        return true;
+    }
+    return false;
+    }
 //moves piece from pieces vector to solution matrix
 void JigsawPuzzle::transferAvailableToSolution(int i, int j, int k){
     this->solutionMatrix->add(i, j, this->correctInputPieces[k]);
@@ -347,6 +357,20 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
 
         if (this->isMoveValid(this->correctInputPieces[k], i, j+1)) {
             this->transferAvailableToSolution(i, j+1, k);
+            if(j+1>this->numOfElements/2){ //special case, all in one long row
+                //need to check if all bottom edges are sright
+                this->lastRowIndex = 0;
+                this->lastColIndex = numOfElements-1;
+                bool valid = this->checkBottomEdges(j);
+                if(!valid){ //not a valid solution
+                    if(j <= this->numOfElements/2){
+                        this->lastRowIndex = -1; //reinitilize
+                        this->lastColIndex = -1; //reinitilize
+                    }
+                    return false;
+                }
+                
+            }
             bool sol = this->solveGameRec(i, j+1);
             if (sol == true) {
                 return true;
@@ -360,18 +384,30 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
     // didn't find any matching piece -> try again
 }
 
+bool JigsawPuzzle::checkBottomEdges(int j){
+    for (int k = 0; k < j; k++){
+        if(!(this->correctInputPieces[k].getBottomEdge() == 0))
+            return false;
+    }
+    return true;
+    
+}
 
-void JigsawPuzzle::printSolutionToFile(){
+
+
+bool JigsawPuzzle::printSolutionToFile(bool solved){
     ofstream outputFile;
     outputFile.open(this->outputFile);
     if (!outputFile.is_open()){
         cout << OUTPUT_FILE_NOT_OPEN;
-        this->cannotComputeSolution = true;
-        return;
+        return false;
     }
-    this->solutionMatrix->printRange(outputFile, this->lastRowIndex, this->lastColIndex);
+    if(solved)
+        this->solutionMatrix->printRange(outputFile, this->lastRowIndex, this->lastColIndex);
+    else
+        outputFile << "Cannot solve puzzle: it seems that there is no proper solution" << endl;
     outputFile.close();
-    return;
+    return solved;
 }
 
 
@@ -380,24 +416,23 @@ void JigsawPuzzle::printSolutionToFile(){
 
 
 
-bool JigsawPuzzle::hasAllCorners(){
-    bool tr = false, tl = false , br = false , bl = false;
-    
+vector<int> JigsawPuzzle::hasAllCorners(){
+    vector<int> corners = *new vector<int>(4,0);
     for(int i = 0; i<this->numOfElements; i++){
         if(correctInputPieces[i].isTopRightCorner()){
-            tr = true;
+            corners[1] = 1;
         }
         if(correctInputPieces[i].isTopLeftCorner()){
-            tl = true;
+            corners[0] = 1;
         }
         if(correctInputPieces[i].isBotRightCorner()){
-            br = true;
+            corners[3] = 1;
         }
         if(correctInputPieces[i].isBotLeftCorner()){
-            bl = true;
+            corners[2] = 1;
         }
     }
-    return tr && tl && br && bl;
+    return corners;
 }
 
 
@@ -406,8 +441,11 @@ bool JigsawPuzzle::hasEnoughEdges(){
     for(int i = 0; i<this->numOfElements; i++){
         count += correctInputPieces[i].countStraightEdges();
     }
-    return count >= (correctInputPieces.size() + 3); //change to sqr root
+    return ((count >= (sqrt(this->numOfElements))) && (count %2==0));
 }
+
+
+
 
 bool JigsawPuzzle::isSumEdgesZero(){
     int sum = 0;
@@ -417,3 +455,52 @@ bool JigsawPuzzle::isSumEdgesZero(){
     
     return sum == 0;
 }
+
+bool JigsawPuzzle::initSolveGame(){
+    return printSolutionToFile(solveGame());
+
+}
+
+
+
+bool JigsawPuzzle::isLegalPuzzle(){
+    ofstream outputFile;
+    outputFile.open(this->outputFile);
+    bool legal = true;
+    if (!outputFile.is_open()){
+        cout << OUTPUT_FILE_NOT_OPEN << endl;
+        return false;
+    }
+    if(!hasEnoughEdges()){
+        outputFile << "Cannot solve puzzle: wrong number of straight edges" << endl;
+        legal = false;
+        
+
+    }
+    vector<int> corners = hasAllCorners();
+    if(!corners[0]){
+        outputFile << "Cannot solve puzzle: missing corner element: <TL>" << endl;
+        legal = false;
+    }
+    if(!corners[1]){
+        outputFile << "Cannot solve puzzle: missing corner element: <TR>" << endl;
+        legal = false;
+    }
+    if(!corners[2]){
+        outputFile << "Cannot solve puzzle: missing corner element: <BL>" << endl;
+        legal = false;
+    }
+    if(!corners[3]){
+        outputFile << "Cannot solve puzzle: missing corner element: <BR>" << endl;
+        legal = false;
+    }
+    
+    if(!isSumEdgesZero()){
+        outputFile << "Cannot solve puzzle: sum of edges is not zero" << endl;
+        legal = false;
+    }
+
+    outputFile.close();
+    return legal;
+}
+

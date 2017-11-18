@@ -16,6 +16,7 @@ public:
     //constructors
     PuzzlePiece(int ISD, int l, int t, int r, int b);
     PuzzlePiece();
+    ~PuzzlePiece(){}
     
     
     //getters

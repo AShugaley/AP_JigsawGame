@@ -1,6 +1,4 @@
-//
-// Created by okleinfeld on 11/15/17.
-//
+
 
 #ifndef ADVANCEDOOP_HW1_JIGSAWPUZZLE_H
 #define ADVANCEDOOP_HW1_JIGSAWPUZZLE_H
@@ -18,6 +16,7 @@
 #include <sstream>
 #include <map>
 #include <fstream>
+#include <math.h>
 #include <sstream>
 #include <algorithm>
 #include <stdexcept>
@@ -59,6 +58,8 @@ private:
     
     
     
+    
+    
     //checks if we can put a piece in <i,j>
     bool isMoveValid(PuzzlePiece& p, int row, int col);
     
@@ -78,12 +79,14 @@ private:
 
     bool solveGame();
     bool solveGameRec(int i, int j); // <i,j> = location of the last piece we insterted.
-    void printSolutionToFile();
+    bool printSolutionToFile(bool solved);
+    bool checkBottomEdges(int j); //a special case wehn we have only one row
+    bool solutionForOneElem(); //a special case when we have only one piece - only a 1x1 square is a valid solution
     
     //trivial checks
     bool hasEnoughEdges();
     bool isSumEdgesZero();
-    bool hasAllCorners();
+    vector<int> hasAllCorners();
 
 
 
@@ -92,6 +95,9 @@ public:
     
     //constructor
     explicit JigsawPuzzle(string& inputFilePath, string& outputFilePath);
+    ~JigsawPuzzle(){
+        delete this->solutionMatrix;
+    }
 
     //helper func
     static vector<string> split(const string&, char delimiter);
@@ -102,19 +108,13 @@ public:
     int getSolutionMatrixNumCols(){return this->lastColIndex + 1;}
     
     //checks if a game is initilized properly
-    bool isInitialized(){return cannotComputeSolution;}
+    bool isInitialized(){return !cannotComputeSolution;}
     
     //checks if a game is solvable in theory (trivial checks)
-    bool isLegalPuzzle(){return hasEnoughEdges() && isSumEdgesZero() && hasAllCorners();}
+    bool isLegalPuzzle();
     
     //runs the algo to solve game
-    bool initSolveGame(){
-        if(solveGame()) {
-            printSolutionToFile();
-            return true;
-        }
-        return false;
-    }
+    bool initSolveGame();
 };
 
 

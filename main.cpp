@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc, char* argv[]){ // or char** argv
     if(argc != 3){
-        printf("Wrong number of arguments");
+        cout << "Wrong number of arguments" << endl;
         return 0;
     }
     return gameFlow::simpleMainFlow(argv[1], argv[2]);
@@ -16,16 +16,15 @@ int main(int argc, char* argv[]){ // or char** argv
 
 /*
  
- 
  known issues:
- 1. doesn't work for one long row; long column should be fine -> check
- 2. check 1x1 puzzle
- 
+ 1. problem with format-error (in4+in5)
+ 2. problem with puzzle size - check in7-format-error.txt
+ 3. in7-solvable & in1-unsolvable do not work - don't know why
+
  todo:
- 5. add constructors && desctructors
- 9. testing
- 
- 
+ 9. more testing
  6. check memory leaks
  8. test on nova
+ 
+ 
  */

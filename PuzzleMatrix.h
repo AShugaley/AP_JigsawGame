@@ -1,6 +1,4 @@
-//
-// Created by okleinfeld on 11/17/17.
-//
+
 
 #ifndef AP_JIGSAWGAME_PUZZLEMATRIX_H
 #define AP_JIGSAWGAME_PUZZLEMATRIX_H
@@ -25,6 +23,7 @@ private:
     int rowSize;
 public:
     PuzzleMatrix(int numElements);
+    ~PuzzleMatrix(){}
     void add(int i, int j, PuzzlePiece p);
     PuzzlePiece remove(int i, int j);
     PuzzlePiece get(int i, int j);
