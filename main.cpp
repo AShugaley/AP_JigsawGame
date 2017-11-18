@@ -24,19 +24,16 @@ int main() {
  
  known issues:
  1. doesn't work for one long row; long column should be fine -> check
- 
- 
+ 2. check 1x1 puzzle
  
  todo:
- 1. check what happens to 1x1 puzlle
  2. verify flow
- 3. print solution
  5. add constructors && desctructors
  6. check memory leaks
  7. clean code
- 
+ 9. testing
+ 8. test on nova
  */
-
 
 
 
