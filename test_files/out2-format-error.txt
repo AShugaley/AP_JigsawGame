@@ -1,0 +1,2 @@
+Missing puzzle element(s) with the following IDs: 2
+Puzzle ID 2 has wrong data: 2 0 0 0 0 0
