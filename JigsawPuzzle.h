@@ -42,7 +42,9 @@ private:
     vector<PuzzlePiece> correctInputPieces;
     
     //solution matrix
-    PuzzleMatrix* solutionMatrix;
+   // PuzzleMatrix* solutionMatrix;
+    vector<vector<int> > solutionMatrix;
+    vector<int> unmatchedPieces;
     
     //args to be initialized when we solve the puzzle
     int lastRowIndex;
@@ -78,7 +80,7 @@ private:
      */
 
     bool solveGame();
-    bool solveGameRec(int i, int j); // <i,j> = location of the last piece we insterted.
+    bool solveGameRec(int i, int j,vector<int> &currentSequanceCheck); // <i,j> = location of the last piece we insterted.
     bool printSolutionToFile(bool solved);
     bool checkBottomEdges(int j); //a special case wehn we have only one row
     bool solutionForOneElem(); //a special case when we have only one piece - only a 1x1 square is a valid solution
@@ -96,14 +98,14 @@ public:
     //constructor
     explicit JigsawPuzzle(string& inputFilePath, string& outputFilePath);
     ~JigsawPuzzle(){
-        delete this->solutionMatrix;
+        //delete this->solutionMatrix;
     }
 
     //helper func
     static vector<string> split(const string&, char delimiter);
     
     //getters
-    PuzzleMatrix& getSolutionMatrix() {return *(this->solutionMatrix);}
+    //PuzzleMatrix& getSolutionMatrix() {return *(this->solutionMatrix);}
     int getSolutionMatrixNumRows() {return this->lastRowIndex + 1;}
     int getSolutionMatrixNumCols(){return this->lastColIndex + 1;}
     

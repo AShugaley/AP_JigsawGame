@@ -249,7 +249,24 @@ void JigsawPuzzle::writeErrorsToOutput(ofstream& openOutputFileStream){
     }
 }
 
+
+
+
+
+
+//isvalidmove V
+//initrec
+//rec
+//oneline V
+//check bottom edges V
+//check one piece
+//transfers
+//print V
+
+
 //function checks if we can put a piece in a certain place.
+
+
 bool JigsawPuzzle::isMoveValid(PuzzlePiece& p, int row, int col){
     int l = p.getLeftEdge();
     int t = p.getTopEdge();
@@ -264,23 +281,40 @@ bool JigsawPuzzle::isMoveValid(PuzzlePiece& p, int row, int col){
     bool noUpPiece = row == 0;
     bool noLeftPiece = col == 0;
 
-    return ( (noUpPiece)  || (this->solutionMatrix->get(row-1, col).getBottomEdge() == -t) ) &&
-            ( (noLeftPiece)  || (this->solutionMatrix->get(row, col-1).getRightEdge() == -l) );
+    return ( (noUpPiece)  || (this->correctInputPieces[this->solutionMatrix[row-1][col] - 1].getBottomEdge() == -t) ) &&
+            ( (noLeftPiece)  || (this->correctInputPieces[this->solutionMatrix[row][col-1] - 1].getRightEdge() == -l) );
 }
+
+
+
+
+
 
 //function solves the game
 bool JigsawPuzzle::solveGame(){
-    this->solutionMatrix = new PuzzleMatrix(this->numOfElements);
+    vector<int> currentSequanceCheck; //delete
+    this->solutionMatrix = vector<vector<int> >(this->numOfElements, std::vector<int>(this->numOfElements));
+    this->unmatchedPieces = vector<int>(this->numOfElements);
     if(this->numOfElements == 1){
         return this->solutionForOneElem();
     }
+    for(int i = 0; i<this->numOfElements; i++)
+        this->unmatchedPieces[i] = i+1;
+    
+    
     int i = 0;
     int j = 0;
     bool sol = false;
-    for (int k = 0; k < this->correctInputPieces.size(); k++){
-        if (this->correctInputPieces[k].isTopLeftCorner()){
+    
+    
+    
+    
+    for (int k = 0; k < this->unmatchedPieces.size(); k++){
+        if (this->correctInputPieces[this->unmatchedPieces[k]-1].isTopLeftCorner()){
             this->transferAvailableToSolution(i, j, k);
-            sol = this->solveGameRec(i, j);
+            currentSequanceCheck.push_back(correctInputPieces[k].getISD());  //delete
+            sol = this->solveGameRec(i, j,currentSequanceCheck);
+            currentSequanceCheck.pop_back();  //delete
             if (sol == true){
                 return true;
             }
@@ -300,19 +334,35 @@ bool JigsawPuzzle::solutionForOneElem(){
         return true;
     }
     return false;
-    }
+}
+
+
+
 //moves piece from pieces vector to solution matrix
 void JigsawPuzzle::transferAvailableToSolution(int i, int j, int k){
-    this->solutionMatrix->add(i, j, this->correctInputPieces[k]);
-    this->correctInputPieces.erase(this->correctInputPieces.begin() + k);
+    this->solutionMatrix[i][j] = k+1;
+    this->unmatchedPieces[k] = 0;
 }
+
+
+
+
+
 //moves piece from sol matrix to pieces vector
 void JigsawPuzzle::transferSolutionToAvailable(int i, int j, int k){
-    this->correctInputPieces.insert(this->correctInputPieces.begin() + k, this->solutionMatrix->remove(i, j));
+    this->unmatchedPieces[this->solutionMatrix[i][j]-1] = solutionMatrix[i][j];
+    this->solutionMatrix[i][j] = 0;
+    
 }
 
 //the recursive part of the solution algorithem
-bool JigsawPuzzle::solveGameRec(int i, int j){
+bool JigsawPuzzle::solveGameRec(int i, int j,vector<int> &currentSequanceCheck){
+//    for(auto i : currentSequanceCheck){
+//        cout << i << ",";
+//    }
+//    cout << endl;
+//    cout << "ENDENDEND" << endl;
+
 
     // stop criterion -> no more pieces to put in place
     if(i==this->lastRowIndex && j==lastColIndex){
@@ -320,16 +370,18 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
     }
 
     // first we try to go down (start a new line)
-    if( this->lastColIndex == j || ( this->solutionMatrix->get(i, j).getRightEdge() == 0 && this->lastColIndex == -1 )){
+    if( this->lastColIndex == j || ( this->correctInputPieces[solutionMatrix[i][j] -1].getRightEdge() == 0 && this->lastColIndex == -1 )){
 
         for (int k = 0; k < this->correctInputPieces.size(); k++){
-            if (this->numOfElements % (j+1) == 0 && this->isMoveValid(this->correctInputPieces[k], i+1, 0)){
+            if (this->numOfElements % (j+1) == 0 && (unmatchedPieces[k] !=  0) && this->isMoveValid(this->correctInputPieces[k], i+1, 0) ){
 
                 this->lastColIndex = j; // last index is now set to j
                 this->lastRowIndex = (this->numOfElements / (j+1)) -1; // j is always a divider because numOfElements mod j == 0
 
                 this->transferAvailableToSolution(i+1, 0, k);
-                bool sol = this->solveGameRec(i+1, 0);
+                currentSequanceCheck.push_back(correctInputPieces[k].getISD());
+                bool sol = this->solveGameRec(i+1, 0,currentSequanceCheck);
+                currentSequanceCheck.pop_back();
                 if (sol == true){
                     return true;
                 }
@@ -355,7 +407,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
     // now we try to go right
     for (int k = 0; k < this->correctInputPieces.size(); k++) {
 
-        if (this->isMoveValid(this->correctInputPieces[k], i, j+1)) {
+        if ((unmatchedPieces[k] !=  0) && this->isMoveValid(this->correctInputPieces[k], i, j+1)) {
             this->transferAvailableToSolution(i, j+1, k);
             if(j+1>this->numOfElements/2){ //special case, all in one long row
                 //need to check if all bottom edges are sright
@@ -371,7 +423,9 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
                 }
                 
             }
-            bool sol = this->solveGameRec(i, j+1);
+            currentSequanceCheck.push_back(correctInputPieces[k].getISD());
+            bool sol = this->solveGameRec(i, j+1,currentSequanceCheck);
+            currentSequanceCheck.pop_back();
             if (sol == true) {
                 return true;
             } else {
@@ -386,7 +440,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j){
 
 bool JigsawPuzzle::checkBottomEdges(int j){
     for (int k = 0; k < j; k++){
-        if(!(this->correctInputPieces[k].getBottomEdge() == 0))
+        if(!(this->correctInputPieces[this->solutionMatrix[0][k]-1].getBottomEdge() == 0))
             return false;
     }
     return true;
@@ -402,8 +456,16 @@ bool JigsawPuzzle::printSolutionToFile(bool solved){
         cout << OUTPUT_FILE_NOT_OPEN;
         return false;
     }
-    if(solved)
-        this->solutionMatrix->printRange(outputFile, this->lastRowIndex, this->lastColIndex);
+    if(solved){
+        for(int i = 0; i<this->lastRowIndex; i++){
+            for(int j =0; j<this->lastColIndex;j++){
+                cout << this->solutionMatrix[i][j];
+                if(j!=this->lastColIndex-1)
+                    cout << " ";
+            }
+            cout << endl;
+        }
+    }
     else
         outputFile << "Cannot solve puzzle: it seems that there is no proper solution" << endl;
     outputFile.close();
