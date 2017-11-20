@@ -23,7 +23,7 @@
 #include <string>
 #include <unordered_map>
 #include "PuzzlePiece.h"
-#include "PuzzleMatrix.h"
+
 
 using namespace std;
 
@@ -81,9 +81,14 @@ private:
 
     bool solveGame();
     bool solveGameRec(int i, int j,vector<int> &currentSequanceCheck); // <i,j> = location of the last piece we insterted.
+    
+    
     bool printSolutionToFile(bool solved);
+    
+    
     bool checkBottomEdges(int j); //a special case wehn we have only one row
     bool solutionForOneElem(); //a special case when we have only one piece - only a 1x1 square is a valid solution
+    bool checkOneRowSol(int i, int j);  //a special case wehn we have only one row
     
     //trivial checks
     bool hasEnoughEdges();
