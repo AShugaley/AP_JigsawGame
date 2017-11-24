@@ -20,7 +20,7 @@ public:
     
     
     //getters
-    const int getISD() const {return this->ISD;}
+    int getISD() const {return this->ISD;}
     int getLeftEdge() const {return this->leftEdge;}
     int getTopEdge() const {return this->topEdge;}
     int getRightEdge() const {return this->rightEdge;}

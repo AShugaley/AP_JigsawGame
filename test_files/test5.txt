@@ -1,2 +1,0 @@
-Puzzle of size 3 cannot have the following IDs: 4
-Puzzle ID 1 has wrong data: 1 0 asd 0 0 0

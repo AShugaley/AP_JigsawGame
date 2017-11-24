@@ -28,12 +28,11 @@
 using namespace std;
 
 
-
 class JigsawPuzzle {
 private:
     int numOfElements;
-    bool cannotComputeSolution;
     string outputFile;
+    bool cannotComputeSolution;
     map<int, string> wrongFormatLines;
     list<int> missingElementsIDs;
     list<int> wrongElementsIDs;
@@ -50,17 +49,13 @@ private:
     int lastRowIndex;
     int lastColIndex;
 
-    //constructor & initiliziton functions
+    //constructor & initialization functions
     int readFirstLine(ifstream& openInputFileStream);
     void readPuzzlePieceLine(string& line);
     void validatePuzzlePiece(PuzzlePiece& piece);
     void updateMissingIDs();
     void updateWrongElementsIDs();
     void writeErrorsToOutput(ofstream& openOutputFileStream);
-    
-    
-    
-    
     
     //checks if we can put a piece in <i,j>
     bool isMoveValid(PuzzlePiece& p, int row, int col);
@@ -82,9 +77,7 @@ private:
     bool solveGame();
     bool solveGameRec(int i, int j,vector<int> &currentSequanceCheck); // <i,j> = location of the last piece we insterted.
     
-    
     bool printSolutionToFile(bool solved);
-    
     
     bool checkBottomEdges(int j); //a special case wehn we have only one row
     bool solutionForOneElem(); //a special case when we have only one piece - only a 1x1 square is a valid solution
@@ -93,6 +86,8 @@ private:
     //trivial checks
     bool hasEnoughEdges();
     bool isSumEdgesZero();
+    bool isSumHorizontalEdgesZero();
+    bool isSumVerticalEdgesZero();
     vector<int> hasAllCorners();
 
 

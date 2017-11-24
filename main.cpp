@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){ // or char** argv
  known issues:
  1. problem with format-error (in4+in5)
  2. problem with puzzle size - check in7-format-error.txt
- 3. in7-solvable & in1-unsolvable do not work - don't know why
+ 3. in6-solvable & in1-unsolvable do not work - don't know why
 
  todo:
  9. more testing
