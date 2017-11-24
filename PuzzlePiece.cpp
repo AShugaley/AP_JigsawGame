@@ -7,7 +7,7 @@
 PuzzlePiece::PuzzlePiece(const int ISD, int l, int t, int r, int b) :
         ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b){}
 
-PuzzlePiece:: PuzzlePiece(){};
+PuzzlePiece:: PuzzlePiece(){;}
 
 
 void PuzzlePiece::print(std::ostream &os) const{

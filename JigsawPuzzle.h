@@ -62,7 +62,7 @@ private:
     
     //move function between the pieces vector and the solution matrix
     void transferAvailableToSolution(int i, int j, int k);
-    void transferSolutionToAvailable(int i, int j, int k);
+    void transferSolutionToAvailable(int i, int j);
     
     /* Solution algorithem
      
@@ -79,9 +79,9 @@ private:
     
     bool printSolutionToFile(bool solved);
     
-    bool checkBottomEdges(int j); //a special case wehn we have only one row
+    bool checkBottomEdges(int j); //a special case when we have only one row
     bool solutionForOneElem(); //a special case when we have only one piece - only a 1x1 square is a valid solution
-    bool checkOneRowSol(int i, int j);  //a special case wehn we have only one row
+    bool checkOneRowSol(int j);  //a special case when we have only one row
     
     //trivial checks
     bool hasEnoughEdges();

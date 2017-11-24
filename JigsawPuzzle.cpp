@@ -297,7 +297,7 @@ bool JigsawPuzzle::solveGame(){
                 return true;
             }
             else{
-                this->transferSolutionToAvailable(i, j, k);
+                this->transferSolutionToAvailable(i, j);
             }
         }
     }
@@ -324,7 +324,7 @@ void JigsawPuzzle::transferAvailableToSolution(int i, int j, int k){
 
 
 //moves piece from sol matrix to pieces vector
-void JigsawPuzzle::transferSolutionToAvailable(int i, int j, int k){
+void JigsawPuzzle::transferSolutionToAvailable(int i, int j) {
     this->unmatchedPieces[this->solutionMatrix[i][j]-1] = solutionMatrix[i][j];
     this->solutionMatrix[i][j] = 0;
     
@@ -364,7 +364,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j,vector<int> &currentSequanceCheck){
                 
                 
                 if(j+1>this->numOfElements/2){
-                    if (!(this->checkOneRowSol(i,j))) //special case - all in one row
+                    if (!(this->checkOneRowSol(j))) //special case - all in one row
                         return false;
                 }
                 currentSequanceCheck.push_back(correctInputPieces[k].getISD());//debugging
@@ -375,7 +375,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j,vector<int> &currentSequanceCheck){
                     return true;
                     
                 } else {
-                    this->transferSolutionToAvailable(i, j+1, k);
+                    this->transferSolutionToAvailable(i, j + 1);
                 }
             }
         }
@@ -387,7 +387,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j,vector<int> &currentSequanceCheck){
     }
 
     //couldn't go right - try to start a new line
-    for (int k = 0; k < this->correctInputPieces.size(); k++){
+    for (unsigned k = 0; k < this->correctInputPieces.size(); k++){
         if (this->numOfElements % (j+1) == 0 && (unmatchedPieces[k] !=  0) && this->isMoveValid(this->correctInputPieces[k], i+1, 0) ){
             
             this->lastColIndex = j; // last index is now set to j
@@ -402,7 +402,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j,vector<int> &currentSequanceCheck){
                 return true;
             }
             else{
-                this->transferSolutionToAvailable(i+1, 0, k);
+                this->transferSolutionToAvailable(i + 1, 0);
                 
                 if (i == 0){
                     // if we got back to the first row - now again number of elements in a row is unknown
@@ -419,7 +419,7 @@ bool JigsawPuzzle::solveGameRec(int i, int j,vector<int> &currentSequanceCheck){
 }
 
 
-bool JigsawPuzzle::checkOneRowSol(int i, int j){
+bool JigsawPuzzle::checkOneRowSol(int j) {
     this->lastRowIndex = 0;
     this->lastColIndex = numOfElements-1;
     bool valid = this->checkBottomEdges(j);
@@ -466,7 +466,7 @@ bool JigsawPuzzle::printSolutionToFile(bool solved){
 }
 
 vector<int> JigsawPuzzle::hasAllCorners(){
-    vector<int> corners = *new vector<int>(4,0);
+    vector<int> corners = vector<int>(4,0);
     for(int i = 0; i<this->numOfElements; i++){
         if(correctInputPieces[i].isTopRightCorner()){
             corners[1] = 1;
