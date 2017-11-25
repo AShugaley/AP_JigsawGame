@@ -1,0 +1,2 @@
+Missing puzzle element(s) with the following IDs: 4, 5, 6, 7, 8, 9, 10
+Puzzle of size 10 cannot have the following IDs: 15, 22

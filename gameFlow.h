@@ -8,6 +8,12 @@
 
 #ifndef gameFlow_h
 #define gameFlow_h
+
+/* 
+ A module responisble for the game flow. Essentially, this is simply an extension to main.c
+ */
+
+
 #include <string>
 #include <iostream>
 #include <vector>
@@ -19,11 +25,11 @@
 #include <algorithm>
 #include <stdexcept>
 #include <unordered_map>
-
 #include "JigsawPuzzle.h"
 
 class gameFlow {
-    static bool simpleMainFlow(string&  inputfilename, string& outputfilename);
+public:
+    static bool simpleMainFlow(char* infile, char* outfile);
     
 };
 

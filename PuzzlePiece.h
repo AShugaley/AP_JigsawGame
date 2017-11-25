@@ -13,17 +13,25 @@ class PuzzlePiece {
     int leftEdge, topEdge, rightEdge, bottomEdge;
 
 public:
+    //constructors
     PuzzlePiece(int ISD, int l, int t, int r, int b);
     PuzzlePiece();
-    const int getISD() const;
-    int getLeftEdge() const;
-    int getTopEdge() const;
-    int getRightEdge() const;
-    int getBottomEdge() const;
+    ~PuzzlePiece(){}
     
+    
+    //getters
+    int getISD() const {return this->ISD;}
+    int getLeftEdge() const {return this->leftEdge;}
+    int getTopEdge() const {return this->topEdge;}
+    int getRightEdge() const {return this->rightEdge;}
+    int getBottomEdge() const {return this->bottomEdge;}
+    
+    //overload
     virtual void print(std::ostream &os) const;
     virtual bool lessThan(const PuzzlePiece& p) const;
     
+    
+    //checks about the element
     bool isTopLeftCorner(){ return ((leftEdge == 0)&&(topEdge == 0));}
     bool isTopRightCorner(){ return ((rightEdge == 0)&&(topEdge == 0));}
     bool isBotLeftCorner(){ return ((leftEdge == 0)&&(bottomEdge == 0));}
@@ -33,7 +41,7 @@ public:
 
 };
 
-std::ofstream& operator<<(std::ostream &os, const PuzzlePiece& p);
+void operator<<(std::ostream &os, const PuzzlePiece& p);
 bool operator < (const PuzzlePiece& p1, const PuzzlePiece& p2);
 
 

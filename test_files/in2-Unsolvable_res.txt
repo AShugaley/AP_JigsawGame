@@ -1,0 +1,2 @@
+Cannot solve puzzle: sum of horizontal edges is not zero
+Cannot solve puzzle: sum of vertical edges is not zero

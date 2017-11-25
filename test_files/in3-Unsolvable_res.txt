@@ -1,0 +1,6 @@
+Cannot solve puzzle: missing corner element: <TL>
+Cannot solve puzzle: missing corner element: <TR>
+Cannot solve puzzle: missing corner element: <BR>
+Cannot solve puzzle: sum of edges is not zero
+Cannot solve puzzle: sum of horizontal edges is not zero
+Cannot solve puzzle: sum of vertical edges is not zero

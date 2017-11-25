@@ -10,16 +10,16 @@
 
 using namespace std;
 
-bool gameFlow::simpleMainFlow(string&  inputfilename, string&  outputfilename){
-
-    JigsawPuzzle game(inputfilename,outputfilename);
+bool gameFlow::simpleMainFlow(char*  infile, char*  outfile){
+    string inputFilename(infile);
+    string outputFilename(outfile);
+    JigsawPuzzle game(inputFilename,outputFilename);
     
     if(!game.isInitialized()){
-        return 0; // failed to open/read inputfile OR file was illigal in format
+        return 0; // failed to open/read input file OR file was illegal in format
     }
-
     if(!game.isLegalPuzzle()){
-        return 0; //puzzle illigal (puzzle cannot be solved due to something like missing corener etc)
+        return 0; //puzzle illegal (puzzle cannot be solved due to something like missing corner etc)
     }
     if(!game.initSolveGame()){
         return 0; //puzzle cannot be solved as there's no solution.
@@ -28,29 +28,18 @@ bool gameFlow::simpleMainFlow(string&  inputfilename, string&  outputfilename){
 }
 
 
-
-
 /*
- 
- 
  there are 3 different errors:
  
- 1. input file format - cannot be open/missing ID's/too many ID's/wrong format
+1. input file format - cannot be open/missing ID's/too many ID's/wrong format
         this is checked at the constructor, verify by isInitialized()
- 
- 
- 2. puzzle has no solution - not enough edges, missing coreners, sum != 0
+
+2. puzzle has no solution - not enough edges, missing corners, sum != 0
         this is checked in isLegalPuzzle()
- 
- 
- 3. puzzle has no solution - our algorithem did not find one
+
+3. puzzle has no solution - our algorithm did not find one
         this is checked in solveGame
  
- all three parts will write their output directly to stdout
- 
- 
- 
- 
-
+all three parts will write their output directly to stdout
  
  */

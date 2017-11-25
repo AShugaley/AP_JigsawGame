@@ -1,9 +1,13 @@
-//
-// Created by okleinfeld on 11/15/17.
-//
+
 
 #ifndef ADVANCEDOOP_HW1_JIGSAWPUZZLE_H
 #define ADVANCEDOOP_HW1_JIGSAWPUZZLE_H
+
+/* A calass represnting a Jigsaw game. 
+ 
+   Includes the fields representing the game, the solution algorithem, and the initilizadion input/output functions.
+ 
+ */
 
 #include <string>
 #include <iostream>
@@ -12,13 +16,13 @@
 #include <sstream>
 #include <map>
 #include <fstream>
+#include <math.h>
 #include <sstream>
 #include <algorithm>
 #include <stdexcept>
-#include <unordered_map>
-
+#include <string>
 #include "PuzzlePiece.h"
-#include "PuzzleMatrix.h"
+
 
 using namespace std;
 
@@ -26,48 +30,92 @@ using namespace std;
 class JigsawPuzzle {
 private:
     int numOfElements;
-    bool cannotComputeSolution;
     string outputFile;
+    bool cannotComputeSolution;
     map<int, string> wrongFormatLines;
     list<int> missingElementsIDs;
     list<int> wrongElementsIDs;
+    
+    //pieces vector
     vector<PuzzlePiece> correctInputPieces;
-    PuzzleMatrix* solutionMatrix;
+    
+    //solution matrix
+   // PuzzleMatrix* solutionMatrix;
+    vector<vector<int> > solutionMatrix;
+    vector<int> unmatchedPieces;
+    
+    //args to be initialized when we solve the puzzle
     int lastRowIndex;
     int lastColIndex;
-//    vector<PuzzlePiece> solutionOutput;
 
+    //constructor & initialization functions
     int readFirstLine(ifstream& openInputFileStream);
     void readPuzzlePieceLine(string& line);
     void validatePuzzlePiece(PuzzlePiece& piece);
     void updateMissingIDs();
     void updateWrongElementsIDs();
     void writeErrorsToOutput(ofstream& openOutputFileStream);
+    
+    //checks if we can put a piece in <i,j>
     bool isMoveValid(PuzzlePiece& p, int row, int col);
+    
+    //move function between the pieces vector and the solution matrix
     void transferAvailableToSolution(int i, int j, int k);
-    void transferSolutionToAvailable(int i, int j, int k);
-    bool solveGameRec(int i, int j);
+    void transferSolutionToAvailable(int i, int j);
+    
+    /* Solution algorithem
+     
+     
+     We utilize a brute force approach with some optimizations. 
+     
+     In a nutshell, this is the algorithem:
+        start with an empty solution matrix, it will be filled on the go. If we reach a solution, stop - the matrix is the answer. If we reach a dead end (no pieces can be put in the next place) go up unltil more possibilities become available.
+     
+     */
+
+    bool solveGame();
+    bool solveGameRec(int i, int j,vector<int> &currentSequanceCheck); // <i,j> = location of the last piece we insterted.
+    
+    bool printSolutionToFile(bool solved);
+    
+    bool checkBottomEdges(int j); //a special case when we have only one row
+    bool solutionForOneElem(); //a special case when we have only one piece - only a 1x1 square is a valid solution
+    bool checkOneRowSol(int j);  //a special case when we have only one row
+    
+    //trivial checks
     bool hasEnoughEdges();
     bool isSumEdgesZero();
-    bool hasAllCorners();
+    bool isSumHorizontalEdgesZero();
+    bool isSumVerticalEdgesZero();
+    vector<int> hasAllCorners();
 
 
 
 
 public:
+    
+    //constructor
     explicit JigsawPuzzle(string& inputFilePath, string& outputFilePath);
-//    JigsawPuzzle(JigsawPuzzle& puzzle);
-//    ~JigsawPuzzle();
-//    vector<PuzzlePiece> getInputPieces() const;
-//    vector<PuzzlePiece> getSolution() const = delete;
+    ~JigsawPuzzle(){
+        //delete this->solutionMatrix;
+    }
+
+    //helper func
     static vector<string> split(const string&, char delimiter);
-    bool solveGame();
-    PuzzleMatrix& getSolutionMatrix();
-    int getSolutionMatrixNumRows();
-    int getSolutionMatrixNumCols();
-    bool isInitialized(){return cannotComputeSolution;}
-    bool isLegalPuzzle(){return hasEnoughEdges() && isSumEdgesZero() && hasAllCorners();}
-    bool initSolveGame(){ return solveGame(); }
+    
+    //getters
+    //PuzzleMatrix& getSolutionMatrix() {return *(this->solutionMatrix);}
+    int getSolutionMatrixNumRows() {return this->lastRowIndex + 1;}
+    int getSolutionMatrixNumCols(){return this->lastColIndex + 1;}
+    
+    //checks if a game is initilized properly
+    bool isInitialized(){return !cannotComputeSolution;}
+    
+    //checks if a game is solvable in theory (trivial checks)
+    bool isLegalPuzzle();
+    
+    //runs the algo to solve game
+    bool initSolveGame();
 };
 
 
