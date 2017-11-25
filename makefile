@@ -1,7 +1,7 @@
 COMP = g++
 OBJS = main.o gameFlow.o JigsawPuzzle.o PuzzlePiece.o
 EXEC = ex1
-CPP_COMP_FLAG = -std=c++14 -Wall -Wextra \
+CPP_COMP_FLAG = -std=c++11 -Wall -Wextra \
 -Werror -pedantic-errors -DNDEBUG
 
 $(EXEC): $(OBJS)
@@ -12,6 +12,7 @@ $(EXEC): $(OBJS)
 main.o: JigsawPuzzle.h gameFlow.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
 gameFlow.o: gameFlow.h JigsawPuzzle.h
+	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
 JigsawPuzzle.o: JigsawPuzzle.h PuzzlePiece.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
 PuzzlePiece.o: PuzzlePiece.h

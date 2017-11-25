@@ -173,7 +173,7 @@ void JigsawPuzzle::validatePuzzlePiece(PuzzlePiece& piece){
 void JigsawPuzzle::updateMissingIDs(){
     vector<PuzzlePiece>& pieces = this->correctInputPieces;
     std::sort(pieces.begin(), pieces.end());
-    unordered_map<int, int> mapIDs;
+    map<int, int> mapIDs;
     for (PuzzlePiece& p : pieces){
         auto iter = mapIDs.find(p.getISD());
         if (iter == mapIDs.end()){

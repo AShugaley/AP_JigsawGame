@@ -21,7 +21,6 @@
 #include <algorithm>
 #include <stdexcept>
 #include <string>
-#include <unordered_map>
 #include "PuzzlePiece.h"
 
 
