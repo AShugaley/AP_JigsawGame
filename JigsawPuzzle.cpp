@@ -1,9 +1,7 @@
 
 #include "JigsawPuzzle.h"
 
-#define OUTPUT_FILE_NOT_OPEN "Could not open an output file. Program operation Failed" << endl
-#define CANNOT_READ_INPUT_FILE "Could not open/read the input file" << endl
-#define INVALID_FIRST_LINE "The first line of the file is not valid. It should follow the format: NumElements=<positive integer>" << endl
+
 
 JigsawPuzzle::JigsawPuzzle(string& inputFilePath, string& outputFilePath): outputFile(outputFilePath), cannotComputeSolution(false), lastRowIndex(-1), lastColIndex(-1) {
     ifstream inputFile;
@@ -380,15 +378,17 @@ bool JigsawPuzzle::solveGameRec(int i, int j,vector<int> &currentSequanceCheck){
             }
         }
     }
-    //TODO: maybe here mean lastColIndex == j????
-//    if((this->lastRowIndex != j) && (this->lastColIndex != -1))
-    if (this->lastColIndex == i){
+
+    if ((this->lastColIndex != j && this->lastColIndex != -1)){ //todo - check if % is valid
         return false; //we cannot start a new line
     }
+    
+    if((this->lastColIndex>0) && (this->lastColIndex%j != 0))
+       return false; //we cannot start a new line
 
     //couldn't go right - try to start a new line
     for (unsigned k = 0; k < this->correctInputPieces.size(); k++){
-        if (this->numOfElements % (j+1) == 0 && (unmatchedPieces[k] !=  0) && this->isMoveValid(this->correctInputPieces[k], i+1, 0) ){
+        if ((unmatchedPieces[k] !=  0) && this->isMoveValid(this->correctInputPieces[k], i+1, 0) ){
             
             this->lastColIndex = j; // last index is now set to j
             this->lastRowIndex = (this->numOfElements / (j+1)) -1; // j+1 is always a divider because numOfElements mod j+1 == 0

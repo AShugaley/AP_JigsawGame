@@ -24,11 +24,16 @@
 #include "PuzzlePiece.h"
 
 
+#define OUTPUT_FILE_NOT_OPEN "Could not open an output file. Program operation Failed" << endl
+#define CANNOT_READ_INPUT_FILE "Could not open/read the input file" << endl
+#define INVALID_FIRST_LINE "The first line of the file is not valid. It should follow the format: NumElements=<positive integer>" << endl
+
+
 using namespace std;
 
 
 class JigsawPuzzle {
-private:
+protected:
     int numOfElements;
     string outputFile;
     bool cannotComputeSolution;
@@ -73,7 +78,7 @@ private:
      
      */
 
-    bool solveGame();
+
     bool solveGameRec(int i, int j,vector<int> &currentSequanceCheck); // <i,j> = location of the last piece we insterted.
     
     bool printSolutionToFile(bool solved);
@@ -96,10 +101,13 @@ public:
     
     //constructor
     explicit JigsawPuzzle(string& inputFilePath, string& outputFilePath);
+    JigsawPuzzle(){};
     ~JigsawPuzzle(){
         //delete this->solutionMatrix;
     }
 
+    
+    
     //helper func
     static vector<string> split(const string&, char delimiter);
     
@@ -116,6 +124,7 @@ public:
     
     //runs the algo to solve game
     bool initSolveGame();
+    bool solveGame();
 };
 
 

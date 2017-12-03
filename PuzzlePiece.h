@@ -11,6 +11,7 @@
 class PuzzlePiece {
     int ISD;
     int leftEdge, topEdge, rightEdge, bottomEdge;
+    int rotateAngle;
 
 public:
     //constructors
@@ -21,6 +22,7 @@ public:
     
     //getters
     int getISD() const {return this->ISD;}
+    int getAngle() const {return this->rotateAngle;}
     int getLeftEdge() const {return this->leftEdge;}
     int getTopEdge() const {return this->topEdge;}
     int getRightEdge() const {return this->rightEdge;}
@@ -29,6 +31,11 @@ public:
     //overload
     virtual void print(std::ostream &os) const;
     virtual bool lessThan(const PuzzlePiece& p) const;
+    
+    
+    
+    //manipulate the piece
+    void rotate(); //rotates 90 degrees colckwise
     
     
     //checks about the element
