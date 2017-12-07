@@ -17,8 +17,9 @@ vector<PuzzlePiece> tests::generateRandomPuzzle(int x, int y){
     vector<vector<int> > edges = vector< std::vector<int> >(x*y, std::vector<int>(4));
     
     
-    std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(0,1);
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_real_distribution<> dis(1.0, 2.0);
     
     for(int i = 0; i<y; i++){
         edges[i][1] = 0;
@@ -30,8 +31,10 @@ vector<PuzzlePiece> tests::generateRandomPuzzle(int x, int y){
     }
     for(int i = 0; i<x; i++){
         for(int j = 0; j<y-1;j++){
-            int rnd = distribution(generator);
-            if(rnd == 0)
+            double rnd = dis(gen);
+            if(rnd > 1.5)
+                rnd = 1;
+            else
                 rnd = -1;
             edges[i*y+j][2] = rnd;
             edges[i*y+j+1][0] = -rnd;
@@ -39,8 +42,10 @@ vector<PuzzlePiece> tests::generateRandomPuzzle(int x, int y){
     }
     for(int i = 0; i<x-1; i++){
         for(int j = 0; j<y;j++){
-            int rnd = distribution(generator);
-            if(rnd == 0)
+            double rnd = dis(gen);
+            if(rnd > 1.5)
+                rnd = 1;
+            else
                 rnd = -1;
             edges[i*y+j][3] = rnd;
             edges[i*y+j+y][1] = -rnd;
@@ -49,6 +54,7 @@ vector<PuzzlePiece> tests::generateRandomPuzzle(int x, int y){
 //    for(int i = 0; i<x*y;i++){
 //        cout<<edges[i][0]<<edges[i][1]<<edges[i][2]<<edges[i][3]<<endl;
 //    }
+//    cout<<endl;
 
     random_shuffle(edges.begin(),edges.end());
 

@@ -6,8 +6,8 @@ using namespace std;
 
 int main(int argc, char* argv[]){
     
-    tests::tests::runTests(8, 4, 2);
-    tests::tests::runTests(4, 8, 2);
+    tests::tests::runTests(8, 4, 10);
+    tests::tests::runTests(4, 8, 10);
 //tests::tests::runTests(1, 1, 200);
    // tests::tests::runTests(32, 1, 20);
     //tests::tests::runTests(1, 32, 20);
