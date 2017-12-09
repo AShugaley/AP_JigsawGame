@@ -33,7 +33,7 @@ private:
     
 public:
     //override
-    bool initSolveGame();
+    bool initSolveGame() override;
     //constructor
     explicit JigsawPuzzleAdvanced(string& inputFilePath, string& outputFilePath);
     //sepcial const for tests

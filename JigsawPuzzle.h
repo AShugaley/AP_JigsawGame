@@ -124,8 +124,8 @@ public:
     bool isLegalPuzzle();
     
     //runs the algo to solve game
-    bool initSolveGame();
-    bool solveGame();
+    virtual bool initSolveGame();
+    virtual bool solveGame();
     
     vector<PuzzlePiece> getCorrectInputPieces() {return correctInputPieces;};
 };
