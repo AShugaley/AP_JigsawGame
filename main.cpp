@@ -4,11 +4,11 @@
 using namespace std;
 
 int main(int argc, char* argv[]){
-    gameFlow game = gameFlow();
-    game.simpleMainFlow(argv[1], argv[2]);
+//    gameFlow game = gameFlow();
+//    game.simpleMainFlow(argv[1], argv[2]);
 
 //    tests::runTests(7, 7, 50);
-//    tests::runTests(4, 8, 50);
+    tests::runTests(4, 8, 50);
 //    tests::runTests(32, 1, 50);
 //    tests::runTests(1, 32, 50);
 //    tests::runTests(5, 5, 50);
