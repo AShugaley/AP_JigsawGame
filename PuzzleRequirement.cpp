@@ -21,8 +21,8 @@ bool PuzzleRequirement::setisfReq(PuzzleType type){
             return false;
     }
     bool leftOK = l == JOKER || l == type.getLeft();
-    bool topOK = l == JOKER || l == type.getTop();
-    bool rightOK = l == JOKER || l == type.getRight();
-    bool botOK = l == JOKER || l == type.getBot();
+    bool topOK = t == JOKER || t == type.getTop();
+    bool rightOK = r == JOKER || r == type.getRight();
+    bool botOK = b == JOKER || b == type.getBot();
     return leftOK && topOK && rightOK && botOK;
 }

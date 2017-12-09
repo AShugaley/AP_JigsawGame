@@ -70,8 +70,8 @@ bool JigsawPuzzleAdvanced::initSolve(){
     vector<pair<int,int> > possibleDimensions = getPossibleDimensions(this->numOfElements);
     pair<int,int> topLeftCorner = pair<int,int>(0,0);
     for( auto& p : possibleDimensions){
-        this->lastRowIndex = p.first;
-        this->lastColIndex = p.second;
+        this->lastRowIndex = p.first-1;
+        this->lastColIndex = p.second-1;
         initSolMatrix();
         if(solveRec(topLeftCorner) == true)
             return true;
@@ -82,9 +82,9 @@ bool JigsawPuzzleAdvanced::initSolve(){
 }
 
 void JigsawPuzzleAdvanced::initSolMatrix(){
-    this->solutionMatrix = std::vector< std::vector<int> >(this->lastRowIndex, std::vector<int>(this->lastColIndex));
-    for (int i = 0; i < this->lastRowIndex; i++)
-        for (int j = 0; j < this->lastColIndex; j++)
+    this->solutionMatrix = std::vector< std::vector<int> >(this->lastRowIndex +1, std::vector<int>(this->lastColIndex+1));
+    for (int i = 0; i < this->lastRowIndex+1; i++)
+        for (int j = 0; j < this->lastColIndex+1; j++)
             this->solutionMatrix[i][j] = -1;
     
 }
@@ -95,9 +95,11 @@ vector<pair<int,int> > JigsawPuzzleAdvanced::getPossibleDimensions(int numOfPiec
     for(int i = 1; i<=sqrt(numOfPieces); i++){
         if(numOfPieces % i == 0){
             dim.push_back(std::pair<int,int>(i,numOfPieces / i));
-            dim.push_back(std::pair<int,int>(numOfPieces / i,i));
+            if(i!= (numOfPieces / i))
+                dim.push_back(std::pair<int,int>(numOfPieces / i,i));
         }
     }
+    
     std::random_shuffle(dim.begin(), dim.end());
     return dim;
 }
