@@ -24,8 +24,7 @@ private:
     pair<int,int> getNextPos(int i, int j);
     bool solveRec(pair<int,int> nextPos);
     bool initSolve();
-    //override
-    bool initSolveGame();
+
     vector<pair<int,int> > getPossibleDimensions(int numOfPieces);
     PuzzleRequirement getReq(int i, int j);
     
@@ -33,6 +32,8 @@ private:
     
     
 public:
+    //override
+    bool initSolveGame();
     //constructor
     explicit JigsawPuzzleAdvanced(string& inputFilePath, string& outputFilePath);
     //sepcial const for tests
