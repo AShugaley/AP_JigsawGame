@@ -5,7 +5,7 @@
 #include "PuzzlePiece.h"
 
 PuzzlePiece::PuzzlePiece(const int ISD, int l, int t, int r, int b) :
-ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b), rotateAngle(0), used(false) {}
+ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b), origLeftEdge(l), origTopEdge(t), origRightEdge(r),origBottomEdge(b), rotateAngle(0), used(false) {}
 
 PuzzlePiece:: PuzzlePiece(){;}
 

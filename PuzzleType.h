@@ -26,12 +26,16 @@ using namespace std;
 class PuzzleType{
 protected:
     int l, t, r, b;
+    int orl, ort, orr, orb;
 public:
-    PuzzleType(int l, int t, int r, int b) : l(l), t(t), r(r), b(b){}
+    PuzzleType(int l, int t, int r, int b) : l(l), t(t), r(r), b(b), orl(l), ort(t), orr(r), orb(b){}
     int getTop() const {return t;}
     int getLeft() const {return l;}
     int getRight() const {return r;}
     int getBot() const {return b;}
+    
+    void rotate(){int temp = l; l = b; b = r; r = t; t = temp;}
+    void reset(){l = orl; t = ort; r = orr; b = orb;}
     bool operator==(const PuzzleType& otherType) const ;
     bool operator<(const PuzzleType& otherType) const ;
 };

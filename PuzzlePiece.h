@@ -11,6 +11,7 @@
 class PuzzlePiece {
     int ISD;
     int leftEdge, topEdge, rightEdge, bottomEdge;
+    int origLeftEdge,origTopEdge, origRightEdge, origBottomEdge;
     int rotateAngle;
     bool used;
 
@@ -38,7 +39,10 @@ public:
     
     //manipulate the piece
     void rotate(); //rotates 90 degrees colckwise
+    void setAngle(int angle){rotateAngle = angle;}
     
+    void reset(){leftEdge = origLeftEdge; topEdge = origTopEdge; rightEdge = origRightEdge; bottomEdge
+        = origBottomEdge; rotateAngle = 0;} //resets to original roataion
     
     //checks about the element
     bool isTopLeftCorner(){ return ((leftEdge == 0)&&(topEdge == 0));}

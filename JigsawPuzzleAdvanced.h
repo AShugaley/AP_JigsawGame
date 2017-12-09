@@ -18,13 +18,16 @@ using namespace std;
 
 class JigsawPuzzleAdvanced: public JigsawPuzzle{
 private:
+    
+    vector<pair<int,int> > moves;
+    int currentMove;
     PuzzlePiecesMap piecesMap;
     //override -> prints with angle
     bool printSolutionToFile(bool solved);
     pair<int,int> getNextPos(int i, int j);
     bool solveRec(pair<int,int> nextPos);
     bool initSolve();
-
+    void Spiral( int X, int Y);
     vector<pair<int,int> > getPossibleDimensions(int numOfPieces);
     PuzzleRequirement getReq(int i, int j);
     void initSolMatrix();

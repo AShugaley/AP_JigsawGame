@@ -27,15 +27,71 @@ JigsawPuzzleAdvanced::JigsawPuzzleAdvanced(vector<PuzzlePiece> pieces){
 
 
 pair<int,int> JigsawPuzzleAdvanced::getNextPos(int i, int j){
-    if(j!=lastColIndex){
-        return pair<int,int>(i,j+1);
-    }
-    if(i!=lastRowIndex){
-        return pair<int,int>(i+1,0);
-    }
+    for(int k = 0; k<numOfElements-1;k++)
+        if(this->moves[k] == pair<int,int>(i,j))
+            return moves[k+1];
     return pair<int,int>(-1,-1);
 }
 
+
+
+void JigsawPuzzleAdvanced::Spiral( int m, int n){
+    //this->moves = vector<int,int>();
+    while (!this->moves.empty())
+    {
+        this->moves.pop_back();
+    }
+    this->currentMove = 0;
+    int i, k = 0, l = 0;
+    
+    /*  k - starting row index
+     m - ending row index
+     l - starting column index
+     n - ending column index
+     i - iterator
+     */
+    
+    while (k < m && l < n)
+    {
+        /* Print the first row from the remaining rows */
+        for (i = l; i < n; ++i)
+        {
+            this->moves.push_back(pair<int,int>(k,i));
+            //printf("%d ", a[k][i]);
+        }
+        k++;
+        
+        /* Print the last column from the remaining columns */
+        for (i = k; i < m; ++i)
+        {
+            this->moves.push_back(pair<int,int>(i,n-1));
+            //printf("%d ", a[i][n-1]);
+        }
+        n--;
+        
+        /* Print the last row from the remaining rows */
+        if ( k < m)
+        {
+            for (i = n-1; i >= l; --i)
+            {
+                this->moves.push_back(pair<int,int>(m-1,i));
+              //  printf("%d ", a[m-1][i]);
+            }
+            m--;
+        }
+        
+        /* Print the first column from the remaining columns */
+        if (l < n)
+        {
+            for (i = m-1; i >= k; --i)
+            {
+                this->moves.push_back(pair<int,int>(i,l));
+               // printf("%d ", a[i][l]);
+            }
+            l++;
+        }
+    }
+}
 //override
 bool JigsawPuzzleAdvanced::initSolveGame(){
     return initSolve();
@@ -56,6 +112,7 @@ bool JigsawPuzzleAdvanced::solveRec(pair<int,int> nextPos){
         else{
             this->solutionMatrix[i][j] = -1;
             p->setUsed(false);
+            p->reset();
             req.addFalseType(PuzzleType(p->getLeftEdge(), p->getTopEdge(), p->getRightEdge(), p->getBottomEdge()));
             p = this->piecesMap.nextPiece(req);
         }
@@ -73,6 +130,8 @@ bool JigsawPuzzleAdvanced::initSolve(){
         this->lastRowIndex = p.first-1;
         this->lastColIndex = p.second-1;
         initSolMatrix();
+        Spiral(lastRowIndex+1, lastColIndex+1);
+        currentMove = 0;
         if(solveRec(topLeftCorner) == true)
             return true;
     }

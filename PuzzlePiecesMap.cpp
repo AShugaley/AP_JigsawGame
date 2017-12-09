@@ -25,13 +25,31 @@ void PuzzlePiecesMap::toBuckets(vector<PuzzlePiece> pieces){
 
 PuzzlePiece* PuzzlePiecesMap::nextPiece(PuzzleRequirement req){
     for( auto& buck : buckets){
-        if(req.setisfReq(buck.first)){
+        PuzzleType type = buck.first;
+        if(req.setisfReq(type)){
             for(auto& p : buck.second){
                 if(!p.isUsed()){
                     p.setUsed(true);
                     return &p;
                 }
             }
+        }
+        else{
+            for(int i = 1; i<4; i++){
+                type.rotate();
+                if(req.setisfReq(type)){
+                    for(auto& p : buck.second){
+                        if(!p.isUsed()){
+                            p.setUsed(true);
+                            p.setAngle(i*90);
+                            type.reset();
+                          return &p;
+                        }
+                    }
+                }
+            }
+            type.reset();
+            type.reset();
         }
     }
     return nullptr;
