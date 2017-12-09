@@ -12,6 +12,7 @@ class PuzzlePiece {
     int ISD;
     int leftEdge, topEdge, rightEdge, bottomEdge;
     int rotateAngle;
+    bool used;
 
 public:
     //constructors
@@ -27,7 +28,8 @@ public:
     int getTopEdge() const {return this->topEdge;}
     int getRightEdge() const {return this->rightEdge;}
     int getBottomEdge() const {return this->bottomEdge;}
-    
+    bool isUsed() const {return used;};
+    void setUsed(bool newused) {used = newused;};
     //overload
     virtual void print(std::ostream &os) const;
     virtual bool lessThan(const PuzzlePiece& p) const;
