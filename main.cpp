@@ -70,27 +70,25 @@ CLASS PUZZLEGAME
         if(i, j == -1,-1)
             return true;
         req = getRequierment(i,j)
-        p = nextPiece(NULL, req)
-        p.used = 1
+        p = nextPiece(req)
         while(p!=NULL)
             add_to_map(P)
-            bool solve = solve(get_next_i, get_snext_j)
-            if solve {return true}
+            if(solve(get_next_pos(i,j)) //rec
+                return true
             //else
             remove_from_map(P)
             p.used = 0;
             req = adjReq(p)
-            p = nextPiece(p, req)
+            p = nextPiece(req)
     return false;
  
  
  
- GET_NEXT_I()
-    return next i, -1 if solved
- 
- 
- GET_NEXT_J()
-    return next j, -1 if solved
+ GET_NEXT_pos:
+ i,j,lastrow,lastcol
+ i, j++
+ j++,i
+ -1,-1
  
  
  GET_REQ(i,j)

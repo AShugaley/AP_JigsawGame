@@ -72,7 +72,7 @@ vector<PuzzlePiece> tests::generateRandomPuzzle(int x, int y){
 
 
 bool tests::solvePuzzle(vector<PuzzlePiece> pieces){
-    return JigsawPuzzleAdvanced(pieces).solveGame();
+    return JigsawPuzzleAdvanced(pieces).initSolveGame()();
 }
 
 

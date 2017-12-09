@@ -22,12 +22,13 @@
 #include <stdexcept>
 #include <string>
 #include "PuzzlePiece.h"
-#include <unordered_map>
+#include "PuzzleRequirement.h"
+
 
 #define OUTPUT_FILE_NOT_OPEN "Could not open an output file. Program operation Failed" << endl
 #define CANNOT_READ_INPUT_FILE "Could not open/read the input file" << endl
 #define INVALID_FIRST_LINE "The first line of the file is not valid. It should follow the format: NumElements=<positive integer>" << endl
-#define JOKER 100
+
 
 using namespace std;
 

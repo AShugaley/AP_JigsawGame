@@ -8,17 +8,25 @@
 
 #ifndef PuzzleType_h
 #define PuzzleType_h
-
-#include "JigsawPuzzle.h"
-
+#include <string>
+#include <iostream>
+#include <vector>
+#include <list>
+#include <sstream>
+#include <map>
+#include <fstream>
+#include <math.h>
+#include <sstream>
+#include <algorithm>
+#include <stdexcept>
+#include <string>
+#define JOKER 100
 using namespace std;
-
 
 class PuzzleType{
 protected:
     int l, t, r, b;
 public:
-   
     PuzzleType(int l, int t, int r, int b) : l(l), t(t), r(r), b(b){}
     int getTop() const {return t;}
     int getLeft() const {return l;}

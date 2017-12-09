@@ -8,7 +8,6 @@
 
 #ifndef PuzzleRequirement_h
 #define PuzzleRequirement_h
-#include "JigsawPuzzle.h"
 #include "PuzzleType.h"
 using namespace std;
 

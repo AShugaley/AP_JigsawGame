@@ -17,6 +17,7 @@ class PuzzlePiecesMap{
 public:
     map<PuzzleType,vector<PuzzlePiece> > buckets;
     PuzzlePiecesMap(vector<PuzzlePiece> pieces);
+    PuzzlePiecesMap(){};
     void toBuckets(vector<PuzzlePiece> pieces);
     PuzzlePiece* nextPiece(PuzzleRequirement req);
     
