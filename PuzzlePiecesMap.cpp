@@ -13,6 +13,10 @@ PuzzlePiecesMap::PuzzlePiecesMap(vector<PuzzlePiece>& pieces){
     toBuckets(pieces);
 }
 
+PuzzlePiecesMap::PuzzlePiecesMap() {
+    this->buckets = std::map<PuzzleType, vector<PuzzlePiece>>();
+}
+
 void PuzzlePiecesMap::toBuckets(vector<PuzzlePiece> pieces){
     for(auto& p : pieces){
         PuzzleType type = PuzzleType(p.getLeftEdge(),p.getTopEdge(),p.getRightEdge(), p.getBottomEdge());

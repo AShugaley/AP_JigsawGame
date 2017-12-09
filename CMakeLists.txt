@@ -11,8 +11,6 @@ set(SOURCE_FILES
         gameFlow.cpp
         gameFlow.h
         main.cpp
-        JigsawPuzzleAdvanced.h
-        JigsawPuzzleAdvanced.cpp
         PuzzlePiecesMap.cpp
         PuzzlePiece.h
         PuzzleRequirement.cpp

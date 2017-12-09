@@ -14,6 +14,7 @@ protected:
     int l, t, r, b;
 public:
     PuzzleType(int l, int t, int r, int b) : l(l), t(t), r(r), b(b){}
+    PuzzleType() = default;
     int getTop() const {return t;}
     int getLeft() const {return l;}
     int getRight() const {return r;}

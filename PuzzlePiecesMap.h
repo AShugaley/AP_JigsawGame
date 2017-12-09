@@ -9,7 +9,6 @@
 #ifndef PuzzlePieces_h
 #define PuzzlePieces_h
 
-#include "PuzzleType.h"
 #include "PuzzleRequirement.h"
 #include "PuzzlePiece.h"
 #include <map>
@@ -20,6 +19,7 @@ class PuzzlePiecesMap{
 public:
     map<PuzzleType,vector<PuzzlePiece> > buckets;
     explicit PuzzlePiecesMap(vector<PuzzlePiece>& pieces);
+    explicit PuzzlePiecesMap();
     void toBuckets(vector<PuzzlePiece> pieces);
     PuzzlePiece* nextPiece(PuzzleRequirement req);
     

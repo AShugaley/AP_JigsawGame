@@ -65,18 +65,9 @@ vector<PuzzlePiece> tests::generateRandomPuzzle(int x, int y){
 }
 
 
-
-
-
-
-
-
 bool tests::solvePuzzle(vector<PuzzlePiece> pieces){
-    return JigsawPuzzleAdvanced(pieces).initSolveGame();
+    return JigsawPuzzle(pieces).initSolveGame();
 }
-
-
-
 
 
 bool tests::runTests(int x, int y, int numOfTests){

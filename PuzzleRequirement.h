@@ -22,7 +22,7 @@ class PuzzleRequirement{
 public:
     int l, t, r, b;
     vector<PuzzleType> falseTypes;
-    PuzzleRequirement(int l, int t, int r, int b) : l(l), t(t), r(r), b(b){}
+    PuzzleRequirement(int l, int t, int r, int b) : l(l), t(t), r(r), b(b){this->falseTypes = vector<PuzzleType>();}
     void addFalseType(PuzzleType type);
     bool satisfiesReq(PuzzleType type);
 };

@@ -11,17 +11,15 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <list>
 #include <sstream>
 #include <map>
 #include <fstream>
+#include <list>
 #include <math.h>
-#include <sstream>
 #include <algorithm>
 #include <stdexcept>
-#include <string>
-#include "PuzzlePiece.h"
-#include "PuzzleRequirement.h"
+
+#include "PuzzlePiecesMap.h"
 
 
 #define OUTPUT_FILE_NOT_OPEN "Could not open an output file. Program operation Failed" << endl
@@ -34,58 +32,33 @@ using namespace std;
 
 class JigsawPuzzle {
 protected:
+
     int numOfElements;
     string outputFile;
     bool cannotComputeSolution;
     map<int, string> wrongFormatLines;
     list<int> missingElementsIDs;
     list<int> wrongElementsIDs;
+    PuzzlePiecesMap piecesMap;
     
     //pieces vector
     vector<PuzzlePiece> correctInputPieces;
     
     //solution matrix
-   // PuzzleMatrix* solutionMatrix;
     vector<vector<int> > solutionMatrix;
-    vector<int> unmatchedPieces;
-    
+
     //args to be initialized when we solve the puzzle
     int lastRowIndex;
     int lastColIndex;
 
-    //constructor & initialization functions
+    // initialization functions for the parsing stage
     int readFirstLine(ifstream& openInputFileStream);
     void readPuzzlePieceLine(string& line);
     void validatePuzzlePiece(PuzzlePiece& piece);
     void updateMissingIDs();
     void updateWrongElementsIDs();
     void writeErrorsToOutput(ofstream& openOutputFileStream);
-    
-    //checks if we can put a piece in <i,j>
-    bool isMoveValid(PuzzlePiece& p, int row, int col);
-    
-    //move function between the pieces vector and the solution matrix
-    void transferAvailableToSolution(int i, int j, int k);
-    void transferSolutionToAvailable(int i, int j);
-    
-    /* Solution algorithem
-     
-     
-     We utilize a brute force approach with some optimizations. 
-     
-     In a nutshell, this is the algorithem:
-        start with an empty solution matrix, it will be filled on the go. If we reach a solution, stop - the matrix is the answer. If we reach a dead end (no pieces can be put in the next place) go up unltil more possibilities become available.
-     
-     */
-
-
-    bool solveGameRec(int i, int j,vector<int> &currentSequanceCheck); // <i,j> = location of the last piece we insterted.
-    
     bool printSolutionToFile(bool solved);
-    
-    bool checkBottomEdges(int j); //a special case when we have only one row
-    bool solutionForOneElem(); //a special case when we have only one piece - only a 1x1 square is a valid solution
-    bool checkOneRowSol(int j);  //a special case when we have only one row
     
     //trivial checks
     bool hasEnoughEdges();
@@ -95,38 +68,36 @@ protected:
     vector<int> hasAllCorners();
 
 
-
+    //Function for the solution algorithm
+    pair<int,int> getNextPos(int i, int j);
+    vector<pair<int,int> > getPossibleDimensions(int numOfPieces);
+    PuzzleRequirement getReq(int i, int j);
+    void initSolMatrix();
 
 public:
-    
-    //constructor
+    //constructors
     explicit JigsawPuzzle(string& inputFilePath, string& outputFilePath);
-    JigsawPuzzle(){};
-    ~JigsawPuzzle(){
-        //delete this->solutionMatrix;
-    }
+    explicit JigsawPuzzle(vector<PuzzlePiece> pieces);
 
-    
-    
-    //helper func
-    static vector<string> split(const string&, char delimiter);
-    
     //getters
     //PuzzleMatrix& getSolutionMatrix() {return *(this->solutionMatrix);}
     int getSolutionMatrixNumRows() {return this->lastRowIndex + 1;}
     int getSolutionMatrixNumCols(){return this->lastColIndex + 1;}
-    
-    //checks if a game is initilized properly
+    vector<PuzzlePiece> getCorrectInputPieces() {return correctInputPieces;};
+
+    //checks if a game is initialized properly
     bool isInitialized(){return !cannotComputeSolution;}
-    
+
     //checks if a game is solvable in theory (trivial checks)
     bool isLegalPuzzle();
-    
-    //runs the algo to solve game
+
+    //runs the algorithm to solve game
     virtual bool initSolveGame();
-    virtual bool solveGame();
-    
-    vector<PuzzlePiece> getCorrectInputPieces() {return correctInputPieces;};
+    bool solveRec(pair<int,int> nextPos);
+    bool initSolve();
+
+    //helper func
+    static vector<string> split(const string&, char delimiter);
 };
 
 
