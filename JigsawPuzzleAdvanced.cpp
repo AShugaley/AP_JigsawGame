@@ -72,12 +72,21 @@ bool JigsawPuzzleAdvanced::initSolve(){
     for( auto& p : possibleDimensions){
         this->lastRowIndex = p.first;
         this->lastColIndex = p.second;
+        initSolMatrix();
         if(solveRec(topLeftCorner) == true)
             return true;
     }
     this->lastRowIndex = -1;
     this->lastColIndex = -1;
     return false;
+}
+
+void JigsawPuzzleAdvanced::initSolMatrix(){
+    this->solutionMatrix = std::vector< std::vector<int> >(this->lastRowIndex, std::vector<int>(this->lastColIndex));
+    for (int i = 0; i < this->lastRowIndex; i++)
+        for (int j = 0; j < this->lastColIndex; j++)
+            this->solutionMatrix[i][j] = -1;
+    
 }
 
 

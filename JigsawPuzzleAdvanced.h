@@ -27,7 +27,7 @@ private:
 
     vector<pair<int,int> > getPossibleDimensions(int numOfPieces);
     PuzzleRequirement getReq(int i, int j);
-    
+    void initSolMatrix();
     
     
     
