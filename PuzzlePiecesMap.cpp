@@ -9,18 +9,18 @@
 #include "PuzzlePiecesMap.h"
 
 PuzzlePiecesMap::PuzzlePiecesMap(vector<PuzzlePiece>& pieces){
-    this->buckets = std::map<PuzzleType, vector<PuzzlePiece>>();
+    this->buckets = std::map<PuzzleType, vector<PuzzlePiece*>>();
     toBuckets(pieces);
 }
 
 PuzzlePiecesMap::PuzzlePiecesMap() {
-    this->buckets = std::map<PuzzleType, vector<PuzzlePiece>>();
+    this->buckets = std::map<PuzzleType, vector<PuzzlePiece*>>();
 }
 
-void PuzzlePiecesMap::toBuckets(vector<PuzzlePiece> pieces){
+void PuzzlePiecesMap::toBuckets(vector<PuzzlePiece>& pieces){
     for(auto& p : pieces){
         PuzzleType type = PuzzleType(p.getLeftEdge(),p.getTopEdge(),p.getRightEdge(), p.getBottomEdge());
-        buckets[type].push_back(p);
+        buckets[type].push_back(&p);
     }
 }
 
@@ -28,9 +28,9 @@ PuzzlePiece* PuzzlePiecesMap::nextPiece(PuzzleRequirement req){
     for( auto& buck : buckets){
         if(req.satisfiesReq(buck.first)){
             for(auto& p : buck.second){
-                if(!p.isUsed()){
-                    p.setUsed(true);
-                    return &p;
+                if(!p->isUsed()){
+                    p->setUsed(true);
+                    return p;
                 }
             }
         }

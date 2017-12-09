@@ -4,7 +4,7 @@
 
 JigsawPuzzle::JigsawPuzzle(vector<PuzzlePiece> pieces){
     this->correctInputPieces = pieces;
-    this->piecesMap = PuzzlePiecesMap(this->correctInputPieces);
+    this->piecesMap = PuzzlePiecesMap(correctInputPieces);
     this->cannotComputeSolution = false;
     this->lastColIndex = -1;
     this->lastRowIndex = -1;
@@ -257,8 +257,8 @@ bool JigsawPuzzle::printSolutionToFile(bool solved){
                 outputFile << this->solutionMatrix[i][j];
                 if(j!=this->lastColIndex)
                     outputFile << " ";
-                if(this->correctInputPieces[this->solutionMatrix[i][j] -1].getAngle() != 0){
-                    outputFile << "[" << correctInputPieces[this->solutionMatrix[i][j]].getAngle() << "]" << " ";
+                if(this->correctInputPieces[this->solutionMatrix[i][j]-1].getAngle() != 0){
+                    outputFile << "[" << correctInputPieces[this->solutionMatrix[i][j]-1].getAngle() << "]" << " ";
                 }
             }
             outputFile << endl;
@@ -384,13 +384,56 @@ bool JigsawPuzzle::isLegalPuzzle(){
 // Helper function for solving game algorithm
 
 pair<int,int> JigsawPuzzle::getNextPos(int i, int j){
-    if(j!=lastColIndex){
-        return pair<int,int>(i,j+1);
-    }
-    if(i!=lastRowIndex){
-        return pair<int,int>(i+1,0);
-    }
+    for(int k = 0; k<numOfElements-1;k++)
+        if(this->positionsToFill[k] == pair<int,int>(i,j))
+            return positionsToFill[k+1];
     return pair<int,int>(-1,-1);
+}
+
+
+
+
+void JigsawPuzzle::Spiral( int m, int n){
+    while (!this->positionsToFill.empty())
+    {
+        this->positionsToFill.pop_back();
+    }
+    int i, k = 0, l = 0;
+    
+    /*  k - starting row index
+     m - ending row index
+     l - starting column index
+     n - ending column index
+     i - iterator
+     */
+    
+    while (k < m && l < n){
+        for (i = l; i < n; ++i){
+            this->positionsToFill.push_back(pair<int,int>(k,i));
+        }
+        k++;
+        
+        for (i = k; i < m; ++i){
+            this->positionsToFill.push_back(pair<int,int>(i,n-1));
+        }
+        n--;
+        
+        if ( k < m){
+            for (i = n-1; i >= l; --i){
+                this->positionsToFill.push_back(pair<int,int>(m-1,i));
+            }
+            m--;
+        }
+        
+        /* Print the first column from the remaining columns */
+        if (l < n){
+            for (i = m-1; i >= k; --i){
+                this->positionsToFill.push_back(pair<int,int>(i,l));
+                // printf("%d ", a[i][l]);
+            }
+            l++;
+        }
+    }
 }
 
 vector<pair<int,int> > JigsawPuzzle::getPossibleDimensions(int numOfPieces) {
@@ -461,12 +504,17 @@ void JigsawPuzzle::initSolMatrix(){
 
 bool JigsawPuzzle::initSolve(){
     this->piecesMap = PuzzlePiecesMap(this->correctInputPieces);
+    return beginMainAlgo();
+}
+
+bool JigsawPuzzle::beginMainAlgo(){
     vector<pair<int,int> > possibleDimensions = getPossibleDimensions(this->numOfElements);
     pair<int,int> topLeftCorner = pair<int,int>(0,0);
     for( auto& p : possibleDimensions){
         this->lastRowIndex = p.first-1;
         this->lastColIndex = p.second-1;
         initSolMatrix();
+        Spiral(lastRowIndex+1, lastColIndex+1);
         if(solveRec(topLeftCorner) == true)
             return true;
     }
@@ -482,7 +530,7 @@ bool JigsawPuzzle::solveRec(pair<int,int> nextPos){
         return true;
     }
     PuzzleRequirement req = getReq(i, j);
-    PuzzlePiece* p = this->piecesMap.nextPiece(req);
+    PuzzlePiece* p = getNextPiece(req);
     while(p!=nullptr){
         this->solutionMatrix[i][j] = p->getISD();
         if(solveRec(getNextPos(i, j)))
@@ -490,11 +538,17 @@ bool JigsawPuzzle::solveRec(pair<int,int> nextPos){
         else{
             this->solutionMatrix[i][j] = -1;
             p->setUsed(false);
-            req.addFalseType(PuzzleType(p->getLeftEdge(), p->getTopEdge(), p->getRightEdge(), p->getBottomEdge()));
-            p = this->piecesMap.nextPiece(req);
+            req.addFalseType(PuzzleType(p->getLeftEdge(), p->getTopEdge(), p->getRightEdge(), p->getBottomEdge())); //we can add all 4 false types -> or change req
+            p->resetRotation();
+            p = getNextPiece(req);
         }
     }
     return false;
 
+
 }
+
+ PuzzlePiece* JigsawPuzzle::getNextPiece(PuzzleRequirement req){
+     return this->piecesMap.nextPiece(req);
+ }
 

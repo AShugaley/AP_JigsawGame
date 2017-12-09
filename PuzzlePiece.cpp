@@ -36,3 +36,7 @@ void PuzzlePiece::rotate(){
     else
         rotateAngle+= 90;
 }
+void PuzzlePiece::resetRotation(){
+    while(rotateAngle != 0)
+        rotate();
+}

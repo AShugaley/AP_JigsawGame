@@ -30,7 +30,9 @@ public:
 
     //Setters and operations
     void rotate(); //rotates 90 degrees clockwise
-    void setUsed(bool newUsedStatus) { used = newUsedStatus; };
+    void resetRotation(); //returns the piece to original angle
+    void setUsed(bool newUsedStatus) {used = newUsedStatus;}
+    void setAngle(int newangle){rotateAngle = newangle;}
     virtual void print(std::ostream &os) const;
     virtual bool lessThan(const PuzzlePiece &p) const;
 

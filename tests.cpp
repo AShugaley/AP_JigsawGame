@@ -67,10 +67,93 @@ vector<PuzzlePiece> tests::generateRandomPuzzle(int x, int y){
 
 bool tests::solvePuzzle(vector<PuzzlePiece> pieces){
     return JigsawPuzzle(pieces).initSolve();
+    
 }
 
 
-bool tests::runTests(int x, int y, int numOfTests){
+
+bool tests::solvePuzzleRotate(vector<PuzzlePiece> pieces){
+    JigsawPuzzleRotate game = JigsawPuzzleRotate(pieces);
+    
+    for(int i= 0; i<pieces.size(); i++){
+        if(i%2!=0){
+            pieces[i].rotate();
+        }
+        if(i%3!=0){
+            pieces[i].rotate();
+            pieces[i].rotate();
+        }
+        if(i%5!=0){
+            pieces[i].rotate();
+            pieces[i].rotate();
+            pieces[i].rotate();
+        }
+        pieces[i].setAngle(0);
+    }
+    
+    //random_shuffle(pieces.begin(),pieces.end());
+    
+    bool solved = game.initSolve();
+    if(solved){
+        if(!virifySolution(game)){
+            cout << "WRONG SOLUTION" << endl;
+            exit(1);
+        }
+    }
+    return solved;
+}
+
+bool tests::virifySolution(JigsawPuzzle game){
+    for(int i = 0; i<game.lastRowIndex; i++)
+        for(int j = 0; j<game.lastColIndex; j++){
+            int l, r, t,b;
+            if(j==0){
+                l = 0;
+            } else {
+                if(game.solutionMatrix[i][j-1] == -1)
+                    l = JOKER;
+                else
+                    l =  (-1)*game.correctInputPieces[game.solutionMatrix[i][j-1] - 1].getRightEdge();
+            }
+            
+            if(i==0) {
+                t = 0;
+            } else{
+                if(game.solutionMatrix[i-1][j] == -1)
+                    t = JOKER;
+                else
+                    t =  (-1)*game.correctInputPieces[game.solutionMatrix[i-1][j] - 1].getBottomEdge();
+            }
+            
+            if(j==game.lastColIndex) {
+                r = 0;
+            } else{
+                if(game.solutionMatrix[i][j+1] == -1)
+                    r = JOKER;
+                else
+                    r =  (-1)*game.correctInputPieces[game.solutionMatrix[i][j+1] - 1].getLeftEdge();
+            }
+            
+            if(i==game.lastRowIndex) {
+                b = 0;
+            } else{
+                if(game.solutionMatrix[i+1][j] == -1)
+                    b = JOKER;
+                else
+                    b =  (-1)*game.correctInputPieces[game.solutionMatrix[i+1][j] - 1].getTopEdge();
+            }
+            if(t != game.correctInputPieces[game.solutionMatrix[i][j] - 1].getTopEdge()
+               || l != game.correctInputPieces[game.solutionMatrix[i][j] - 1].getLeftEdge()
+               || r != game.correctInputPieces[game.solutionMatrix[i][j] - 1].getRightEdge()
+               || b != game.correctInputPieces[game.solutionMatrix[i][j] - 1].getBottomEdge())
+                return false;
+        }
+    return true;
+            
+}
+
+
+bool tests::runTests(int x, int y, int numOfTests, bool Rotate){
     double avgRunTime = 0;
     double totalRunTime = 0;
     int numOfSolved = 0;
@@ -85,13 +168,17 @@ bool tests::runTests(int x, int y, int numOfTests){
 //        }
         //cout << "test: " << i << endl;
         time_t t1 = std::time(nullptr);
-        bool solved = solvePuzzle(toSolve);
+        bool solved;
+        if(Rotate)
+            solved = solvePuzzleRotate(toSolve);
+        else
+            solved = solvePuzzle(toSolve);
         time_t t2 = std::time(nullptr);
         totalRunTime+= (t2-t1);
         if(solved)
             numOfSolved++;
     }
-    cout << "Solved " << numOfSolved << " out of " << numOfTests << " tests, of size: " << x << "," << y <<endl;
+    cout << "Solved " << numOfSolved << " out of " << numOfTests << " tests, of size: " << x << "x" << y << ". rotataion: " << Rotate <<endl;
     avgRunTime = totalRunTime/numOfTests;
     cout << "Avg running time per test = " << avgRunTime << endl;
     cout << "Total running time = " << totalRunTime << endl;

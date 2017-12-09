@@ -41,15 +41,14 @@ protected:
     list<int> wrongElementsIDs;
     PuzzlePiecesMap piecesMap;
     
-    //pieces vector
-    vector<PuzzlePiece> correctInputPieces;
-    
-    //solution matrix
-    vector<vector<int> > solutionMatrix;
 
-    //args to be initialized when we solve the puzzle
-    int lastRowIndex;
-    int lastColIndex;
+    
+    
+    //order of positions to fill
+    vector<pair<int,int> > positionsToFill;
+
+
+
 
     // initialization functions for the parsing stage
     int readFirstLine(ifstream& openInputFileStream);
@@ -70,11 +69,24 @@ protected:
 
     //Function for the solution algorithm
     pair<int,int> getNextPos(int i, int j);
+    virtual PuzzlePiece* getNextPiece(PuzzleRequirement req);
+
+    void Spiral( int m, int n);
+
     vector<pair<int,int> > getPossibleDimensions(int numOfPieces);
     PuzzleRequirement getReq(int i, int j);
     void initSolMatrix();
 
 public:
+    //args to be initialized when we solve the puzzle
+    int lastRowIndex;
+    int lastColIndex;
+    //pieces vector
+    vector<PuzzlePiece> correctInputPieces;
+    
+    //solution matrix
+    vector<vector<int> > solutionMatrix;
+    
     //constructors
     explicit JigsawPuzzle(string& inputFilePath, string& outputFilePath);
     explicit JigsawPuzzle(vector<PuzzlePiece> pieces);
@@ -93,8 +105,9 @@ public:
 
     //runs the algorithm to solve game
     virtual bool initSolveGame();
-    bool solveRec(pair<int,int> nextPos);
-    bool initSolve();
+    bool beginMainAlgo();
+    virtual bool solveRec(pair<int,int> nextPos);
+    virtual bool initSolve();
 
     //helper func
     static vector<string> split(const string&, char delimiter);

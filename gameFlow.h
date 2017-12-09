@@ -14,10 +14,10 @@
  */
 
 #include "JigsawPuzzle.h"
-
+#include "JigsawPuzzleRotate.h"
 class gameFlow {
 public:
-    static bool simpleMainFlow(char* infile, char* outfile);
+    static bool simpleMainFlow(char* argv[], int argc);
 };
 
 

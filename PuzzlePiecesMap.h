@@ -17,10 +17,10 @@ using namespace std;
 
 class PuzzlePiecesMap{
 public:
-    map<PuzzleType,vector<PuzzlePiece> > buckets;
+    map<PuzzleType,vector<PuzzlePiece*> > buckets;
     explicit PuzzlePiecesMap(vector<PuzzlePiece>& pieces);
     explicit PuzzlePiecesMap();
-    void toBuckets(vector<PuzzlePiece> pieces);
+    void toBuckets(vector<PuzzlePiece>& pieces);
     PuzzlePiece* nextPiece(PuzzleRequirement req);
     
     
