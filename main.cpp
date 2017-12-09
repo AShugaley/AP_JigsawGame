@@ -1,10 +1,14 @@
 #include <iostream>
 #include "JigsawPuzzle.h"
 #include "gameFlow.h"
+#include "PuzzleRequirement.h"
 #include "tests.hpp"
 using namespace std;
 
 int main(int argc, char* argv[]){
+    PuzzleRequirement req = PuzzleRequirement(0,0,0,0);
+    req.addFalseReq(1, 1, 1, 1);
+    
     
     tests::tests::runTests(8, 4, 10);
     tests::tests::runTests(4, 8, 10);
@@ -65,14 +69,15 @@ CLASS PUZZLEGAME
             return true;
         req = getRequierment(i,j)
         p = nextPiece(NULL, req)
+        p.used = 1
         while(p!=NULL)
             add_to_map(P)
-            bool solve = solve(get_next_i, get next_j)
+            bool solve = solve(get_next_i, get_snext_j)
             if solve {return true}
             //else
             remove_from_map(P)
             p.used = 0;
-            req = adjReq(p,req)
+            req = adjReq(p)
             p = nextPiece(p, req)
     return false;
  
@@ -102,10 +107,10 @@ CLASS REQUERMENT
 
     ADJ_REQ(puzzlePiece)
         falseREQ.push_back(req(l,t,r,b)
-        add false req to vector of bad req's
+        //add false req to vector of bad req's
  
  
-CLASS PUZZLEPIECES
+CLASS PIECES
     4DMAP of pieces
     //or map <REQ,VECTOR<PIECES>> ???????????, then need to overload = for req's (ignore false)
  
