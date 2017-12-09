@@ -64,6 +64,9 @@ JigsawPuzzle::JigsawPuzzle(string& inputFilePath, string& outputFilePath): outpu
 //    for (int m : this->wrongElementsIDs){
 //        cout << "wrong elements number: " << m << endl;
 //    }
+    
+    
+    
 
 }
 

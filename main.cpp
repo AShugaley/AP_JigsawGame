@@ -3,12 +3,14 @@
 #include "gameFlow.h"
 #include "PuzzleRequirement.h"
 #include "tests.hpp"
+#include "PuzzlePiecesMap.h"
 using namespace std;
 
 int main(int argc, char* argv[]){
-    PuzzleRequirement req = PuzzleRequirement(0,0,0,0);
-    req.addFalseReq(1, 1, 1, 1);
-    
+    string inputFilename(argv[1]);
+    string outputFilename(argv[2]);
+    JigsawPuzzle puzzle = JigsawPuzzle(inputFilename, outputFilename);
+    PuzzlePiecesMap map = PuzzlePiecesMap(puzzle.getCorrectInputPieces());
     
     tests::tests::runTests(8, 4, 10);
     tests::tests::runTests(4, 8, 10);
@@ -99,7 +101,7 @@ CLASS PUZZLEGAME
  
  
  
-CLASS REQUERMENT
+CLASS REQUERMENT V
     vector<REQ> falseREQ's
     int l,t,r,b
  

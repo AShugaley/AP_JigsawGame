@@ -24,7 +24,5 @@ bool PuzzleRequirement::setisfReq(PuzzleType type){
     bool topOK = l == JOKER || l == type.getTop();
     bool rightOK = l == JOKER || l == type.getRight();
     bool botOK = l == JOKER || l == type.getBot();
-    
-    
-    return true;
+    return leftOK && topOK && rightOK && botOK;
 }

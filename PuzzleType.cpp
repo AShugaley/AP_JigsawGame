@@ -10,9 +10,30 @@
 #include "PuzzleType.h"
 
 
-bool PuzzleType::operator==(PuzzleType otherType){
-    return l == otherType.getLeft()() &&
-           t == otherType.getTop()
-           r == otherType.getRight()()
-           b == otherType.getBot()();
+bool PuzzleType::operator==(const PuzzleType& otherType) const {
+    return l == otherType.getLeft()&&
+           t == otherType.getTop() &&
+           r == otherType.getRight() &&
+           b == otherType.getBot();
+}
+
+bool PuzzleType::operator<(const PuzzleType& otherType) const{
+    int otherLeft = otherType.getLeft();
+    int otherTop = otherType.getTop();
+    int otherRight = otherType.getRight();
+    int otherBot = otherType.getBot();
+    
+    if(l!=otherLeft)
+        return l<otherLeft;
+    
+    if(t!=otherTop)
+        return t<otherTop;
+    
+    if(r!=otherRight)
+        return r<otherRight;
+  
+    return b<otherBot;
+
+    
+    
 }

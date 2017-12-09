@@ -22,7 +22,7 @@
 #include <stdexcept>
 #include <string>
 #include "PuzzlePiece.h"
-
+#include <unordered_map>
 
 #define OUTPUT_FILE_NOT_OPEN "Could not open an output file. Program operation Failed" << endl
 #define CANNOT_READ_INPUT_FILE "Could not open/read the input file" << endl
@@ -125,6 +125,8 @@ public:
     //runs the algo to solve game
     bool initSolveGame();
     bool solveGame();
+    
+    vector<PuzzlePiece> getCorrectInputPieces() {return correctInputPieces;};
 };
 
 

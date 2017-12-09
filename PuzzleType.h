@@ -20,11 +20,12 @@ protected:
 public:
    
     PuzzleType(int l, int t, int r, int b) : l(l), t(t), r(r), b(b){}
-    int getTop(){return t;}
-    int getLeft(){return l;}
-    int getRight(){return r;}
-    int getBot(){return b;}
-     bool operator==(PuzzleType otherType);
+    int getTop() const {return t;}
+    int getLeft() const {return l;}
+    int getRight() const {return r;}
+    int getBot() const {return b;}
+    bool operator==(const PuzzleType& otherType) const ;
+    bool operator<(const PuzzleType& otherType) const ;
 };
 
 #endif /* PuzzleType_h */
