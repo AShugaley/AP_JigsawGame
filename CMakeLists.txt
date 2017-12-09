@@ -11,6 +11,16 @@ set(SOURCE_FILES
         gameFlow.cpp
         gameFlow.h
         main.cpp
+        JigsawPuzzleAdvanced.h
+        JigsawPuzzleAdvanced.cpp
+        PuzzlePiecesMap.cpp
+        PuzzlePiece.h
+        PuzzleRequirement.cpp
+        PuzzleRequirement.h
+        PuzzleType.h
+        PuzzleType.cpp
+        tests.hpp
+        tests.cpp
         test_files/error_input_file_1.txt
         test_files/error_input_file_2.txt
         test_files/error_input_file_3.txt

@@ -6,7 +6,6 @@
 //  Copyright © 2017 Alexander Shugaley. All rights reserved.
 //
 
-#include <stdio.h>
 #include "PuzzleRequirement.h"
 
 
@@ -15,7 +14,7 @@ void PuzzleRequirement::addFalseType(PuzzleType type){
 }
 
 
-bool PuzzleRequirement::setisfReq(PuzzleType type){
+bool PuzzleRequirement::satisfiesReq(PuzzleType type){
     for(auto wrongType : falseTypes){
         if(wrongType==type)
             return false;

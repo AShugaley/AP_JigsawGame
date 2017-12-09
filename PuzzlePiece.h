@@ -17,10 +17,7 @@ class PuzzlePiece {
 public:
     //constructors
     PuzzlePiece(int ISD, int l, int t, int r, int b);
-    PuzzlePiece();
-    ~PuzzlePiece(){}
-    
-    
+
     //getters
     int getISD() const {return this->ISD;}
     int getAngle() const {return this->rotateAngle;}
@@ -29,17 +26,13 @@ public:
     int getRightEdge() const {return this->rightEdge;}
     int getBottomEdge() const {return this->bottomEdge;}
     bool isUsed() const {return used;};
-    void setUsed(bool newused) {used = newused;};
-    //overload
+
+    //Setters and operations
+    void rotate(); //rotates 90 degrees clockwise
+    void setUsed(bool newUsedStatus) {used = newUsedStatus;};
     virtual void print(std::ostream &os) const;
     virtual bool lessThan(const PuzzlePiece& p) const;
-    
-    
-    
-    //manipulate the piece
-    void rotate(); //rotates 90 degrees colckwise
-    
-    
+
     //checks about the element
     bool isTopLeftCorner(){ return ((leftEdge == 0)&&(topEdge == 0));}
     bool isTopRightCorner(){ return ((rightEdge == 0)&&(topEdge == 0));}
@@ -48,10 +41,9 @@ public:
     int countStraightEdges(){return (leftEdge==0) + (topEdge==0) + (rightEdge==0) + (bottomEdge==0);}
     int sumEdges(){ return leftEdge + rightEdge + topEdge + bottomEdge;}
 
-};
 
 void operator<<(std::ostream &os, const PuzzlePiece& p);
-bool operator < (const PuzzlePiece& p1, const PuzzlePiece& p2);
+bool operator<(const PuzzlePiece& p1, const PuzzlePiece& p2);
 
 
 #endif //ADVANCEDOOP_HW1_PUZZLEPIECE_H

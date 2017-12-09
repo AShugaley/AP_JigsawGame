@@ -6,14 +6,12 @@
 //  Copyright © 2017 Alexander Shugaley. All rights reserved.
 //
 
-#include <stdio.h>
 #include "PuzzlePiecesMap.h"
 
-PuzzlePiecesMap::PuzzlePiecesMap(vector<PuzzlePiece> pieces){
-   toBuckets(pieces);
+PuzzlePiecesMap::PuzzlePiecesMap(vector<PuzzlePiece>& pieces){
+    this->buckets = std::map<PuzzleType, vector<PuzzlePiece>>();
+    toBuckets(pieces);
 }
-
-
 
 void PuzzlePiecesMap::toBuckets(vector<PuzzlePiece> pieces){
     for(auto& p : pieces){
@@ -22,10 +20,9 @@ void PuzzlePiecesMap::toBuckets(vector<PuzzlePiece> pieces){
     }
 }
 
-
 PuzzlePiece* PuzzlePiecesMap::nextPiece(PuzzleRequirement req){
     for( auto& buck : buckets){
-        if(req.setisfReq(buck.first)){
+        if(req.satisfiesReq(buck.first)){
             for(auto& p : buck.second){
                 if(!p.isUsed()){
                     p.setUsed(true);

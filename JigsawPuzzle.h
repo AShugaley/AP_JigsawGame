@@ -3,10 +3,9 @@
 #ifndef ADVANCEDOOP_HW1_JIGSAWPUZZLE_H
 #define ADVANCEDOOP_HW1_JIGSAWPUZZLE_H
 
-/* A calass represnting a Jigsaw game. 
+/* A class representing a Jigsaw game.
  
-   Includes the fields representing the game, the solution algorithem, and the initilizadion input/output functions.
- 
+   Includes the fields representing the game, the solution algorithm, and the initialization input/output functions.
  */
 
 #include <string>

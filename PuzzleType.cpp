@@ -6,7 +6,6 @@
 //  Copyright © 2017 Alexander Shugaley. All rights reserved.
 //
 
-#include <stdio.h>
 #include "PuzzleType.h"
 
 
@@ -33,7 +32,4 @@ bool PuzzleType::operator<(const PuzzleType& otherType) const{
         return r<otherRight;
   
     return b<otherBot;
-
-    
-    
 }

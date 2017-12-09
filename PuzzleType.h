@@ -8,20 +8,6 @@
 
 #ifndef PuzzleType_h
 #define PuzzleType_h
-#include <string>
-#include <iostream>
-#include <vector>
-#include <list>
-#include <sstream>
-#include <map>
-#include <fstream>
-#include <math.h>
-#include <sstream>
-#include <algorithm>
-#include <stdexcept>
-#include <string>
-#define JOKER 100
-using namespace std;
 
 class PuzzleType{
 protected:

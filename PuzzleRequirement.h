@@ -8,7 +8,13 @@
 
 #ifndef PuzzleRequirement_h
 #define PuzzleRequirement_h
+
+#include <iostream>
+#include <vector>
 #include "PuzzleType.h"
+
+#define JOKER 100
+
 using namespace std;
 
 
@@ -18,7 +24,7 @@ public:
     vector<PuzzleType> falseTypes;
     PuzzleRequirement(int l, int t, int r, int b) : l(l), t(t), r(r), b(b){}
     void addFalseType(PuzzleType type);
-    bool setisfReq(PuzzleType type);
+    bool satisfiesReq(PuzzleType type);
 };
 
 #endif /* PuzzleRequirement_h */

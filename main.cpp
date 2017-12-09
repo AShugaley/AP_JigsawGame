@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
     JigsawPuzzle puzzle = JigsawPuzzle(inputFilename, outputFilename);
     PuzzlePiecesMap map = PuzzlePiecesMap(puzzle.getCorrectInputPieces());
     
-    tests::tests::runTests(7, 7, 50);
+//    tests::tests::runTests(7, 7, 50);
 //    tests::tests::runTests(4, 8, 50);
 //    tests::tests::runTests(32, 1, 50);
 //    tests::tests::runTests(1, 32, 50);

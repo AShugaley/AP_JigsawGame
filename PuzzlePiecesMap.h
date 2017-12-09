@@ -8,16 +8,18 @@
 
 #ifndef PuzzlePieces_h
 #define PuzzlePieces_h
-#include "JigsawPuzzle.h"
-#include "PuzzleRequirement.h"
 
+#include "PuzzleType.h"
+#include "PuzzleRequirement.h"
+#include "PuzzlePiece.h"
+#include <map>
 
 using namespace std;
+
 class PuzzlePiecesMap{
 public:
     map<PuzzleType,vector<PuzzlePiece> > buckets;
-    PuzzlePiecesMap(vector<PuzzlePiece> pieces);
-    PuzzlePiecesMap(){};
+    explicit PuzzlePiecesMap(vector<PuzzlePiece>& pieces);
     void toBuckets(vector<PuzzlePiece> pieces);
     PuzzlePiece* nextPiece(PuzzleRequirement req);
     
