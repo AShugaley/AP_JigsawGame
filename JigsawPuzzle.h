@@ -30,22 +30,52 @@
 using namespace std;
 
 
+
+/*
+ A JigsawPuzzle with rotate capabilities.
+ 
+ 
+ Algorithm:
+    sort pieces into buckets (according to type)
+    find all possible dimensions of the solution (i.e. 8*4, 16*2, 31*1...)
+    for dim in dimensions:
+        find the order of the positions we want to fill.
+            //we go in a spiral, so, for a matrix like:
+            //1 3 4
+            //4 8 2
+            //9 7 6
+            //the order will be 1,3,4,2,6,7,9,4. This way we fill the frame first, and minimilize late 'returns'
+        for pos in positions_to_fill:
+            find the requirement (o(1))
+            find a matching piece from PuzzlePiecesMap (o(1))
+                recursion
+ */
 class JigsawPuzzle {
 protected:
 
     int numOfElements;
     string outputFile;
+    
+    //initilization and input checking
     bool cannotComputeSolution;
     map<int, string> wrongFormatLines;
     list<int> missingElementsIDs;
     list<int> wrongElementsIDs;
-    PuzzlePiecesMap piecesMap;
     
+    
+    //the buckets
+    PuzzlePiecesMap piecesMap;
 
     
-    
     //order of positions to fill
+    //we go in a spiral, so, for a matrix like:
+    //1 3 4
+    //4 8 2
+    //9 7 6
+    //the order will be 1,3,4,2,6,7,9,4. This way we fill the frame first, and minimilize late 'returns'
     vector<pair<int,int> > positionsToFill;
+    void Spiral( int m, int n); //this generates the spiral
+
 
 
 
@@ -59,37 +89,38 @@ protected:
     void writeErrorsToOutput(ofstream& openOutputFileStream);
     bool printSolutionToFile(bool solved);
     
+    
+    
     //trivial checks
     bool hasEnoughEdges();
     bool isSumEdgesZero();
-    bool isSumHorizontalEdgesZero();
-    bool isSumVerticalEdgesZero();
+    virtual bool isSumHorizontalEdgesZero();
+    virtual bool isSumVerticalEdgesZero();
     vector<int> hasAllCorners();
 
 
-    //Function for the solution algorithm
-    pair<int,int> getNextPos(int i, int j);
-    virtual PuzzlePiece* getNextPiece(PuzzleRequirement req);
-
-    void Spiral( int m, int n);
-
-    vector<pair<int,int> > getPossibleDimensions(int numOfPieces);
-    PuzzleRequirement getReq(int i, int j);
-    void initSolMatrix();
+    //Functions for the solution algorithm
+    pair<int,int> getNextPos(int i, int j); //get the next position to fill
+    virtual PuzzlePiece* getNextPiece(PuzzleRequirement req); //get the next piece from PuzzlePiecesMap
+    vector<pair<int,int> > getPossibleDimensions(int numOfPieces); //get all possible frame dimensions
+    PuzzleRequirement getReq(int i, int j); //get requirement for a place in the solutionMatrix
+    void initSolMatrix(); //init the solution matrix
 
 public:
     //args to be initialized when we solve the puzzle
     int lastRowIndex;
     int lastColIndex;
+    
+    
     //pieces vector
     vector<PuzzlePiece> correctInputPieces;
-    
     //solution matrix
     vector<vector<int> > solutionMatrix;
     
     //constructors
     explicit JigsawPuzzle(string& inputFilePath, string& outputFilePath);
     explicit JigsawPuzzle(vector<PuzzlePiece> pieces);
+    explicit JigsawPuzzle(){}
 
     //getters
     //PuzzleMatrix& getSolutionMatrix() {return *(this->solutionMatrix);}
@@ -101,7 +132,7 @@ public:
     bool isInitialized(){return !cannotComputeSolution;}
 
     //checks if a game is solvable in theory (trivial checks)
-    bool isLegalPuzzle();
+    virtual bool isLegalPuzzle();
 
     //runs the algorithm to solve game
     virtual bool initSolveGame();

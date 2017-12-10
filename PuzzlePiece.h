@@ -25,7 +25,6 @@ public:
     int getRightEdge() const { return this->rightEdge; }
     int getBottomEdge() const { return this->bottomEdge; }
     int getAngle() const { return this->rotateAngle; }
-
     bool isUsed() const { return used; };
 
     //Setters and operations

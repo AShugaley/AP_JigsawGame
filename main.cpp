@@ -6,11 +6,11 @@ using namespace std;
 int main(int argc, char* argv[]){
 //    gameFlow game = gameFlow();
 //    game.simpleMainFlow(argv[1], argv[2]);
-      //tests::runTests(7, 7, 50);
-    tests::runTests(7, 7, 10,true);
-    tests::runTests(4, 4, 10,true);
-    tests::runTests(4, 8, 10,true);
-    tests::runTests(10, 10, 10,true);
+//      //tests::runTests(7, 7, 50);
+//    tests::runTests(6, 7, 10,true);
+//    tests::runTests(8, 4, 10,true);
+//    tests::runTests(4, 8, 10,true);
+//    tests::runTests(10, 10, 10,true);
 //    tests::runTests(32, 1, 50);
 //    tests::runTests(1, 32, 50);
 //    tests::runTests(5, 5, 50);
@@ -32,10 +32,14 @@ int main(int argc, char* argv[]){
 
 
 
-//sort input pieces into buckets (according to type)
-//find all posible dimensions
-//  for dimenshion
-        //solve (fill lines one by one, topLeft to botRight):
-//          get requierment (what type should fit in the current place) - 0(1)
-//                 get matching piece per type - 0(1)
-                        //if stuch (no maching piece) go back
+/*
+
+all works.
+ 
+ 
+ 
+need to do:
+    nova + memory
+    check that all out tests (txt files) work, for both versions (rotate & regular)
+
+*/

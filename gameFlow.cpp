@@ -16,7 +16,7 @@ bool gameFlow::simpleMainFlow(char* argv[], int argc){
     string inputFilename;
     string outputFilename;
     for(int i = 1; i<argc;i++){
-        if(strcmp(argv[i], "-rotate") == 0){
+        if(strcmp(argv[i], "-rotate") == 0){ //rotate
             rotate = true;
         }
         else{
@@ -29,14 +29,28 @@ bool gameFlow::simpleMainFlow(char* argv[], int argc){
             }
         }
     }
-    JigsawPuzzleRotate game(inputFilename,outputFilename);
     
+    if(rotate){
+        JigsawPuzzleRotate game(inputFilename,outputFilename);
+        if(!game.isInitialized()){
+            return false; // failed to open/read input file OR file was illegal in format
+        }
+        if(!game.isLegalPuzzle()){
+            return false; //puzzle illegal (puzzle cannot be solved due to something like missing corner etc)
+        }
+        if(!game.initSolveGame()){
+            return false; //puzzle cannot be solved as there's no solution.
+        }
+        return true; // all ok, info is already in output file.
+
+    }
+    JigsawPuzzle game(inputFilename,outputFilename);
     if(!game.isInitialized()){
         return false; // failed to open/read input file OR file was illegal in format
     }
-//    if(!game.isLegalPuzzle()){
-//        return false; //puzzle illegal (puzzle cannot be solved due to something like missing corner etc)
-//    }
+    if(!game.isLegalPuzzle()){
+        return false; //puzzle illegal (puzzle cannot be solved due to something like missing corner etc)
+    }
     if(!game.initSolveGame()){
         return false; //puzzle cannot be solved as there's no solution.
     }

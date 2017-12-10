@@ -15,10 +15,19 @@
 
 using namespace std;
 
+
+
+/* 
+ A JigsawPuzzle with rotate capabilities; algorithm works essentily the same way, aside from the fact
+ that when we call getNextPiece, the puzzlePiecesMap will try and rotate frames (instead of just checking)
+ */
 class JigsawPuzzleRotate: public JigsawPuzzle{
 private:
-    //hide
+    //hide piecesMap with a newer version
     PuzzlePiecesMapRotate piecesMap;
+    
+    
+    //overriding the getNextPiece functio to prevent slicing
     virtual PuzzlePiece* getNextPiece(PuzzleRequirement req) override{
         return this->piecesMap.nextPiece(req);
     }
@@ -31,6 +40,10 @@ public:
     //sepcial const for tests
     JigsawPuzzleRotate(vector<PuzzlePiece> pieces): JigsawPuzzle(pieces){}
     
+    //overriding functions - vertical & horizontal is irrelevant if we rotate
+    virtual bool isLegalPuzzle() override;
+    
+    //overriding solutions
     bool initSolve() override;
     
 };

@@ -367,7 +367,7 @@ bool JigsawPuzzle::isLegalPuzzle(){
     } else {
 
         if(!isSumHorizontalEdgesZero()){
-            outputFile << "Cannot solve puzzle: sum of horizontal edges is not zero" << endl;
+            outputFile << "Cannot solve puzzle: sum of edges is not zero" << endl;
             legal = false;
         }
         if(!isSumVerticalEdgesZero()){
