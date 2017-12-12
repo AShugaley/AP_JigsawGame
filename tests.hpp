@@ -8,7 +8,7 @@
 
 #ifndef tests_hpp
 #define tests_hpp
-#include "JigsawPuzzle.h"
+#include "JigsawPuzzle_OLD.h"
 #include <stdio.h>
 
 

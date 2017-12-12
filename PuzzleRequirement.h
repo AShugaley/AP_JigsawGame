@@ -17,14 +17,23 @@
 
 using namespace std;
 
-
 class PuzzleRequirement{
-public:
+/**
+ * Class for representing specific requirement for the next piece to schedule
+ * at some point during the solving algorithm.
+ *
+ * The requirement can by a concrete type (for example 1,1,1,1)
+ * or contain JOKER values - meaning any piece edge can fit (for example 1,0,*,*)
+ *
+ */
+protected:
     int l, t, r, b;
     vector<PuzzleType> falseTypes;
-    PuzzleRequirement(int l, int t, int r, int b) : l(l), t(t), r(r), b(b){this->falseTypes = vector<PuzzleType>();}
-    void addFalseType(PuzzleType type);
-    bool satisfiesReq(PuzzleType type);
+public:
+    PuzzleRequirement(int l, int t, int r, int b);
+    void addFalseType(PuzzleType&& type);
+    bool typeSatisfiesReq(const PuzzleType& type) const;
+    vector<PuzzleType>& getFalseTypesVector();
 };
 
 #endif /* PuzzleRequirement_h */

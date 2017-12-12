@@ -13,11 +13,18 @@
  A module responsible for the game flow. Essentially, this is simply an extension to main.c
  */
 
+#include "JigsawParser.h"
+#include "JigsawSolutionExistsChecks.h"
 #include "JigsawPuzzle.h"
 
 class gameFlow {
+private:
+    char* infile;
+    char* outfile;
 public:
-    static bool simpleMainFlow(char* infile, char* outfile);
+    gameFlow(char* input, char* output);
+    static bool runMainFlow(char *infile, char *outfile);
+    bool runMainFlow();
 };
 
 

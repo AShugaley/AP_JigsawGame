@@ -66,7 +66,7 @@ vector<PuzzlePiece> tests::generateRandomPuzzle(int x, int y){
 
 
 bool tests::solvePuzzle(vector<PuzzlePiece> pieces){
-    return JigsawPuzzle(pieces).initSolve();
+    return JigsawPuzzleOLD(pieces).initSolve();
 }
 
 

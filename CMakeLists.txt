@@ -4,12 +4,12 @@ project(AP_JigsawGame)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        JigsawPuzzle.h
-        JigsawPuzzle.cpp
+        JigsawPuzzle_OLD.h
+        JigsawPuzzle_OLD.cpp
         PuzzlePiece.h
         PuzzlePiece.cpp
-        gameFlow.cpp
-        gameFlow.h
+        gameFlowRegular.cpp
+        gameFlowRegular.h
         main.cpp
         PuzzlePiecesMap.cpp
         PuzzlePiece.h
@@ -40,10 +40,6 @@ set(SOURCE_FILES
         test_files/in6-format-error.txt
         test_files/in6-Solvable.txt
         test_files/in7-format-error.txt
-        test_files/test1.in
-        test_files/test2.in
-        test_files/test3.in
-        test_files/test4.in
-        )
+        JigsawParser.cpp JigsawParser.h JigsawSolutionExistsChecks.cpp JigsawSolutionExistsChecks.h JigsawPuzzle.cpp JigsawPuzzle.h)
 
 add_executable(AP_JigsawGame ${SOURCE_FILES})

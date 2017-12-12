@@ -8,7 +8,6 @@
 
 #include "PuzzleType.h"
 
-
 bool PuzzleType::operator==(const PuzzleType& otherType) const {
     return l == otherType.getLeft()&&
            t == otherType.getTop() &&

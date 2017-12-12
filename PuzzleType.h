@@ -10,6 +10,10 @@
 #define PuzzleType_h
 
 class PuzzleType{
+/**
+ * Class for representing a puzzle pieces type - determined only by the piece's shape
+ * ignoring the piece ID. i.e, different pieces with the same l,t,r,b data will have the same type
+ */
 protected:
     int l, t, r, b;
 public:
