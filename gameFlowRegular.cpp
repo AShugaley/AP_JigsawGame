@@ -12,8 +12,6 @@ using namespace std;
 
 gameFlow::gameFlow(char* input, char* output): infile(input), outfile(output){}
 
-
-
 bool gameFlow::runMainFlow(){
     string inputFilename(this->infile);
     string outputFilename(this->outfile);

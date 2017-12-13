@@ -1,20 +1,21 @@
 #include "gameFlowRegular.h"
 #include "RandomSolvableTest.h"
+#include "PuzzleTypeWithRotation.h"
 
 #define WROGN_ARGS "Error: you need to suply only input file representing a puzzle game and an output file"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    if (argc != 3){
-        cout << WROGN_ARGS << endl;
-        return -1;
-    }
-
-    char* inputFileName = argv[1];
-    char* outputFileName = argv[2];
-    gameFlow game = gameFlow(inputFileName, outputFileName);
-    bool res = game.runMainFlow();
+//    if (argc != 3){
+//        cout << WROGN_ARGS << endl;
+//        return -1;
+//    }
+//
+//    char* inputFileName = argv[1];
+//    char* outputFileName = argv[2];
+//    gameFlow game = gameFlow(inputFileName, outputFileName);
+//    bool res = game.runMainFlow();
 //
 //
 //    RandomSolvableTest::runRandomTests(4, 8, 50);

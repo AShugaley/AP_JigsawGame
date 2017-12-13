@@ -27,14 +27,14 @@ public:
     explicit PuzzlePiecesMap(vector<PuzzlePiece>& pieces);
 
     // Helper function to insert vector's content into the map (mapping using each piece's type)
-    void toBuckets(vector<PuzzlePiece>& pieces);
+    virtual void toBuckets(vector<PuzzlePiece>& pieces);
 
     // Getter function for the types map
     map<PuzzleType, vector<PuzzlePiece>>& getTypesMap();
 
     // helper function for the solving algorithm - given a requirement returns a pointer
     // to a puzzle piece that satisfies the requirement. if there isn't any - return nullptr
-    PuzzlePiece* nextPiece(PuzzleRequirement& req);
+    virtual PuzzlePiece* nextPiece(PuzzleRequirement& req);
 
 };
 
