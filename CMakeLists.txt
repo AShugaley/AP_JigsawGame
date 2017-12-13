@@ -17,29 +17,27 @@ set(SOURCE_FILES
         PuzzleRequirement.h
         PuzzleType.h
         PuzzleType.cpp
-        tests.hpp
-        tests.cpp
-        test_files/error_input_file_1.txt
-        test_files/error_input_file_2.txt
-        test_files/error_input_file_3.txt
-        test_files/in1-format-error.txt
-        test_files/in1-Solvable.txt
-        test_files/in1-Unsolvable.txt
-        test_files/in2-format-error.txt
-        test_files/in2-Solvable.txt
-        test_files/in2-Unsolvable.txt
-        test_files/in3-format-error.txt
-        test_files/in3-Solvable.txt
-        test_files/in3-Unsolvable.txt
-        test_files/in4-format-error.txt
-        test_files/in4-Solvable.txt
-        test_files/in4-Unsolvable.txt
-        test_files/in5-format-error.txt
-        test_files/in5-Solvable.txt
-        test_files/in5-Unsolvable.txt
-        test_files/in6-format-error.txt
-        test_files/in6-Solvable.txt
-        test_files/in7-format-error.txt
-        JigsawParser.cpp JigsawParser.h JigsawSolutionExistsChecks.cpp JigsawSolutionExistsChecks.h JigsawPuzzle.cpp JigsawPuzzle.h)
+        alex_test_files/error_input_file_1.txt
+        alex_test_files/error_input_file_2.txt
+        alex_test_files/error_input_file_3.txt
+        alex_test_files/in1-format-error.txt
+        alex_test_files/in1-Solvable.txt
+        alex_test_files/in1-Unsolvable.txt
+        alex_test_files/in2-format-error.txt
+        alex_test_files/in2-Solvable.txt
+        alex_test_files/in2-Unsolvable.txt
+        alex_test_files/in3-format-error.txt
+        alex_test_files/in3-Solvable.txt
+        alex_test_files/in3-Unsolvable.txt
+        alex_test_files/in4-format-error.txt
+        alex_test_files/in4-Solvable.txt
+        alex_test_files/in4-Unsolvable.txt
+        alex_test_files/in5-format-error.txt
+        alex_test_files/in5-Solvable.txt
+        alex_test_files/in5-Unsolvable.txt
+        alex_test_files/in6-format-error.txt
+        alex_test_files/in6-Solvable.txt
+        alex_test_files/in7-format-error.txt
+        JigsawParser.cpp JigsawParser.h JigsawSolutionExistsChecks.cpp JigsawSolutionExistsChecks.h JigsawPuzzle.cpp JigsawPuzzle.h RandomSolvableTest.cpp RandomSolvableTest.h)
 
 add_executable(AP_JigsawGame ${SOURCE_FILES})

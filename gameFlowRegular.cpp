@@ -39,7 +39,6 @@ bool gameFlow::runMainFlow(){
     bool solved = puzzle.solveGame();
     puzzle.printSolutionToFile(outputFilename);
 
-
     return solved;
 
 
