@@ -36,21 +36,20 @@ class JigsawSolutionExistsChecks {
 private:
     vector<PuzzlePiece> puzzlePieces;
     int numPieces;
-    vector<string> errorMessages;
-
 
 protected:
+    vector<string> errorMessages;
     virtual vector<int> hasAllCorners();
     virtual bool hasEnoughEdges();
     virtual bool isSumEdgesZero();
-    virtual bool isSumHorizontalEdgesZero();
-    virtual bool isSumVerticalEdgesZero();
+    bool isSumHorizontalEdgesZero();
+    bool isSumVerticalEdgesZero();
 
 public:
     explicit JigsawSolutionExistsChecks(vector<PuzzlePiece>& puzzlePieces);
-    bool checkIfPuzzleIsLegal();
+    virtual bool checkIfPuzzleIsLegal();
     void writeToFileFailedTests(string& outputFile);
-
+    virtual ~JigsawSolutionExistsChecks() = default;
 
 };
 

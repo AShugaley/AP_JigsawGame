@@ -12,15 +12,14 @@ JigsawParser::JigsawParser(string& inputFilePath, string& outputFilePath) : outp
     outputFile.open(this->outputFile);
 
     if (!outputFile.is_open()){
-        outputFile << CANNOT_WRITE_OUTPUTFILE;
+        cout << CANNOT_WRITE_OUTPUTFILE;
         this->fileOperationsError = true;
         this->cannotComputeSolution = true;
-        outputFile.close();
         return;
     }
 
     if (!inputFile.is_open()) {
-        outputFile << CANNOT_READ_INPUT_FILE;
+        cout << CANNOT_READ_INPUT_FILE;
         this->fileOperationsError = true;
         this->cannotComputeSolution = true;
         outputFile.close();

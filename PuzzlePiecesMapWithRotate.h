@@ -6,11 +6,17 @@
 #define AP_JIGSAWGAME_PUZZLEPIECESMAPWITHROTATE_H
 
 #include "PuzzlePiecesMap.h"
+#include "PuzzleTypeWithRotation.h"
+
 
 class PuzzlePiecesMapWithRotate : public PuzzlePiecesMap {
+protected:
+    map<PuzzleTypeWithRotation,vector<PuzzlePiece>> typesMap;
+public:
     explicit PuzzlePiecesMapWithRotate(vector<PuzzlePiece>& pieces);
     explicit PuzzlePiecesMapWithRotate() = default;
     void toBuckets(vector<PuzzlePiece>& pieces) override;
+    PuzzlePiece* nextPiece(PuzzleRequirement& req) override;
 };
 
 

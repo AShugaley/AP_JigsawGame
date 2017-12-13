@@ -14,6 +14,7 @@ JigsawPuzzle::JigsawPuzzle(vector<PuzzlePiece> pieces){
 }
 
 
+
 vector<vector<int>>& JigsawPuzzle::getSolutionMatrix(){
     return this->solutionMatrix;
 }
@@ -75,7 +76,8 @@ PuzzleRequirement JigsawPuzzle::getReq(int i, int j){
     return PuzzleRequirement(l,t,r,b);
 }
 
-vector<pair<int,int> > JigsawPuzzle::getPossibleDimensions(int numOfPieces) {
+vector<pair<int,int> > JigsawPuzzle::getPossibleDimensions() {
+    int numOfPieces = this->numPieces;
     vector<pair<int, int> > dim;
     for (int i = 1; i <= sqrt(numOfPieces); i++) {
         if (numOfPieces % i == 0) {
@@ -119,12 +121,10 @@ bool JigsawPuzzle::solveRec(pair<int,int> nextPos){
         }
     }
     return false;
-
 }
 
 bool JigsawPuzzle::solveGame(){
-    this->piecesMap = PuzzlePiecesMap(this->puzzlePieces);
-    vector<pair<int,int> > possibleDimensions = getPossibleDimensions(this->numPieces);
+    vector<pair<int,int> > possibleDimensions = getPossibleDimensions();
     pair<int,int> topLeftCorner = pair<int,int>(0,0);
     for( auto& p : possibleDimensions){
         this->lastRowIndex = p.first-1;
@@ -160,9 +160,9 @@ bool JigsawPuzzle::printSolutionToFile(string& outputFile){
             }
             outputFileStream << endl;
         }
-    }
-    else
+    } else{
         outputFileStream << "Cannot solve puzzle: it seems that there is no proper solution" << endl;
+    }
     outputFileStream.close();
     return true;
 

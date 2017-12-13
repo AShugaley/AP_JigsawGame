@@ -16,8 +16,6 @@ public:
     int getRotationAngle() const;
     void rotate();
     void resetRotation(); //returns the piece to original angle
-    bool operator==(const PuzzleTypeWithRotation& otherType) const ;
-    bool operator<(const PuzzleTypeWithRotation& otherType) const ;
 };
 
 

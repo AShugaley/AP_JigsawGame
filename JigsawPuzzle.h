@@ -33,7 +33,7 @@ protected:
 
     //Function for the solution algorithm
     virtual pair<int,int> getNextPos(int i, int j);
-    virtual vector<pair<int,int> > getPossibleDimensions(int numOfPieces);
+    virtual vector<pair<int,int> > getPossibleDimensions();
     virtual PuzzleRequirement getReq(int i, int j);
     virtual void initSolMatrix();
     virtual bool solveRec(pair<int,int> nextPos);
@@ -41,11 +41,13 @@ protected:
 public:
 
     explicit JigsawPuzzle(vector<PuzzlePiece> pieces);
+    explicit JigsawPuzzle() = default;
     virtual bool solveGame();
     vector<vector<int>>& getSolutionMatrix();
     int getSolutionMatrixNumRows();
     int getSolutionMatrixNumCols();
     virtual bool printSolutionToFile(string& outputFile);
+    virtual ~JigsawPuzzle() = default;
 
 };
 

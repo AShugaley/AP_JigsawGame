@@ -28,30 +28,3 @@ void PuzzleTypeWithRotation::resetRotation(){
     while(this->rotationAngle != 0)
         rotate();
 }
-
-bool PuzzleTypeWithRotation::operator==(const PuzzleTypeWithRotation& otherType) const{
-    bool dimEquel = PuzzleType::operator==(otherType);
-    return dimEquel && this->rotationAngle == otherType.rotationAngle;
-}
-
-bool PuzzleTypeWithRotation::operator<(const PuzzleTypeWithRotation& otherType) const{
-    int otherLeft = otherType.getLeft();
-    int otherTop = otherType.getTop();
-    int otherRight = otherType.getRight();
-    int otherBot = otherType.getBot();
-    int otherRotationAngle = otherType.getRotationAngle();
-
-    if (l !=otherLeft)
-        return l <otherLeft;
-
-    if (t !=otherTop)
-        return t <otherTop;
-
-    if (r !=otherRight)
-        return r <otherRight;
-
-    if (b != otherBot)
-        return b < otherBot;
-
-    return rotationAngle < otherRotationAngle;
-}
