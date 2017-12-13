@@ -31,6 +31,7 @@ public:
     //Setters and operations
     void rotate(); //rotates 90 degrees clockwise
     void setUsed(bool newUsedStatus);
+    void resetAngle();
 
     // defined to enable ths use of polymorphism in global operators - "<<" and "<"
     // in this way we can override this functions in sub class and the global operations will use the correct implementation

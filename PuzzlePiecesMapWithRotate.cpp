@@ -16,8 +16,9 @@ void PuzzlePiecesMapWithRotate::toBuckets(vector<PuzzlePiece>& pieces){
 }
 
 PuzzlePiece* PuzzlePiecesMapWithRotate::nextPiece(PuzzleRequirement& req){
+    int rotations;
     for (auto& typeVectorPair : typesMap){
-        int rotations = 0;
+        rotations = 0;
         PuzzleTypeWithRotation puzzleType = typeVectorPair.first;
 
         do{

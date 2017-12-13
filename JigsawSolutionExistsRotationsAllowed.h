@@ -11,7 +11,7 @@ class JigsawSolutionExistsRotationsAllowed : public JigsawSolutionExistsChecks {
 public:
     explicit JigsawSolutionExistsRotationsAllowed(vector<PuzzlePiece>& puzzlePieces);
     bool checkIfPuzzleIsLegal() override;
-
+//    vector<int> hasAllCorners() override;
 };
 
 

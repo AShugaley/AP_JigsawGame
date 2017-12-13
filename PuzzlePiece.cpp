@@ -83,6 +83,11 @@ void PuzzlePiece::rotate(){
     }
 }
 
+void PuzzlePiece::resetAngle(){
+    while(this->rotateAngle != 0)
+        rotate();
+}
+
 void operator<<(std::ostream &os, const PuzzlePiece& p){
     p.print(os);
 }

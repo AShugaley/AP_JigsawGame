@@ -39,6 +39,7 @@ bool gameFlow::runMainFlow(){
         bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
         if (!checkResult){
             puzzleCheck.writeToFileFailedTests(outputFilename);
+            return false;
         }
 
         JigsawPuzzleRotations puzzle = JigsawPuzzleRotations(pieces);
@@ -64,7 +65,14 @@ bool gameFlow::runMainFlow(){
 }
 
 bool gameFlow::rotateCommandExists(int argc, char* argv[]){
-    return std::find(argv, argv + argc, "-rotate") != argv + argc;
+    string rotateCommandString = "-rotate";
+    for (int i = 1; i < argc; i++){
+        cout << argv[i] << endl;
+        if (rotateCommandString.compare(argv[i]) == 0){
+            return true;
+        }
+    }
+    return false;
 }
 
 bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
@@ -82,11 +90,11 @@ bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
 
         this->rotate = true;
         string rotationFlagString = "-rotate";
-        if (rotationFlagString == argv[1]){
+        if (rotationFlagString.compare(argv[1]) == 0){
             this->infile = argv[2];
             this->outfile = argv[3];
 
-        } else if (rotationFlagString == argv[2]){
+        } else if (rotationFlagString.compare(argv[2]) == 0){
             this->infile = argv[1];
             this->outfile = argv[3];
 

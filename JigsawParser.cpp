@@ -259,6 +259,9 @@ vector<string> split(const string &s, char delimiter) {
     string currentWord;
 
     while (getline(streamStr, currentWord, delimiter)){
+        if (currentWord == ""){
+            continue;
+        }
         words.push_back(currentWord);
     }
 

@@ -30,6 +30,7 @@ bool JigsawPuzzleRotations::solveRec(pair<int,int> nextPos){
             this->solutionMatrix[i][j] = -1;
             p->setUsed(false);
             req.addFalseType(PuzzleType(p->getLeftEdge(), p->getTopEdge(), p->getRightEdge(), p->getBottomEdge()));
+            p->resetAngle();
             p = this->piecesMap.nextPiece(req);
         }
     }
