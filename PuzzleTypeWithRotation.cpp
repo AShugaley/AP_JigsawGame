@@ -4,8 +4,8 @@
 
 #include "PuzzleTypeWithRotation.h"
 
-PuzzleTypeWithRotation::PuzzleTypeWithRotation(int l, int t, int r, int b): PuzzleType(l, t, r, b), rotationAngle(0){};
-PuzzleTypeWithRotation::PuzzleTypeWithRotation(): PuzzleType(), rotationAngle(0){};
+PuzzleTypeWithRotation::PuzzleTypeWithRotation(int l, int t, int r, int b): PuzzleType(l, t, r, b), rotationAngle(0){;}
+PuzzleTypeWithRotation::PuzzleTypeWithRotation(): PuzzleType(), rotationAngle(0){;}
 
 int PuzzleTypeWithRotation::getRotationAngle() const{
     return this->rotationAngle;

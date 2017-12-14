@@ -6,7 +6,7 @@
 
 
 JigsawSolutionExistsRotationsAllowed::JigsawSolutionExistsRotationsAllowed(vector<PuzzlePiece>& puzzlePieces):
-JigsawSolutionExistsChecks(puzzlePieces){};
+JigsawSolutionExistsChecks(puzzlePieces){;}
 
 bool JigsawSolutionExistsRotationsAllowed::checkIfPuzzleIsLegal(){
     bool isLegal = true;

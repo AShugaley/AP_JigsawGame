@@ -19,7 +19,7 @@ PuzzlePiecesMap::PuzzlePiecesMap(vector<PuzzlePiece>& pieces){
 
 map<PuzzleType, vector<PuzzlePiece>>& PuzzlePiecesMap::getTypesMap(){
     return this->typesMap;
-};
+}
 
 void PuzzlePiecesMap::toBuckets(vector<PuzzlePiece>& pieces){
     for(auto& p : pieces){

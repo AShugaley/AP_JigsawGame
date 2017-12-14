@@ -67,7 +67,6 @@ bool gameFlow::runMainFlow(){
 bool gameFlow::rotateCommandExists(int argc, char* argv[]){
     string rotateCommandString = "-rotate";
     for (int i = 1; i < argc; i++){
-        cout << argv[i] << endl;
         if (rotateCommandString.compare(argv[i]) == 0){
             return true;
         }

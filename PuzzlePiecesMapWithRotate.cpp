@@ -6,7 +6,7 @@
 
 PuzzlePiecesMapWithRotate::PuzzlePiecesMapWithRotate(vector<PuzzlePiece>& pieces){
     toBuckets(pieces);
-};
+}
 
 void PuzzlePiecesMapWithRotate::toBuckets(vector<PuzzlePiece>& pieces){
     for(auto& p : pieces){
