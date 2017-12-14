@@ -7,6 +7,16 @@
 PuzzlePiece::PuzzlePiece(int ISD, int l, int t, int r, int b) :
 ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b), rotateAngle(0), used(false) {}
 
+PuzzlePiece::PuzzlePiece(const PuzzlePiece& otherPiece){
+    this->ISD = otherPiece.ISD;
+    this->leftEdge = otherPiece.leftEdge;
+    this->topEdge = otherPiece.topEdge;
+    this->rightEdge = otherPiece.rightEdge;
+    this->bottomEdge = otherPiece.bottomEdge;
+    this->rotateAngle = otherPiece.rotateAngle;
+    this->used = otherPiece.used;
+}
+
 int PuzzlePiece::getISD() const {
     return this->ISD;
 }

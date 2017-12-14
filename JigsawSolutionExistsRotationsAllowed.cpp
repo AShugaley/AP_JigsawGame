@@ -23,29 +23,3 @@ bool JigsawSolutionExistsRotationsAllowed::checkIfPuzzleIsLegal(){
 
     return isLegal;
 }
-
-//vector<int> JigsawSolutionExistsRotationsAllowed::hasAllCorners(){
-//    vector<int> corners = vector<int>(4,0);
-//    for(int i = 0; i < this->numPieces; i++){
-//        for (int j = 0; j < NUM_ANGLE_ROTATIONS; j++){
-//            if (this->puzzlePieces[i].isTopLeftCorner()){
-//                corners[0] = 1;
-//                break;
-//            }
-//            this->puzzlePieces[i].rotate();
-//        }
-//        if(this->puzzlePieces[i].isTopLeftCorner()){
-//            corners[0] = 1;
-//        }
-//        if(this->puzzlePieces[i].isTopRightCorner()){
-//            corners[1] = 1;
-//        }
-//        if(this->puzzlePieces[i].isBotLeftCorner()){
-//            corners[2] = 1;
-//        }
-//        if(this->puzzlePieces[i].isBotRightCorner()){
-//            corners[3] = 1;
-//        }
-//    }
-//    return corners;
-//}

@@ -23,7 +23,9 @@ bool JigsawPuzzleRotations::solveRec(pair<int,int> nextPos){
     PuzzleRequirement req = getReq(i, j);
     PuzzlePiece* p = this->piecesMap.nextPiece(req);
     while(p!=nullptr){
-        this->solutionMatrix[i][j] = p->getISD();
+        int pISD = p->getISD();
+        this->solutionMatrix[i][j] = pISD;
+        this->puzzlePieces[pISD-1] = *p; // copy c'tor
         if(solveRec(getNextPos(i, j)))
             return true;
         else{
@@ -31,6 +33,7 @@ bool JigsawPuzzleRotations::solveRec(pair<int,int> nextPos){
             p->setUsed(false);
             req.addFalseType(PuzzleType(p->getLeftEdge(), p->getTopEdge(), p->getRightEdge(), p->getBottomEdge()));
             p->resetAngle();
+            this->puzzlePieces[pISD-1] = *p;
             p = this->piecesMap.nextPiece(req);
         }
     }

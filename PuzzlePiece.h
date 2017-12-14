@@ -18,6 +18,7 @@ protected:
 public:
     //constructors
     PuzzlePiece(int ISD, int l, int t, int r, int b);
+    PuzzlePiece(const PuzzlePiece& otherPiece);
 
     //getters
     int getISD() const;

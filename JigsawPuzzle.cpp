@@ -149,17 +149,23 @@ bool JigsawPuzzle::printSolutionToFile(string& outputFile){
         return false;
     }
     if(this->puzzleSolvedSuccessfully){
-        for(int i = 0; i<=this->lastRowIndex; i++){
-            for(int j =0; j<=this->lastColIndex;j++){
-                outputFileStream << this->solutionMatrix[i][j];
-                if(j!=this->lastColIndex)
+        for(int i = 0; i <= this->lastRowIndex; i++){
+            for(int j =0; j <= this->lastColIndex; j++){
+                int currentPieceISD = this->solutionMatrix[i][j];
+                int currentPieceVectorIndex = currentPieceISD -1;
+
+                outputFileStream << currentPieceISD;
+                if(this->puzzlePieces[currentPieceVectorIndex].getAngle() != 0){
+                    outputFileStream << " [" << puzzlePieces[currentPieceVectorIndex].getAngle() << "]";
+                }
+
+                if (j != this->lastColIndex){
                     outputFileStream << " ";
-                if(this->puzzlePieces[this->solutionMatrix[i][j] -1].getAngle() != 0){
-                    outputFileStream << "[" << puzzlePieces[this->solutionMatrix[i][j]].getAngle() << "]" << " ";
                 }
             }
             outputFileStream << endl;
         }
+
     } else{
         outputFileStream << "Cannot solve puzzle: it seems that there is no proper solution" << endl;
     }
