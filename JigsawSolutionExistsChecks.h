@@ -28,7 +28,6 @@
 #define SUM_HOR_EDGES_WRONG "Cannot solve puzzle: sum of horizontal edges is not zero"
 #define SUM_VER_EDGES_WRONG "Cannot solve puzzle: sum of vertical edges is not zero"
 #define OUTPUT_FILE_NOT_OPEN "Could not open an output file. Program operation Failed" << endl
-#define NUM_ANGLE_ROTATIONS 4
 
 
 using namespace std;
