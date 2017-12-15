@@ -5,7 +5,7 @@
 #include "JigsawSolutionExistsChecks.h"
 
 JigsawSolutionExistsChecks::JigsawSolutionExistsChecks(vector<PuzzlePiece>& puzzlePieces):
-        puzzlePieces(puzzlePieces), numPieces((int) this->puzzlePieces.size()){}
+        puzzlePieces(puzzlePieces), numPieces((int) this->puzzlePieces.size()){;}
 
 
 vector<int> JigsawSolutionExistsChecks::hasAllCorners(){
@@ -44,24 +44,6 @@ bool JigsawSolutionExistsChecks::isSumEdgesZero(){
     return sum == 0;
 }
 
-bool JigsawSolutionExistsChecks::isSumHorizontalEdgesZero(){
-    int sum = 0;
-    for(int i = 0; i < this->numPieces; i++){
-        sum += this->puzzlePieces[i].getTopEdge() + this->puzzlePieces[i].getBottomEdge();
-    }
-
-    return sum == 0;
-}
-
-bool JigsawSolutionExistsChecks::isSumVerticalEdgesZero(){
-    int sum = 0;
-    for(int i = 0; i < this->numPieces; i++){
-        sum += this->puzzlePieces[i].getLeftEdge() + this->puzzlePieces[i].getRightEdge();
-    }
-
-    return sum == 0;
-}
-
 bool JigsawSolutionExistsChecks::checkIfPuzzleIsLegal(){
     bool isLegal = true;
     if(!hasEnoughEdges()){
@@ -86,20 +68,9 @@ bool JigsawSolutionExistsChecks::checkIfPuzzleIsLegal(){
         isLegal = false;
     }
 
-    if(!isSumEdgesZero()){
+    if(!isSumEdgesZero()) {
         this->errorMessages.emplace_back(SUM_TOTAL_EDGES_WRONG);
         isLegal = false;
-
-    } else {
-
-        if(!isSumHorizontalEdgesZero()){
-            this->errorMessages.emplace_back(SUM_HOR_EDGES_WRONG);
-            isLegal = false;
-        }
-        if(!isSumVerticalEdgesZero()){
-            this->errorMessages.emplace_back(SUM_VER_EDGES_WRONG);
-            isLegal = false;
-        }
     }
 
     return isLegal;
@@ -109,7 +80,7 @@ void JigsawSolutionExistsChecks::writeToFileFailedTests(string& outputFile){
     ofstream outputFileStream;
     outputFileStream.open(outputFile);
     if (!outputFileStream.is_open()){
-        cout << OUTPUT_FILE_NOT_OPEN << endl;
+        cout << OUTPUT_FILE_NOT_OPEN_MESSAGE << endl;
     }
     for (auto& errorString : this->errorMessages){
         outputFileStream << errorString << endl;

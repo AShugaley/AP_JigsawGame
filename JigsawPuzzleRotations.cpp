@@ -17,21 +17,21 @@ JigsawPuzzleRotations::JigsawPuzzleRotations(vector<PuzzlePiece> pieces){
 }
 
 
-void JigsawPuzzleRotations::updatePuzzlePieceInSolution(int i, int j, PuzzlePiece& p){
-    int pISD = p.getISD();
+void JigsawPuzzleRotations::updatePuzzlePieceInSolution(int i, int j, PuzzlePiece* p){
+    int pISD = p->getISD();
     int pIndex = pISD - 1;
-    p.setUsed(true);
+    p->setUsed(true);
     this->solutionMatrix[i][j] = pISD;
-    PuzzlePieceRotation* pRotation = dynamic_cast<PuzzlePieceRotation*>(p);
+    auto* pRotation = dynamic_cast<PuzzlePieceRotation*>(p);
     this->puzzlePieces[pIndex] = *pRotation;
 }
 
-void JigsawPuzzleRotations::revertPuzzlePieceFromSolution(int i, int j, PuzzlePiece& p){
-    int pISD = p.getISD();
+void JigsawPuzzleRotations::revertPuzzlePieceFromSolution(int i, int j, PuzzlePiece* p){
+    int pISD = p->getISD();
     int pIndex = pISD - 1;
-    p.setUsed(false);
+    p->setUsed(false);
     this->solutionMatrix[i][j] = -1;
-    PuzzlePieceRotation* pRotation = dynamic_cast<PuzzlePieceRotation*>(p);
+    auto* pRotation = dynamic_cast<PuzzlePieceRotation*>(p);
     pRotation->resetAngle();
     this->puzzlePieces[pIndex] = *pRotation;
 }
@@ -83,7 +83,7 @@ void JigsawPuzzleRotations::printSolutionToFile(std::string& outputFilePath, boo
     ofstream outputFileStream;
     outputFileStream.open(outputFilePath);
     if (!outputFileStream.is_open()){
-        cout << OUTPUT_FILE_NOT_OPEN << endl;
+        cout << OUTPUT_FILE_NOT_OPEN_MESSAGE << endl;
     }
     if(solved){
         for(int i = 0; i <= this->lastRowIndex; i++){

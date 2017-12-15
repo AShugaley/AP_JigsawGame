@@ -33,35 +33,44 @@ bool gameFlow::runMainFlow(){
 
     vector<PuzzlePiece> pieces = parser.getCorrectInputPieces();
     bool rotationAllowed = this->rotate;
+    Factory factory = Factory(rotationAllowed);
 
-    if (rotationAllowed){
-        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces);
-        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
-        if (!checkResult){
-            puzzleCheck.writeToFileFailedTests(outputFilename);
-            return false;
-        }
-
-        JigsawPuzzleRotations puzzle = JigsawPuzzleRotations(pieces);
-        bool solved = puzzle.solveGame();
-        puzzle.printSolutionToFile(outputFilename);
-        return solved;
+    unique_ptr<NaiveSolutionExistenceCheck> solutionChecker = factory.getSoultionExistenceChcker(pieces);
+    bool puzzleValid = solutionChecker->checkIfPuzzleIsLegal();
+    if (!puzzleValid){
+        solutionChecker->writeToFileFailedTests(outputFilename);
+        return false;
     }
 
-    else{
 
-        JigsawSolutionExistsChecks puzzleCheck = JigsawSolutionExistsChecks(pieces);
-        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
-        if (!checkResult){
-            puzzleCheck.writeToFileFailedTests(outputFilename);
-            return false;
-        }
-
-        JigsawPuzzle_OLD puzzle = JigsawPuzzle_OLD(pieces);
-        bool solved = puzzle.solveGame();
-        puzzle.printSolutionToFile(outputFilename);
-        return solved;
-    }
+//    if (rotationAllowed){
+//        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces);
+//        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
+//        if (!checkResult){
+//            puzzleCheck.writeToFileFailedTests(outputFilename);
+//            return false;
+//        }
+//
+//        JigsawPuzzleRotations puzzle = JigsawPuzzleRotations(pieces);
+//        bool solved = puzzle.solveGame();
+//        puzzle.printSolutionToFile(outputFilename);
+//        return solved;
+//    }
+//
+//    else{
+//
+//        JigsawSolutionExistsChecks puzzleCheck = JigsawSolutionExistsChecks(pieces);
+//        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
+//        if (!checkResult){
+//            puzzleCheck.writeToFileFailedTests(outputFilename);
+//            return false;
+//        }
+//
+//        JigsawPuzzle_OLD puzzle = JigsawPuzzle_OLD(pieces);
+//        bool solved = puzzle.solveGame();
+//        puzzle.printSolutionToFile(outputFilename);
+//        return solved;
+//    }
 }
 
 bool gameFlow::rotateCommandExists(int argc, char* argv[]){

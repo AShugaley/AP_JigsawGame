@@ -6,14 +6,10 @@
 
 
 JigsawSolutionExistsRotationsAllowed::JigsawSolutionExistsRotationsAllowed(vector<PuzzlePiece>& puzzlePieces):
-JigsawSolutionExistsChecks(puzzlePieces){;}
+        puzzlePieces(puzzlePieces), numPieces((int) this->puzzlePieces.size()){;}
 
 bool JigsawSolutionExistsRotationsAllowed::checkIfPuzzleIsLegal(){
     bool isLegal = true;
-    if(!hasEnoughEdges()){
-        this->errorMessages.emplace_back(WRONG_NUM_EDGES);
-        isLegal = false;
-    }
 
     if(!isSumEdgesZero()){
         this->errorMessages.emplace_back(SUM_TOTAL_EDGES_WRONG);
@@ -22,4 +18,26 @@ bool JigsawSolutionExistsRotationsAllowed::checkIfPuzzleIsLegal(){
     }
 
     return isLegal;
+}
+
+bool JigsawSolutionExistsRotationsAllowed::isSumEdgesZero(){
+    int sum = 0;
+    for(int i = 0; i<this->numPieces; i++){
+        sum += this->puzzlePieces[i].edgesSum();
+    }
+
+    return sum == 0;
+}
+
+
+void JigsawSolutionExistsRotationsAllowed::writeToFileFailedTests(string& outputFile){
+    ofstream outputFileStream;
+    outputFileStream.open(outputFile);
+    if (!outputFileStream.is_open()){
+        cout << OUTPUT_FILE_NOT_OPEN_MESSAGE << endl;
+    }
+    for (auto& errorString : this->errorMessages){
+        outputFileStream << errorString << endl;
+    }
+    outputFileStream.close();
 }

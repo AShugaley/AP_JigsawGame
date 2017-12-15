@@ -6,18 +6,21 @@
 #define AP_JIGSAWGAME_SOLUTIONALGORITHM_H
 
 #include <cmath>
+#include <memory>
 #include <algorithm>
 
 #include "JigsawGameInterface.h"
 #include "PuzzlePieceMapInterface.h"
 
-class solutionAlgorithm {
+using namespace std;
+
+class SolutionAlgorithm {
 protected:
-    JigsawGameInterface* game;
-    PuzzlePieceMapInterface* piecesMap;
+    unique_ptr<JigsawGameInterface> game;
+    unique_ptr<PuzzlePieceMapInterface> piecesMap;
     virtual bool solveRec(pair<int,int> nextPos);
 public:
-    solutionAlgorithm(JigsawGameInterface *game, PuzzlePieceMapInterface* piecesMap);
+    SolutionAlgorithm(JigsawGameInterface *game, PuzzlePieceMapInterface* piecesMap);
     virtual bool solveGame();
     virtual vector<pair<int,int> > getPossibleDimensions(int size);
 };

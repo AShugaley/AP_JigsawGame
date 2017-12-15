@@ -12,7 +12,7 @@ JigsawParser::JigsawParser(string& inputFilePath, string& outputFilePath) : outp
     outputFile.open(this->outputFile);
 
     if (!outputFile.is_open()){
-        cout << CANNOT_WRITE_OUTPUTFILE;
+        cout << CANNOT_WRITE_OUTPUT_FILE;
         this->fileOperationsError = true;
         this->cannotComputeSolution = true;
         return;
@@ -191,7 +191,7 @@ void JigsawParser::writeErrorsToOutput(){
     outputFile.open(this->outputFile);
 
     if (!outputFile.is_open()){
-        cout << OUTPUT_FILE_NOT_OPEN;
+        cout << OUTPUT_FILE_NOT_OPEN_MESSAGE;
         this->cannotComputeSolution = true;
         return;
     }

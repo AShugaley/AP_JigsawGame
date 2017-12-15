@@ -12,21 +12,21 @@ JigsawPuzzle::JigsawPuzzle(vector<PuzzlePiece> pieces){
 }
 
 
-void JigsawPuzzle::updatePuzzlePieceInSolution(int i, int j, PuzzlePiece& p){
-    this->solutionMatrix[i][j] = p.getISD();
-    p.setUsed(true);
+void JigsawPuzzle::updatePuzzlePieceInSolution(int i, int j, PuzzlePiece* p){
+    this->solutionMatrix[i][j] = p->getISD();
+    p->setUsed(true);
 }
 
-void JigsawPuzzle::revertPuzzlePieceFromSolution(int i, int j, PuzzlePiece& p){
+void JigsawPuzzle::revertPuzzlePieceFromSolution(int i, int j, PuzzlePiece* p){
     this->solutionMatrix[i][j] = -1;
-    p.setUsed(false);
+    p->setUsed(false);
 }
 
 void JigsawPuzzle::printSolutionToFile(std::string& outputFilePath, bool solved){
     ofstream outputFileStream;
     outputFileStream.open(outputFilePath);
     if (!outputFileStream.is_open()){
-        cout << OUTPUT_FILE_NOT_OPEN << endl;
+        cout << OUTPUT_FILE_NOT_OPEN_MESSAGE << endl;
     }
     if(solved){
         for(int i = 0; i <= this->lastRowIndex; i++){

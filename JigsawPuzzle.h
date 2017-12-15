@@ -16,8 +16,8 @@ protected:
 public:
     explicit JigsawPuzzle(vector<PuzzlePiece> pieces);
 
-    void updatePuzzlePieceInSolution(int i, int j, PuzzlePiece& p) override;
-    void revertPuzzlePieceFromSolution(int i, int j, PuzzlePiece& p) override;
+    void updatePuzzlePieceInSolution(int i, int j, PuzzlePiece* p) override;
+    void revertPuzzlePieceFromSolution(int i, int j, PuzzlePiece* p) override;
     PuzzleRequirement getReq(int i, int j) override;
     void printSolutionToFile(std::string& outputFilePath, bool solved) override;
 };
