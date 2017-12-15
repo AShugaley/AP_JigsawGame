@@ -1,14 +1,29 @@
 //
-//  PuzzleType.cpp
-//  AdvProgEX1
-//
-//  Created by Alexander Shugaley on 09/12/2017.
-//  Copyright © 2017 Alexander Shugaley. All rights reserved.
+// Created by okleinfeld on 12/15/17.
 //
 
 #include "PuzzleType.h"
 
-bool PuzzleType::operator==(const PuzzleType& otherType) const {
+
+PuzzleType::PuzzleType(int l, int t, int r, int b): l(l), t(t), r(r), b(b) {;}
+
+int PuzzleType::getTop() const{
+    return this->t;
+};
+
+int PuzzleType::getLeft() const{
+    return this->l;
+};
+
+int PuzzleType::getRight() const{
+    return this->r;
+};
+
+int PuzzleType::getBot() const{
+    return this->b;
+};
+
+bool PuzzleType::operator==(const PuzzleType& otherType) const{
     return l == otherType.getLeft()&&
            t == otherType.getTop() &&
            r == otherType.getRight() &&
@@ -20,33 +35,15 @@ bool PuzzleType::operator<(const PuzzleType& otherType) const{
     int otherTop = otherType.getTop();
     int otherRight = otherType.getRight();
     int otherBot = otherType.getBot();
-    
-    if(l!=otherLeft)
-        return l<otherLeft;
-    
-    if(t!=otherTop)
-        return t<otherTop;
-    
-    if(r!=otherRight)
-        return r<otherRight;
-  
-    return b<otherBot;
-}
 
+    if(l != otherLeft)
+        return l < otherLeft;
 
-void PuzzleType::rotate(){
-    int temp = t;
-    t = l;
-    l = b;
-    b = r;
-    r = temp;
-    
-    if(rotateAngle == 270)
-        rotateAngle = 0;
-    else
-        rotateAngle+= 90;
-}
-void PuzzleType::resetRotation(){
-    while(rotateAngle != 0)
-        rotate();
+    if(t != otherTop)
+        return t < otherTop;
+
+    if(r != otherRight)
+        return r < otherRight;
+
+    return b < otherBot;
 }

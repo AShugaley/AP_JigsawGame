@@ -17,14 +17,10 @@ PuzzlePiecesMap::PuzzlePiecesMap(vector<PuzzlePiece>& pieces){
     toBuckets(pieces);
 }
 
-map<PuzzleType, vector<PuzzlePiece>>& PuzzlePiecesMap::getTypesMap(){
-    return this->typesMap;
-}
-
 void PuzzlePiecesMap::toBuckets(vector<PuzzlePiece>& pieces){
     for(auto& p : pieces){
         PuzzleType type = PuzzleType(p.getLeftEdge(),p.getTopEdge(),p.getRightEdge(), p.getBottomEdge());
-        typesMap[type].push_back(p);
+        this->typesMap[type].push_back(p);
     }
 }
 

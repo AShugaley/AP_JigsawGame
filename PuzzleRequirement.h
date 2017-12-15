@@ -33,7 +33,6 @@ public:
     PuzzleRequirement(int l, int t, int r, int b);
     void addFalseType(PuzzleType&& type);
     bool typeSatisfiesReq(const PuzzleType& type) const;
-    vector<PuzzleType>& getFalseTypesVector();
 };
 
 #endif /* PuzzleRequirement_h */

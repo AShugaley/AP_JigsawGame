@@ -17,10 +17,6 @@ void PuzzleRequirement::addFalseType(PuzzleType&& type){
     falseTypes.push_back(type);
 }
 
-vector<PuzzleType>& PuzzleRequirement::getFalseTypesVector(){
-    return this->falseTypes;
-}
-
 bool PuzzleRequirement::typeSatisfiesReq(const PuzzleType& type) const{
     // if the type is one of the false type (types that were already checked and found not valid)
     // then it of course it doesn't satisfies the requirement

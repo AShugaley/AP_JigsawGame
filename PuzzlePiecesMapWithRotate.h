@@ -5,17 +5,19 @@
 #ifndef AP_JIGSAWGAME_PUZZLEPIECESMAPWITHROTATE_H
 #define AP_JIGSAWGAME_PUZZLEPIECESMAPWITHROTATE_H
 
-#include "PuzzlePiecesMap.h"
+#include "PuzzlePieceMapInterface.h"
 #include "PuzzleTypeWithRotation.h"
+#include "PuzzlePieceRotation.h"
 
+#include <map>
 
-class PuzzlePiecesMapWithRotate : public PuzzlePiecesMap {
+class PuzzlePiecesMapWithRotate : public PuzzlePieceMapInterface {
 protected:
-    map<PuzzleTypeWithRotation,vector<PuzzlePiece>> typesMap;
+    map<PuzzleTypeWithRotation,vector<PuzzlePieceRotation>> typesMap;
 public:
-    explicit PuzzlePiecesMapWithRotate(vector<PuzzlePiece>& pieces);
+    explicit PuzzlePiecesMapWithRotate(vector<PuzzlePieceRotation>& pieces);
     explicit PuzzlePiecesMapWithRotate() = default;
-    void toBuckets(vector<PuzzlePiece>& pieces) override;
+    void toBuckets(vector<PuzzlePieceRotation>& pieces);
     PuzzlePiece* nextPiece(PuzzleRequirement& req) override;
 };
 

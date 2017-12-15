@@ -12,11 +12,10 @@ protected:
     int rotationAngle;
 public:
     PuzzleTypeWithRotation(int l, int t, int r, int b);
-    PuzzleTypeWithRotation();
+    PuzzleTypeWithRotation() = default;
     int getRotationAngle() const;
     void rotate();
     void resetRotation(); //returns the piece to original angle
 };
-
 
 #endif //AP_JIGSAWGAME_PUZZLETYPEWITHROTATION_H

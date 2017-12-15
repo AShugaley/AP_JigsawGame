@@ -1,11 +1,12 @@
 //
-// Created by okleinfeld on 11/15/17.
+// Created by okleinfeld on 12/15/17.
 //
 
 #include "PuzzlePiece.h"
 
+
 PuzzlePiece::PuzzlePiece(int ISD, int l, int t, int r, int b) :
-ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b), rotateAngle(0), used(false) {}
+        ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b), used(false) {}
 
 PuzzlePiece::PuzzlePiece(const PuzzlePiece& otherPiece){
     this->ISD = otherPiece.ISD;
@@ -13,7 +14,6 @@ PuzzlePiece::PuzzlePiece(const PuzzlePiece& otherPiece){
     this->topEdge = otherPiece.topEdge;
     this->rightEdge = otherPiece.rightEdge;
     this->bottomEdge = otherPiece.bottomEdge;
-    this->rotateAngle = otherPiece.rotateAngle;
     this->used = otherPiece.used;
 }
 
@@ -35,10 +35,6 @@ int PuzzlePiece::getRightEdge() const {
 
 int PuzzlePiece::getBottomEdge() const {
     return this->bottomEdge;
-}
-
-int PuzzlePiece::getAngle() const {
-    return this->rotateAngle;
 }
 
 bool PuzzlePiece::isUsed() const {
@@ -76,36 +72,10 @@ int PuzzlePiece::edgesSum(){
     return leftEdge + rightEdge + topEdge + bottomEdge;
 }
 
-void PuzzlePiece::rotate(){
-    // switch edges place
-    int temp = topEdge;
-    topEdge = leftEdge;
-    leftEdge = bottomEdge;
-    bottomEdge = rightEdge;
-    rightEdge = temp;
-
-    // update the current angle
-    if(rotateAngle == 270){
-        rotateAngle = 0;
-    }
-    else{
-        rotateAngle+= 90;
-    }
-}
-
-void PuzzlePiece::resetAngle(){
-    while(this->rotateAngle != 0)
-        rotate();
-}
-
 void operator<<(std::ostream &os, const PuzzlePiece& p){
     p.print(os);
 }
 
 bool operator < (const PuzzlePiece& p1, const PuzzlePiece& p2){
     return p1.lessThan(p2);
-}
-void PuzzlePiece::resetRotation(){
-    while(rotateAngle != 0)
-        rotate();
 }
