@@ -4,7 +4,7 @@ JigsawPuzzleAbstract.o PuzzlePiecesMapWithRotate.o PuzzlePiecesMap.o JigsawSolut
 JigsawSolutionExistsChecks.o JigsawParser.o PuzzleTypeWithRotation.o PuzzleRequirement.o PuzzleType.o \
 PuzzlePiece.o PuzzlePieceRotation.o
 EXEC = ex2
-CPP_COMP_FLAG = -std=c++14 -Wall -Wextra \
+CPP_COMP_FLAG = -std=c++11 -Wall -Wextra \
 -Werror -pedantic-errors -DNDEBUG
 
 $(EXEC): $(OBJS)

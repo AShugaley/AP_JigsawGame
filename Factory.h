@@ -19,7 +19,6 @@
 #include "JigsawSolutionExistsChecks.h"
 #include "JigsawSolutionExistsRotationsAllowed.h"
 
-using namespace std;
 
 class Factory {
 protected:
@@ -29,8 +28,10 @@ public:
     unique_ptr<JigsawGameInterface> getJigsawGame(vector<PuzzlePiece>& pieces);
     unique_ptr<PuzzlePieceMapInterface> getPuzzleMap(vector<PuzzlePiece>& pieces);
     unique_ptr<NaiveSolutionExistenceCheck> getSolutionExistenceChecker(vector<PuzzlePiece> &pieces);
-
 };
+
+template<typename T, typename... Args>
+std::unique_ptr<T> my_make_unique(Args&&... args);
 
 
 #endif //AP_JIGSAWGAME_FACTORY_H
