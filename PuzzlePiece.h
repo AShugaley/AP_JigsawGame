@@ -9,6 +9,7 @@
 #include <iostream>
 
 class PuzzlePiece {
+protected:
     int ISD;
     int leftEdge, topEdge, rightEdge, bottomEdge;
     int rotateAngle;
@@ -17,34 +18,38 @@ class PuzzlePiece {
 public:
     //constructors
     PuzzlePiece(int ISD, int l, int t, int r, int b);
+    PuzzlePiece(const PuzzlePiece& otherPiece);
 
     //getters
-    int getISD() const { return this->ISD; }
-    int getLeftEdge() const { return this->leftEdge; }
-    int getTopEdge() const { return this->topEdge; }
-    int getRightEdge() const { return this->rightEdge; }
-    int getBottomEdge() const { return this->bottomEdge; }
-    int getAngle() const { return this->rotateAngle; }
-    bool isUsed() const { return used; };
+    int getISD() const;
+    int getLeftEdge() const;
+    int getTopEdge() const;
+    int getRightEdge() const;
+    int getBottomEdge() const;
+    int getAngle() const;
+    bool isUsed()const ;
 
     //Setters and operations
     void rotate(); //rotates 90 degrees clockwise
-    void resetRotation(); //returns the piece to original angle
-    void setUsed(bool newUsedStatus) {used = newUsedStatus;}
-    void setAngle(int newangle){rotateAngle = newangle;}
+    void setUsed(bool newUsedStatus);
+    void resetAngle();
+
+    // defined to enable ths use of polymorphism in global operators - "<<" and "<"
+    // in this way we can override this functions in sub class and the global operations will use the correct implementation
     virtual void print(std::ostream &os) const;
     virtual bool lessThan(const PuzzlePiece &p) const;
 
-    //checks about the element
-    bool isTopLeftCorner() { return ((leftEdge == 0) && (topEdge == 0)); }
-    bool isTopRightCorner() { return ((rightEdge == 0) && (topEdge == 0)); }
-    bool isBotLeftCorner() { return ((leftEdge == 0) && (bottomEdge == 0)); }
-    bool isBotRightCorner() { return ((rightEdge == 0) && (bottomEdge == 0)); }
-    int countStraightEdges() { return (leftEdge == 0) + (topEdge == 0) + (rightEdge == 0) + (bottomEdge == 0); }
-    int sumEdges() { return leftEdge + rightEdge + topEdge + bottomEdge; }
+    //queries functions
+    bool isTopLeftCorner();
+    bool isTopRightCorner();
+    bool isBotLeftCorner();
+    bool isBotRightCorner();
+    int countStraightEdges();
+    int edgesSum();
 
 };
 
+// override output stream (print) operator
 void operator<<(std::ostream &os, const PuzzlePiece& p);
 bool operator<(const PuzzlePiece& p1, const PuzzlePiece& p2);
 

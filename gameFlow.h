@@ -9,15 +9,31 @@
 #ifndef gameFlow_h
 #define gameFlow_h
 
-/* 
- A module responsible for the game flow. Essentially, this is simply an extension to main.c
- */
 
+
+#include "JigsawParser.h"
+#include "JigsawSolutionExistsChecks.h"
+#include "JigsawSolutionExistsRotationsAllowed.h"
 #include "JigsawPuzzle.h"
-#include "JigsawPuzzleRotate.h"
+#include "JigsawPuzzleRotations.h"
+
+#define WRONG_ARGS "Error: you need to supply input file representing a puzzle game and an output file. '-rotate' flag is optional"
+
+using namespace std;
+
 class gameFlow {
+private:
+    char* infile;
+    char* outfile;
+    bool validCommandParsing = false;
+    bool rotate = false;
+
 public:
-    static bool simpleMainFlow(char* argv[], int argc);
+    gameFlow(int argc, char* argv[]);
+    bool runMainFlow();
+    bool parseCommandLineArgs(int argc, char* argv[]);
+    bool rotateCommandExists(int argc, char* argv[]);
+    bool getValidCommandParsing();
 };
 
 

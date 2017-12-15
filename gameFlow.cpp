@@ -10,49 +10,107 @@
 
 using namespace std;
 
-bool gameFlow::simpleMainFlow(char* argv[], int argc){
-    bool rotate = false;
-    bool first = true;
-    string inputFilename;
-    string outputFilename;
-    for(int i = 1; i<argc;i++){
-        if(strcmp(argv[i], "-rotate") == 0){ //rotate
-            rotate = true;
-        }
-        else{
-            if(first){
-                inputFilename = argv[i];
-                first = false;
-            }
-            else{
-                outputFilename = argv[i];
-            }
-        }
+gameFlow::gameFlow(int argc, char* argv[]){
+    bool valid = this->parseCommandLineArgs(argc, argv);
+    if (valid){
+        validCommandParsing = true;
     }
-    
-    if(rotate){
-        JigsawPuzzleRotate game(inputFilename,outputFilename);
-        if(!game.isInitialized()){
-            return false; // failed to open/read input file OR file was illegal in format
-        }
-        if(!game.isLegalPuzzle()){
-            return false; //puzzle illegal (puzzle cannot be solved due to something like missing corner etc)
-        }
-        if(!game.initSolveGame()){
-            return false; //puzzle cannot be solved as there's no solution.
-        }
-        return true; // all ok, info is already in output file.
+}
 
+
+bool gameFlow::runMainFlow(){
+    string inputFilename(this->infile);
+    string outputFilename(this->outfile);
+
+    JigsawParser parser = JigsawParser(inputFilename, outputFilename);
+    bool validParsing = parser.isInitialized();
+    if (!validParsing){
+        if (!parser.fileError()){
+            parser.writeErrorsToOutput();
+        }
+        return false;
     }
-    JigsawPuzzle game(inputFilename,outputFilename);
-    if(!game.isInitialized()){
-        return false; // failed to open/read input file OR file was illegal in format
+
+    vector<PuzzlePiece> pieces = parser.getCorrectInputPieces();
+    bool rotationAllowed = this->rotate;
+
+    if (rotationAllowed){
+        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces);
+        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
+        if (!checkResult){
+            puzzleCheck.writeToFileFailedTests(outputFilename);
+            return false;
+        }
+
+        JigsawPuzzleRotations puzzle = JigsawPuzzleRotations(pieces);
+        bool solved = puzzle.solveGame();
+        puzzle.printSolutionToFile(outputFilename);
+        return solved;
     }
-    if(!game.isLegalPuzzle()){
-        return false; //puzzle illegal (puzzle cannot be solved due to something like missing corner etc)
+
+    else{
+
+        JigsawSolutionExistsChecks puzzleCheck = JigsawSolutionExistsChecks(pieces);
+        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
+        if (!checkResult){
+            puzzleCheck.writeToFileFailedTests(outputFilename);
+            return false;
+        }
+
+        JigsawPuzzle puzzle = JigsawPuzzle(pieces);
+        bool solved = puzzle.solveGame();
+        puzzle.printSolutionToFile(outputFilename);
+        return solved;
     }
-    if(!game.initSolveGame()){
-        return false; //puzzle cannot be solved as there's no solution.
+}
+
+bool gameFlow::rotateCommandExists(int argc, char* argv[]){
+    string rotateCommandString = "-rotate";
+    for (int i = 1; i < argc; i++){
+        if (rotateCommandString.compare(argv[i]) == 0){
+            return true;
+        }
     }
-    return true; // all ok, info is already in output file.
+    return false;
+}
+
+bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
+    if (argc < 3 || argc > 4){
+        cout << WRONG_ARGS << endl;
+        return false;
+    }
+
+    if (argc == 4){
+        bool rotateExists = this->rotateCommandExists(argc, argv);
+        if (!rotateExists){
+            cout <<  WRONG_ARGS << endl;
+            return false;
+        }
+
+        this->rotate = true;
+        string rotationFlagString = "-rotate";
+        if (rotationFlagString.compare(argv[1]) == 0){
+            this->infile = argv[2];
+            this->outfile = argv[3];
+
+        } else if (rotationFlagString.compare(argv[2]) == 0){
+            this->infile = argv[1];
+            this->outfile = argv[3];
+
+        } else{
+            this->infile = argv[1];
+            this->outfile = argv[2];
+        }
+    }
+
+    else{
+        this->infile = argv[1];
+        this->outfile = argv[2];
+    }
+
+    return true;
+}
+
+bool gameFlow::getValidCommandParsing(){
+    return this->validCommandParsing;
 }
