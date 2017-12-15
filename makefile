@@ -1,7 +1,7 @@
 COMP = g++
-OBJS = main.o gameFlow.o JigsawPuzzleRotations.o JigsawPuzzle.o PuzzlePiecesMapWithRotate.o PuzzlePiecesMap.o \
-PuzzleRequirement.o PuzzleTypeWithRotation.o JigsawSolutionExistsRotationsAllowed.o JigsawSolutionExistsChecks.o \
-JigsawParser.o PuzzleType.o PuzzlePiece.o
+OBJS = main.o gameFlow.o SolutionAlgorithm.o Factory.o JigsawPuzzleRotations.o JigsawPuzzle.o \
+JigsawPuzzleAbstract.o PuzzlePiecesMapWithRotate.o PuzzlePiecesMap.o JigsawSolutionExistsRotationsAllowed.o \
+JigsawSolutionExistsChecks.o JigsawParser.o PuzzleTypeWithRotation.o PuzzleRequirement.o PuzzleType.o PuzzlePiece.o
 EXEC = ex2
 CPP_COMP_FLAG = -std=c++11 -Wall -Wextra \
 -Werror -pedantic-errors -DNDEBUG
@@ -13,25 +13,33 @@ $(EXEC): $(OBJS)
 
 main.o: gameFlow.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-gameFlow.o: gameFlow.h JigsawParser.h JigsawSolutionExistsChecks.h JigsawSolutionExistsRotationsAllowed.h JigsawPuzzle.h JigsawPuzzleRotations.h
+gameFlow.o: gameFlow.h JigsawParser.h SolutionAlgorithm.h Factory.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-JigsawPuzzleRotations.o: JigsawPuzzleRotations.h JigsawPuzzle.h PuzzlePiecesMapWithRotate.h
+SolutionAlgorithm.o: SolutionAlgorithm.h JigsawGameInterface.h PuzzlePieceMapInterface.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-JigsawPuzzle.o: JigsawPuzzle.h PuzzlePiecesMap.h
+Factory.o: Factory.h JigsawGameInterface.h PuzzlePieceMapInterface.h PuzzlePiece.h \
+JigsawPuzzle.h JigsawPuzzleRotations.h PuzzlePiecesMap.h PuzzlePiecesMapWithRotate.h \
+NaiveSolutionExistenceCheck.h JigsawSolutionExistsChecks.h JigsawSolutionExistsRotationsAllowed.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-PuzzlePiecesMapWithRotate.o: PuzzlePiecesMapWithRotate.h PuzzlePiecesMap.h PuzzleTypeWithRotation.h
+JigsawPuzzleRotations.o: JigsawPuzzleRotations.h JigsawPuzzleAbstract.h PuzzlePieceRotation.h JigsawGameInterface.h PuzzlePiece.h PuzzleRequirement.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-PuzzlePiecesMap.o: PuzzlePiecesMap.h PuzzleRequirement.h PuzzlePiece.h
+JigsawPuzzle.o: JigsawPuzzle.h JigsawPuzzleAbstract.h JigsawGameInterface.h PuzzlePiece.h PuzzleRequirement.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-PuzzleRequirement.o: PuzzleRequirement.h PuzzleType.h
+JigsawPuzzleAbstract.o: JigsawPuzzleAbstract.h JigsawGameInterface.h PuzzlePiece.h PuzzleRequirement.h
+	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
+PuzzlePiecesMapWithRotate.o: PuzzlePiecesMapWithRotate.h PuzzlePieceMapInterface.h PuzzleTypeWithRotation.h PuzzlePieceRotation.h PuzzlePiece.h PuzzleRequirement.h
+	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
+PuzzlePiecesMap.o: PuzzlePiecesMap.h PuzzleRequirement.h PuzzlePiece.h PuzzlePieceMapInterface.h
+	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
+JigsawSolutionExistsRotationsAllowed.o: JigsawSolutionExistsRotationsAllowed.h NaiveSolutionExistenceCheck.h PuzzlePiece.h
+	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
+JigsawSolutionExistsChecks.o: JigsawSolutionExistsChecks.h NaiveSolutionExistenceCheck.h PuzzlePiece.h
+	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
+JigsawParser.o: JigsawParser.h PuzzlePiece.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
 PuzzleTypeWithRotation.o: PuzzleTypeWithRotation.h PuzzleType.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-JigsawSolutionExistsRotationsAllowed.o: JigsawSolutionExistsRotationsAllowed.h JigsawSolutionExistsChecks.h
-	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-JigsawSolutionExistsChecks.o: JigsawSolutionExistsChecks.h PuzzlePiece.h
-	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
-JigsawParser.o: JigsawParser.h PuzzlePiece.h
+PuzzleRequirement.o: PuzzleRequirement.h PuzzleType.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
 PuzzleType.o: PuzzleType.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp

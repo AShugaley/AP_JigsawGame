@@ -13,7 +13,7 @@ protected:
 public:
     PuzzleTypeWithRotation(int l, int t, int r, int b);
     PuzzleTypeWithRotation() = default;
-    PuzzleTypeWithRotation(PuzzleType& type);
+    explicit PuzzleTypeWithRotation(PuzzleType& type);
     int getRotationAngle() const;
     void rotate();
     void resetRotation(); //returns the piece to original angle
