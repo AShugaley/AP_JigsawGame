@@ -35,7 +35,7 @@ bool gameFlow::runMainFlow(){
     bool rotationAllowed = this->rotate;
     Factory factory = Factory(rotationAllowed);
 
-    unique_ptr<NaiveSolutionExistenceCheck> solutionChecker = factory.getSoultionExistenceChcker(pieces);
+    unique_ptr<NaiveSolutionExistenceCheck> solutionChecker = factory.getSolutionExistenceChecker(pieces);
     bool puzzleValid = solutionChecker->checkIfPuzzleIsLegal();
     if (!puzzleValid){
         solutionChecker->writeToFileFailedTests(outputFilename);

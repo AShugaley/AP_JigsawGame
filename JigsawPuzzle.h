@@ -10,7 +10,7 @@
 #include "JigsawPuzzleAbstract.h"
 
 
-class JigsawPuzzle : JigsawPuzzleAbstract{
+class JigsawPuzzle : public JigsawPuzzleAbstract{
 protected:
     vector<PuzzlePiece> puzzlePieces;
 public:

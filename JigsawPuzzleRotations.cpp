@@ -83,7 +83,7 @@ void JigsawPuzzleRotations::printSolutionToFile(std::string& outputFilePath, boo
     ofstream outputFileStream;
     outputFileStream.open(outputFilePath);
     if (!outputFileStream.is_open()){
-        cout << OUTPUT_FILE_NOT_OPEN_MESSAGE << endl;
+        cout << OUTPUT_FILE_NOT_OPEN << endl;
     }
     if(solved){
         for(int i = 0; i <= this->lastRowIndex; i++){

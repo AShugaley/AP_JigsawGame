@@ -28,7 +28,7 @@ public:
     explicit Factory(bool rotationAllowed);
     unique_ptr<JigsawGameInterface> getJigsawGame(vector<PuzzlePiece>& pieces);
     unique_ptr<PuzzlePieceMapInterface> getPuzzleMap(vector<PuzzlePiece>& pieces);
-    unique_ptr<NaiveSolutionExistenceCheck> getSoultionExistenceChcker(vector<PuzzlePiece>& pieces);
+    unique_ptr<NaiveSolutionExistenceCheck> getSolutionExistenceChecker(vector<PuzzlePiece> &pieces);
 
 };
 

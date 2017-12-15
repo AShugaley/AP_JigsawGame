@@ -12,7 +12,7 @@
 class PuzzlePieceMapInterface {
 public:
     virtual PuzzlePiece* nextPiece(PuzzleRequirement& req) = 0;
-    virtual ~PuzzlePieceMapInterface() = 0;
+    virtual ~PuzzlePieceMapInterface() = default;
 };
 
 

@@ -18,7 +18,7 @@ public:
     virtual PuzzleRequirement getReq(int i, int j) = 0;
     virtual int getPuzzleSize() = 0;
 
-    virtual ~JigsawGameInterface() = 0;
+    virtual ~JigsawGameInterface() = default;
 };
 
 

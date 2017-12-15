@@ -31,7 +31,7 @@ protected:
 
 public:
     explicit JigsawSolutionExistsChecks(vector<PuzzlePiece>& puzzlePieces);
-    virtual bool checkIfPuzzleIsLegal();
+    virtual bool checkIfPuzzleIsLegal() override;
     void writeToFileFailedTests(string& outputFile) override;
 
 

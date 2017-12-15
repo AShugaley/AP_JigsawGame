@@ -11,7 +11,7 @@
 #include "PuzzlePieceRotation.h"
 
 
-class JigsawPuzzleRotations : JigsawPuzzleAbstract{
+class JigsawPuzzleRotations : public JigsawPuzzleAbstract{
 protected:
     vector<PuzzlePieceRotation> puzzlePieces;
 public:

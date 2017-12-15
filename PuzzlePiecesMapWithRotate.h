@@ -15,9 +15,9 @@ class PuzzlePiecesMapWithRotate : public PuzzlePieceMapInterface {
 protected:
     map<PuzzleTypeWithRotation,vector<PuzzlePieceRotation>> typesMap;
 public:
-    explicit PuzzlePiecesMapWithRotate(vector<PuzzlePieceRotation>& pieces);
+    explicit PuzzlePiecesMapWithRotate(vector<PuzzlePiece>& pieces);
     explicit PuzzlePiecesMapWithRotate() = default;
-    void toBuckets(vector<PuzzlePieceRotation>& pieces);
+    void toBuckets(vector<PuzzlePiece>& pieces);
     PuzzlePiece* nextPiece(PuzzleRequirement& req) override;
 };
 

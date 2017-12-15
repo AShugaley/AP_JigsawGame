@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(AP_JigsawGame)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 set(SOURCE_FILES
         gameFlow.cpp

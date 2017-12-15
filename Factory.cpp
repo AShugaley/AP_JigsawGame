@@ -26,7 +26,7 @@ unique_ptr<PuzzlePieceMapInterface> Factory::getPuzzleMap(vector<PuzzlePiece>& p
     }
 }
 
-unique_ptr<NaiveSolutionExistenceCheck> Factory::getSoultionExistenceChcker(vector<PuzzlePiece>& pieces){
+unique_ptr<NaiveSolutionExistenceCheck> Factory::getSolutionExistenceChecker(vector<PuzzlePiece> &pieces){
     if (this->rotationAllowed){
         return std::make_unique<JigsawSolutionExistsRotationsAllowed>(pieces);
     } else{

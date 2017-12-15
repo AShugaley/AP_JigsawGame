@@ -4,14 +4,15 @@
 
 #include "PuzzlePiecesMapWithRotate.h"
 
-PuzzlePiecesMapWithRotate::PuzzlePiecesMapWithRotate(vector<PuzzlePieceRotation>& pieces){
+PuzzlePiecesMapWithRotate::PuzzlePiecesMapWithRotate(vector<PuzzlePiece>& pieces){
     toBuckets(pieces);
 }
 
-void PuzzlePiecesMapWithRotate::toBuckets(vector<PuzzlePieceRotation>& pieces){
+void PuzzlePiecesMapWithRotate::toBuckets(vector<PuzzlePiece>& pieces){
     for(auto& p : pieces){
+        PuzzlePieceRotation piece = PuzzlePieceRotation(p);
         PuzzleTypeWithRotation type = PuzzleTypeWithRotation(p.getLeftEdge(),p.getTopEdge(),p.getRightEdge(), p.getBottomEdge());
-        this->typesMap[type].push_back(p);
+        this->typesMap[type].push_back(piece);
     }
 }
 
