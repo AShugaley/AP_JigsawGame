@@ -48,7 +48,7 @@ vector<pair<int,int> > SolutionAlgorithm::getPossibleDimensions(int size){
 
     std::random_shuffle(dim.begin(), dim.end());
     return dim;
-};
+}
 
 
 bool SolutionAlgorithm::solveGame(){

@@ -18,7 +18,6 @@
 #include "PuzzlePiece.h"
 
 
-#define OUTPUT_FILE_NOT_OPEN_MESSAGE "Could not open an output file. Program operation Failed" << endl
 #define CANNOT_READ_INPUT_FILE "Could not open/read the input file" << endl
 #define CANNOT_WRITE_OUTPUT_FILE "Could not open or write to the input file" << endl
 #define INVALID_FIRST_LINE "The first line of the file is not valid. It should follow the format: NumElements=<positive integer>" << endl

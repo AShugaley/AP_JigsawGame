@@ -1,9 +1,10 @@
 COMP = g++
 OBJS = main.o gameFlow.o SolutionAlgorithm.o Factory.o JigsawPuzzleRotations.o JigsawPuzzle.o \
 JigsawPuzzleAbstract.o PuzzlePiecesMapWithRotate.o PuzzlePiecesMap.o JigsawSolutionExistsRotationsAllowed.o \
-JigsawSolutionExistsChecks.o JigsawParser.o PuzzleTypeWithRotation.o PuzzleRequirement.o PuzzleType.o PuzzlePiece.o
+JigsawSolutionExistsChecks.o JigsawParser.o PuzzleTypeWithRotation.o PuzzleRequirement.o PuzzleType.o \
+PuzzlePiece.o PuzzlePieceRotation.o
 EXEC = ex2
-CPP_COMP_FLAG = -std=c++11 -Wall -Wextra \
+CPP_COMP_FLAG = -std=c++14 -Wall -Wextra \
 -Werror -pedantic-errors -DNDEBUG
 
 $(EXEC): $(OBJS)
@@ -40,6 +41,8 @@ JigsawParser.o: JigsawParser.h PuzzlePiece.h
 PuzzleTypeWithRotation.o: PuzzleTypeWithRotation.h PuzzleType.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
 PuzzleRequirement.o: PuzzleRequirement.h PuzzleType.h
+	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
+PuzzlePieceRotation.o: PuzzlePieceRotation.h PuzzlePiece.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp
 PuzzleType.o: PuzzleType.h
 	$(COMP) $(CPP_COMP_FLAG) -c $*.cpp

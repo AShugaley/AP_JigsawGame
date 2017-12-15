@@ -9,19 +9,19 @@ PuzzleType::PuzzleType(int l, int t, int r, int b): l(l), t(t), r(r), b(b) {;}
 
 int PuzzleType::getTop() const{
     return this->t;
-};
+}
 
 int PuzzleType::getLeft() const{
     return this->l;
-};
+}
 
 int PuzzleType::getRight() const{
     return this->r;
-};
+}
 
 int PuzzleType::getBot() const{
     return this->b;
-};
+}
 
 bool PuzzleType::operator==(const PuzzleType& otherType) const{
     return l == otherType.getLeft()&&

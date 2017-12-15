@@ -27,7 +27,7 @@ pair<int,int> JigsawPuzzleAbstract::getNextPos(int i, int j){
         return pair<int,int>(i+1,0);
     }
     return pair<int,int>(-1,-1);
-};
+}
 
 int JigsawPuzzleAbstract::getPuzzleSize(){
     return this->numPieces;

@@ -191,7 +191,7 @@ void JigsawParser::writeErrorsToOutput(){
     outputFile.open(this->outputFile);
 
     if (!outputFile.is_open()){
-        cout << OUTPUT_FILE_NOT_OPEN_MESSAGE;
+        cout << "Could not open an output file. Program operation Failed" << endl;
         this->cannotComputeSolution = true;
         return;
     }

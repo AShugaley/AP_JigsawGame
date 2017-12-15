@@ -6,7 +6,7 @@
 
 
 JigsawSolutionExistsRotationsAllowed::JigsawSolutionExistsRotationsAllowed(vector<PuzzlePiece>& puzzlePieces):
-        puzzlePieces(puzzlePieces), numPieces((int) puzzlePieces.size()){;}
+        numPieces((int) puzzlePieces.size()), puzzlePieces(puzzlePieces){;}
 
 bool JigsawSolutionExistsRotationsAllowed::checkIfPuzzleIsLegal(){
     bool isLegal = true;
@@ -32,7 +32,7 @@ void JigsawSolutionExistsRotationsAllowed::writeToFileFailedTests(string& output
     ofstream outputFileStream;
     outputFileStream.open(outputFile);
     if (!outputFileStream.is_open()){
-        cout << OUTPUT_FILE_NOT_OPEN_MESSAGE << endl;
+        cout << OUTPUT_FILE_NOT_OPEN_IN_SOLUTION_CHECK << endl;
     }
     for (auto& errorString : this->errorMessages){
         outputFileStream << errorString << endl;

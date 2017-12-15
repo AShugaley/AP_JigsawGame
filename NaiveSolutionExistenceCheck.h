@@ -13,7 +13,7 @@
 #define NO_CORNER_BL "Cannot solve puzzle: missing corner element: <BL>"
 #define NO_CORNER_BR "Cannot solve puzzle: missing corner element: <BR>"
 #define SUM_TOTAL_EDGES_WRONG "Cannot solve puzzle: sum of edges is not zero"
-#define OUTPUT_FILE_NOT_OPEN_MESSAGE "Could not open an output file. Program operation Failed"
+#define OUTPUT_FILE_NOT_OPEN_IN_SOLUTION_CHECK "Could not open an output file. Program operation Failed"
 
 class NaiveSolutionExistenceCheck {
 public:
