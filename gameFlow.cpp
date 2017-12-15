@@ -42,6 +42,14 @@ bool gameFlow::runMainFlow(){
         return false;
     }
 
+    unique_ptr<JigsawGameInterface> game = factory.getJigsawGame(pieces);
+    unique_ptr<PuzzlePieceMapInterface> piecesMap = factory.getPuzzleMap(pieces);
+
+    SolutionAlgorithm solutionAlgorithm = SolutionAlgorithm(std::move(game), std::move(piecesMap));
+    bool solved = solutionAlgorithm.solveGame();
+    solutionAlgorithm.printSolutionToFile(outputFilename, solved);
+    return solved;
+
 
 //    if (rotationAllowed){
 //        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces);

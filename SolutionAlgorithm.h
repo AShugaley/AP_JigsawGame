@@ -20,9 +20,10 @@ protected:
     unique_ptr<PuzzlePieceMapInterface> piecesMap;
     virtual bool solveRec(pair<int,int> nextPos);
 public:
-    SolutionAlgorithm(JigsawGameInterface *game, PuzzlePieceMapInterface* piecesMap);
+    SolutionAlgorithm(unique_ptr<JigsawGameInterface> game, unique_ptr<PuzzlePieceMapInterface> piecesMap);
     virtual bool solveGame();
     virtual vector<pair<int,int> > getPossibleDimensions(int size);
+    virtual void printSolutionToFile(string& outputFilePath, bool solved);
 };
 
 

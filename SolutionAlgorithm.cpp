@@ -5,8 +5,10 @@
 #include "SolutionAlgorithm.h"
 
 
-SolutionAlgorithm::SolutionAlgorithm(JigsawGameInterface *game, PuzzlePieceMapInterface* piecesMap)
-        : game(game), piecesMap(piecesMap) {;}
+SolutionAlgorithm::SolutionAlgorithm(unique_ptr<JigsawGameInterface> game, unique_ptr<PuzzlePieceMapInterface> piecesMap){
+    this->game = std::move(game);
+    this->piecesMap = std::move(piecesMap);
+}
 
 
 
@@ -19,14 +21,14 @@ bool SolutionAlgorithm::solveRec(pair<int,int> nextPos){
     PuzzleRequirement req = game->getReq(i, j);
     PuzzlePiece* p = piecesMap->nextPiece(req);
     while(p!=nullptr){
-        game->updatePuzzlePieceInSolution(0, 0, p);
+        game->updatePuzzlePieceInSolution(i, j, p);
         bool solved = solveRec(game->getNextPos(i,j));
         if (solved){
             return true;
         }
         else{
             req.addFalseType(PuzzleType(p->getLeftEdge(), p->getTopEdge(), p->getRightEdge(), p->getBottomEdge()));
-            game->revertPuzzlePieceFromSolution(0, 0, p);
+            game->revertPuzzlePieceFromSolution(i, j, p);
             p = piecesMap->nextPiece(req);
         }
     }
@@ -60,4 +62,8 @@ bool SolutionAlgorithm::solveGame(){
         }
     }
     return false;
+}
+
+void SolutionAlgorithm::printSolutionToFile(string& outputFilePath, bool solved){
+    this->game->printSolutionToFile(outputFilePath, solved);
 }

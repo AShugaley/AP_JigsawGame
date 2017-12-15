@@ -6,7 +6,7 @@
 
 
 JigsawSolutionExistsRotationsAllowed::JigsawSolutionExistsRotationsAllowed(vector<PuzzlePiece>& puzzlePieces):
-        puzzlePieces(puzzlePieces), numPieces((int) this->puzzlePieces.size()){;}
+        puzzlePieces(puzzlePieces), numPieces((int) puzzlePieces.size()){;}
 
 bool JigsawSolutionExistsRotationsAllowed::checkIfPuzzleIsLegal(){
     bool isLegal = true;
@@ -14,15 +14,13 @@ bool JigsawSolutionExistsRotationsAllowed::checkIfPuzzleIsLegal(){
     if(!isSumEdgesZero()){
         this->errorMessages.emplace_back(SUM_TOTAL_EDGES_WRONG);
         isLegal = false;
-
     }
-
     return isLegal;
 }
 
 bool JigsawSolutionExistsRotationsAllowed::isSumEdgesZero(){
     int sum = 0;
-    for(int i = 0; i<this->numPieces; i++){
+    for(int i = 0; i< this->numPieces; i++){
         sum += this->puzzlePieces[i].edgesSum();
     }
 

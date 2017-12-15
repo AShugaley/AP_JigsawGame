@@ -5,7 +5,7 @@
 #include "JigsawSolutionExistsChecks.h"
 
 JigsawSolutionExistsChecks::JigsawSolutionExistsChecks(vector<PuzzlePiece>& puzzlePieces):
-        puzzlePieces(puzzlePieces), numPieces((int) this->puzzlePieces.size()){;}
+        puzzlePieces(puzzlePieces), numPieces((int) puzzlePieces.size()){;}
 
 
 vector<int> JigsawSolutionExistsChecks::hasAllCorners(){

@@ -13,8 +13,8 @@ void JigsawPuzzleAbstract::initSolMatrix(){
 }
 
 void JigsawPuzzleAbstract::initiateSolutionTry(pair<int, int> solutionDimension){
-    this->lastRowIndex = solutionDimension.first;
-    this->lastColIndex = solutionDimension.second;
+    this->lastRowIndex = solutionDimension.first-1;
+    this->lastColIndex = solutionDimension.second-1;
     this->initSolMatrix();
 }
 
