@@ -14,8 +14,8 @@
 #include "JigsawParser.h"
 #include "JigsawSolutionExistsChecks.h"
 #include "JigsawSolutionExistsRotationsAllowed.h"
-#include "JigsawPuzzle.h"
-#include "JigsawPuzzleRotations.h"
+#include "JigsawPuzzle_OLD.h"
+#include "JigsawPuzzleRotations_OLD.h"
 
 #define WRONG_ARGS "Error: you need to supply input file representing a puzzle game and an output file. '-rotate' flag is optional"
 

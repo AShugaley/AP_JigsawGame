@@ -19,14 +19,14 @@ virtual bool solutionAlgorithm::solveRec(pair<int,int> nextPos){
     PuzzleRequirement req = game->getReq(i, j);
     PuzzlePiece* p = piecesMap->nextPiece(req);
     while(p!=nullptr){
-        game->updatePuzzlePieceInSolution(*p);
+        game->updatePuzzlePieceInSolution(0, 0, *p);
         bool solved = solveRec(game->getNextPos(i,j));
         if (solved){
             return true;
         }
         else{
             req.addFalseType(PuzzleType(p->getLeftEdge(), p->getTopEdge(), p->getRightEdge(), p->getBottomEdge()));
-            game->revertPuzzlePieceFromSolution(*p);
+            game->revertPuzzlePieceFromSolution(0, 0, *p);
             p = piecesMap->nextPiece(req);
         }
     }

@@ -57,7 +57,7 @@ bool gameFlow::runMainFlow(){
             return false;
         }
 
-        JigsawPuzzle puzzle = JigsawPuzzle(pieces);
+        JigsawPuzzle_OLD puzzle = JigsawPuzzle_OLD(pieces);
         bool solved = puzzle.solveGame();
         puzzle.printSolutionToFile(outputFilename);
         return solved;

@@ -1,59 +1,110 @@
 //
-// Created by okleinfeld on 12/13/17.
+// Created by okleinfeld on 12/15/17.
 //
 
 #include "JigsawPuzzleRotations.h"
 
-JigsawPuzzleRotations::JigsawPuzzleRotations(vector<PuzzlePiece> pieces) : JigsawPuzzle(){
-    this->puzzlePieces = pieces;
-    this->piecesMap = PuzzlePiecesMapWithRotate(this->puzzlePieces);
+
+JigsawPuzzleRotations::JigsawPuzzleRotations(vector<PuzzlePiece> pieces){
+    this->puzzlePieces = vector<PuzzlePieceRotation>();
+    for (auto& p : pieces){
+        PuzzlePieceRotation rotationPiece = PuzzlePieceRotation(p);
+        this->puzzlePieces.emplace_back(rotationPiece);
+    }
     this->lastColIndex = -1;
     this->lastRowIndex = -1;
     this->numPieces = (int) this->puzzlePieces.size();
-    this->puzzleSolvedSuccessfully = false;
 }
 
 
-bool JigsawPuzzleRotations::solveRec(pair<int,int> nextPos){
-    int i = nextPos.first;
-    int j = nextPos.second;
-    if (i ==-1 || j ==-1){
-        return true;
-    }
-    PuzzleRequirement req = getReq(i, j);
-    PuzzlePiece* p = this->piecesMap.nextPiece(req);
-    while(p!=nullptr){
-        int pISD = p->getISD();
-        this->solutionMatrix[i][j] = pISD;
-        this->puzzlePieces[pISD-1] = *p; // copy c'tor
-        if(solveRec(getNextPos(i, j)))
-            return true;
-        else{
-            this->solutionMatrix[i][j] = -1;
-            p->setUsed(false);
-            req.addFalseType(PuzzleType(p->getLeftEdge(), p->getTopEdge(), p->getRightEdge(), p->getBottomEdge()));
-            p->resetAngle();
-            this->puzzlePieces[pISD-1] = *p;
-            p = this->piecesMap.nextPiece(req);
-        }
-    }
-    return false;
+void JigsawPuzzleRotations::updatePuzzlePieceInSolution(int i, int j, PuzzlePiece& p){
+    int pISD = p.getISD();
+    int pIndex = pISD - 1;
+    p.setUsed(true);
+    this->solutionMatrix[i][j] = pISD;
+    PuzzlePieceRotation* pRotation = dynamic_cast<PuzzlePieceRotation*>(p);
+    this->puzzlePieces[pIndex] = *pRotation;
 }
 
-bool JigsawPuzzleRotations::solveGame(){
-    vector<pair<int,int> > possibleDimensions = getPossibleDimensions();
-    pair<int,int> topLeftCorner = pair<int,int>(0,0);
-    for (auto& p : possibleDimensions){
-        this->lastRowIndex = p.first-1;
-        this->lastColIndex = p.second-1;
-        initSolMatrix();
-        if(solveRec(topLeftCorner) == true){
-            this->puzzleSolvedSuccessfully = true;
-            return true;
-        }
+void JigsawPuzzleRotations::revertPuzzlePieceFromSolution(int i, int j, PuzzlePiece& p){
+    int pISD = p.getISD();
+    int pIndex = pISD - 1;
+    p.setUsed(false);
+    this->solutionMatrix[i][j] = -1;
+    PuzzlePieceRotation* pRotation = dynamic_cast<PuzzlePieceRotation*>(p);
+    pRotation->resetAngle();
+    this->puzzlePieces[pIndex] = *pRotation;
+}
+
+PuzzleRequirement JigsawPuzzleRotations::getReq(int i, int j){
+    int l, r, t,b;
+
+    if(j==0){
+        l = 0;
+    } else {
+        if(this->solutionMatrix[i][j-1] == -1)
+            l = JOKER;
+        else
+            l =  (-1)*this->puzzlePieces[this->solutionMatrix[i][j-1] - 1].getRightEdge();
     }
 
-    this->lastRowIndex = -1;
-    this->lastColIndex = -1;
-    return false;
+    if(i==0) {
+        t = 0;
+    } else{
+        if(this->solutionMatrix[i-1][j] == -1)
+            t = JOKER;
+        else
+            t =  (-1)*this->puzzlePieces[this->solutionMatrix[i-1][j] - 1].getBottomEdge();
+    }
+
+    if(j==lastColIndex) {
+        r = 0;
+    } else{
+        if(this->solutionMatrix[i][j+1] == -1)
+            r = JOKER;
+        else
+            r =  (-1)*this->puzzlePieces[this->solutionMatrix[i][j+1] - 1].getLeftEdge();
+    }
+
+    if(i==lastRowIndex) {
+        b = 0;
+    } else{
+        if(this->solutionMatrix[i+1][j] == -1)
+            b = JOKER;
+        else
+            b =  (-1)*this->puzzlePieces[this->solutionMatrix[i+1][j] - 1].getTopEdge();
+    }
+
+    return PuzzleRequirement(l,t,r,b);
+}
+
+
+void JigsawPuzzleRotations::printSolutionToFile(std::string& outputFilePath, bool solved){
+    ofstream outputFileStream;
+    outputFileStream.open(outputFilePath);
+    if (!outputFileStream.is_open()){
+        cout << OUTPUT_FILE_NOT_OPEN << endl;
+    }
+    if(solved){
+        for(int i = 0; i <= this->lastRowIndex; i++){
+            for(int j =0; j <= this->lastColIndex; j++){
+                int currentPieceISD = this->solutionMatrix[i][j];
+                int currentPieceVectorIndex = currentPieceISD -1;
+
+                outputFileStream << currentPieceISD;
+                if(this->puzzlePieces[currentPieceVectorIndex].getAngle() != 0){
+                    outputFileStream << " [" << puzzlePieces[currentPieceVectorIndex].getAngle() << "]";
+                }
+
+                if (j != this->lastColIndex){
+                    outputFileStream << " ";
+                }
+            }
+            outputFileStream << endl;
+        }
+
+    } else{
+        outputFileStream << NO_SOLUTION_MESSAGE << endl;
+    }
+    outputFileStream.close();
 }

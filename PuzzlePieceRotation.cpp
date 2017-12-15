@@ -10,6 +10,8 @@ PuzzlePieceRotation::PuzzlePieceRotation(int ISD, int l, int t, int r, int b):
 PuzzlePieceRotation::PuzzlePieceRotation(const PuzzlePieceRotation& otherPiece):
         PuzzlePiece(otherPiece), rotationAngle(otherPiece.rotationAngle) {;}
 
+PuzzlePieceRotation::PuzzlePieceRotation(const PuzzlePiece& otherPiece):
+        PuzzlePiece(otherPiece), rotationAngle(0) {;}
 
 int PuzzlePieceRotation::getAngle() const {
     return this->rotationAngle;

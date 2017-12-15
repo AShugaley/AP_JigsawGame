@@ -58,7 +58,7 @@ void RandomSolvableTest::generateRandomPuzzle(int x, int y){
 
 
 bool RandomSolvableTest::solvePuzzle(){
-    JigsawPuzzle puzzle = JigsawPuzzle(this->puzzlePieces);
+    JigsawPuzzle_OLD puzzle = JigsawPuzzle_OLD(this->puzzlePieces);
     bool solved = puzzle.solveGame();
     return solved;
 }

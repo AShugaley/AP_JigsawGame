@@ -12,8 +12,9 @@ protected:
     int rotationAngle;
 public:
     //constructors
-    PuzzlePieceRotation(int ISD, int l, int t, int r, int b);
+    explicit PuzzlePieceRotation(int ISD, int l, int t, int r, int b);
     PuzzlePieceRotation(const PuzzlePieceRotation& otherPiece);
+    explicit PuzzlePieceRotation(const PuzzlePiece& otherPiece);
 
     //getters
     int getAngle() const;
