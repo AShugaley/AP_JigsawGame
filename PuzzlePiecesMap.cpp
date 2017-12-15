@@ -9,11 +9,11 @@
 #include "PuzzlePiecesMap.h"
 
 PuzzlePiecesMap::PuzzlePiecesMap() {
-    this->typesMap = std::map<PuzzleType, vector<PuzzlePiece>>();
+    this->typesMap = std::map<PuzzleType, vector<PuzzlePiece> >();
 }
 
 PuzzlePiecesMap::PuzzlePiecesMap(vector<PuzzlePiece>& pieces){
-    this->typesMap = std::map<PuzzleType, vector<PuzzlePiece>>();
+    this->typesMap = std::map<PuzzleType, vector<PuzzlePiece> >();
     toBuckets(pieces);
 }
 
