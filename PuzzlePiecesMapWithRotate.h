@@ -9,7 +9,14 @@
 #include "PuzzleTypeWithRotation.h"
 
 
+
+/*
+ * Extension of PuzzlePiecesMap for rotations
+ *
+ * Will now try and rotate a piece to see if it fits the req
+ */
 class PuzzlePiecesMapWithRotate : public PuzzlePiecesMap {
+    
 protected:
     map<PuzzleTypeWithRotation,vector<PuzzlePiece>> typesMap;
 public:

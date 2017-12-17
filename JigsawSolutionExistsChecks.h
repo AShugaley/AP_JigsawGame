@@ -29,7 +29,9 @@
 #define SUM_VER_EDGES_WRONG "Cannot solve puzzle: sum of vertical edges is not zero"
 #define OUTPUT_FILE_NOT_OPEN "Could not open an output file. Program operation Failed" << endl
 
-
+/*
+ * A class representing for checking the legality of a PuzzleGame (e.g. if it has enough corners
+ */
 using namespace std;
 
 class JigsawSolutionExistsChecks {

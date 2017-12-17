@@ -7,6 +7,12 @@
 
 #include "PuzzleType.h"
 
+/* 
+ * Extension of PuzzleType for rotations
+ * includes the rotatation functions
+ */
+
+
 class PuzzleTypeWithRotation : public PuzzleType{
 protected:
     int rotationAngle;
@@ -14,7 +20,7 @@ public:
     PuzzleTypeWithRotation(int l, int t, int r, int b);
     PuzzleTypeWithRotation();
     int getRotationAngle() const;
-    void rotate();
+    void rotate(); //rotate 90 degrees colckwise
     void resetRotation(); //returns the piece to original angle
 };
 

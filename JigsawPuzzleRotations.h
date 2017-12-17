@@ -7,7 +7,7 @@
 
 #include "JigsawPuzzle.h"
 #include "PuzzlePiecesMapWithRotate.h"
-
+/* Extension of JigsawPuzzle for rotations, will try to solve with rotations */
 class JigsawPuzzleRotations : public JigsawPuzzle{
 protected:
     PuzzlePiecesMapWithRotate piecesMap;

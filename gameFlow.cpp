@@ -37,16 +37,16 @@ bool gameFlow::runMainFlow(){
     bool rotationAllowed = this->rotate; //check if we are in the rotation mode
 
     if (rotationAllowed){ //start the solving algo in rotation mode
-        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces); //
-        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal(); //check trubvual
+        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces); //create new check puzzle
+        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal(); //check trivical issues
         if (!checkResult){
             puzzleCheck.writeToFileFailedTests(outputFilename);
             return false;
         }
 
-        JigsawPuzzleRotations puzzle = JigsawPuzzleRotations(pieces);
-        bool solved = puzzle.solveGame();
-        puzzle.printSolutionToFile(outputFilename);
+        JigsawPuzzleRotations puzzle = JigsawPuzzleRotations(pieces); //create new puzzle
+        bool solved = puzzle.solveGame(); //run the algo for solution
+        puzzle.printSolutionToFile(outputFilename); //print the solution of 'Can't solve"
         return solved;
     }
 

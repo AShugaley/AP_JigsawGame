@@ -12,6 +12,8 @@
 #include "PuzzleRequirement.h"
 
 #endif /* PuzzleRequirementRotate_h */
+
+/* an extension of PuzzleRequirement for rotations */
 class PuzzleRequirementRotate: public PuzzleRequirement{
 public:
 

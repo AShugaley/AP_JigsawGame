@@ -34,19 +34,3 @@ bool PuzzleType::operator<(const PuzzleType& otherType) const{
 }
 
 
-void PuzzleType::rotate(){
-    int temp = t;
-    t = l;
-    l = b;
-    b = r;
-    r = temp;
-    
-    if(rotateAngle == 270)
-        rotateAngle = 0;
-    else
-        rotateAngle+= 90;
-}
-void PuzzleType::resetRotation(){
-    while(rotateAngle != 0) //rotate to complete 360
-        rotate();
-}

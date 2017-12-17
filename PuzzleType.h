@@ -31,8 +31,7 @@ public:
     int getRight() const {return r;}
     int getBot() const {return b;}
     
-    void rotate(); //rotates 90 degrees clockwise, updaes l,t,r,b
-    void resetRotation(); //returns the piece to original angle
+
     
     
     //operators override for map and comapison

@@ -25,7 +25,9 @@
 #define INVALID_FIRST_LINE "The first line of the file is not valid. It should follow the format: NumElements=<positive integer>" << endl
 
 using namespace std;
-
+/*
+ * A class responsible for the parsing of the game from the solution file
+ */
 class JigsawParser {
 
 private:

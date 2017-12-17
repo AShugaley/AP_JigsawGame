@@ -105,7 +105,4 @@ void operator<<(std::ostream &os, const PuzzlePiece& p){
 bool operator < (const PuzzlePiece& p1, const PuzzlePiece& p2){
     return p1.lessThan(p2);
 }
-void PuzzlePiece::resetRotation(){
-    while(rotateAngle != 0)
-        rotate();
-}
+

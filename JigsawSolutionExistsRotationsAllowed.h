@@ -6,6 +6,7 @@
 #define AP_JIGSAWGAME_JIGSAWSOLUTIONEXISTSROTATIONSALLOWD_H
 
 #include "JigsawSolutionExistsChecks.h"
+/* Extension of JigsawSolutionExistsChecks for rotations, will make some checks in a different manner (for instance corners can be rotated) */
 
 class JigsawSolutionExistsRotationsAllowed : public JigsawSolutionExistsChecks {
 public:

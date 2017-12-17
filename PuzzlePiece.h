@@ -7,13 +7,15 @@
 
 #include <string>
 #include <iostream>
-
+/*
+ * A class representing a puzzle piece, holds the main info about the piece, as well as some functions that update it's state. The same class is used in both rotateble and non-rotatebale game modes
+ */
 class PuzzlePiece {
 protected:
-    int ISD;
+    int ISD; //index
     int leftEdge, topEdge, rightEdge, bottomEdge;
     int rotateAngle;
-    bool used;
+    bool used; //isInSolutionMatrix
 
 public:
     //constructors
