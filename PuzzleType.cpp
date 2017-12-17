@@ -47,6 +47,6 @@ void PuzzleType::rotate(){
         rotateAngle+= 90;
 }
 void PuzzleType::resetRotation(){
-    while(rotateAngle != 0)
+    while(rotateAngle != 0) //rotate to complete 360
         rotate();
 }

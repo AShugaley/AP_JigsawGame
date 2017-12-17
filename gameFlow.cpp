@@ -12,7 +12,7 @@ using namespace std;
 
 gameFlow::gameFlow(int argc, char* argv[]){
     bool valid = this->parseCommandLineArgs(argc, argv);
-    if (valid){
+    if (valid){ //if the command line args are fine
         validCommandParsing = true;
     }
 }
@@ -22,21 +22,23 @@ bool gameFlow::runMainFlow(){
     string inputFilename(this->infile);
     string outputFilename(this->outfile);
 
-    JigsawParser parser = JigsawParser(inputFilename, outputFilename);
-    bool validParsing = parser.isInitialized();
-    if (!validParsing){
+    JigsawParser parser = JigsawParser(inputFilename, outputFilename); //parse the game
+    bool validParsing = parser.isInitialized(); //check if parsing worked
+    if (!validParsing){ //if not - write the errors
         if (!parser.fileError()){
             parser.writeErrorsToOutput();
         }
         return false;
     }
+    
+    
 
-    vector<PuzzlePiece> pieces = parser.getCorrectInputPieces();
-    bool rotationAllowed = this->rotate;
+    vector<PuzzlePiece> pieces = parser.getCorrectInputPieces(); //get the pieces vector from the game
+    bool rotationAllowed = this->rotate; //check if we are in the rotation mode
 
-    if (rotationAllowed){
-        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces);
-        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
+    if (rotationAllowed){ //start the solving algo in rotation mode
+        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces); //
+        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal(); //check trubvual
         if (!checkResult){
             puzzleCheck.writeToFileFailedTests(outputFilename);
             return false;
@@ -48,8 +50,7 @@ bool gameFlow::runMainFlow(){
         return solved;
     }
 
-    else{
-
+    else{ //start the algo in calssic mode
         JigsawSolutionExistsChecks puzzleCheck = JigsawSolutionExistsChecks(pieces);
         bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
         if (!checkResult){
