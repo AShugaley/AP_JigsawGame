@@ -19,6 +19,7 @@
 #include "PuzzlePiece.h"
 
 using namespace std;
+/* Extension of NaiveSolutionExistenceCheck for non rotation puzzle, will try to check for legality with rotations */
 
 class JigsawSolutionExistsChecks : public NaiveSolutionExistenceCheck{
 protected:

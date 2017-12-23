@@ -9,10 +9,14 @@
 
 #include "JigsawPuzzleAbstract.h"
 
-
+/*
+* The main class, representing a Jigsaw Game
+*
+* Includes mostly the solution algorithm functions, as well as some auxillary ones
+*/
 class JigsawPuzzle : public JigsawPuzzleAbstract{
 protected:
-    vector<PuzzlePiece> puzzlePieces;
+    vector<PuzzlePiece> puzzlePieces; 
 public:
     explicit JigsawPuzzle(vector<PuzzlePiece> pieces);
 

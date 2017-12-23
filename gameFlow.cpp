@@ -12,7 +12,7 @@ using namespace std;
 
 gameFlow::gameFlow(int argc, char* argv[]){
     bool valid = this->parseCommandLineArgs(argc, argv);
-    if (valid){
+    if (valid){ //if the command line args are fine
         validCommandParsing = true;
     }
 }
@@ -22,32 +22,32 @@ bool gameFlow::runMainFlow(){
     string inputFilename(this->infile);
     string outputFilename(this->outfile);
 
-    JigsawParser parser = JigsawParser(inputFilename, outputFilename);
-    bool validParsing = parser.isInitialized();
-    if (!validParsing){
+    JigsawParser parser = JigsawParser(inputFilename, outputFilename); //parse the game
+    bool validParsing = parser.isInitialized(); //check if parsing worked
+    if (!validParsing){ //if not - write the errors
         if (!parser.fileError()){
             parser.writeErrorsToOutput();
         }
         return false;
     }
 
-    vector<PuzzlePiece> pieces = parser.getCorrectInputPieces();
-    bool rotationAllowed = this->rotate;
-    Factory factory = Factory(rotationAllowed);
+    vector<PuzzlePiece> pieces = parser.getCorrectInputPieces(); //get the pieces vector from the game
+    bool rotationAllowed = this->rotate; //check if we are in rotation mode
+    Factory factory = Factory(rotationAllowed); //deside in which mode do we start the game
 
-    unique_ptr<NaiveSolutionExistenceCheck> solutionChecker = factory.getSolutionExistenceChecker(pieces);
-    bool puzzleValid = solutionChecker->checkIfPuzzleIsLegal();
+    unique_ptr<NaiveSolutionExistenceCheck> solutionChecker = factory.getSolutionExistenceChecker(pieces); //
+    bool puzzleValid = solutionChecker->checkIfPuzzleIsLegal(); //check trivial
     if (!puzzleValid){
         solutionChecker->writeToFileFailedTests(outputFilename);
         return false;
     }
 
-    unique_ptr<JigsawGameInterface> game = factory.getJigsawGame(pieces);
+    unique_ptr<JigsawGameInterface> game = factory.getJigsawGame(pieces); //now the game itself
     unique_ptr<PuzzlePieceMapInterface> piecesMap = factory.getPuzzleMap(pieces);
 
     SolutionAlgorithm solutionAlgorithm = SolutionAlgorithm(std::move(game), std::move(piecesMap));
-    bool solved = solutionAlgorithm.solveGame();
-    solutionAlgorithm.printSolutionToFile(outputFilename, solved);
+    bool solved = solutionAlgorithm.solveGame(); //now we solve the game
+    solutionAlgorithm.printSolutionToFile(outputFilename, solved); //and print to file
     return solved;
 
 

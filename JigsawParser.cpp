@@ -109,10 +109,13 @@ int JigsawParser::readFirstLine(ifstream &openInputFileStream) {
 
 void JigsawParser::readPuzzlePieceLine(string& line){
     vector<string> pieceInfo = split(line, ' ');
+    bool isdOK = false;
+    int ISD;
 
     try {
 
-        int ISD = std::stoi(pieceInfo[0]);
+        ISD = std::stoi(pieceInfo[0]);
+        isdOK = true;
 
         if (pieceInfo.size() != 5){
             this->wrongFormatLines.insert({ISD, line});
@@ -132,7 +135,10 @@ void JigsawParser::readPuzzlePieceLine(string& line){
     }
 
     catch (std::invalid_argument& ia){
-        this->wrongFormatLines.insert({-1, line});
+        if(isdOK)
+            this->wrongFormatLines.insert({ISD, line});
+        else
+            this->wrongFormatLines.insert({-1, line});
     }
 }
 
@@ -153,7 +159,11 @@ void JigsawParser::updateMissingIDs(){
     for (int i = 1; i <= this->numOfElements; i++){
         auto iter = mapIDs.find(i);
         if (iter == mapIDs.end()){
-            this->missingElementsIDs.push_back(i);
+            bool check = true;
+            for(auto line : wrongFormatLines)
+                if(line.first == i){check = false;}
+            if(check)
+                this->missingElementsIDs.push_back(i);
         }
     }
 }
@@ -232,7 +242,7 @@ void JigsawParser::writeErrorsToOutput(){
     if (!this->wrongFormatLines.empty()){
         map<int, string>& wrongLines = this->wrongFormatLines;
         for (auto iter = wrongLines.begin(); iter != wrongLines.end();){
-            if (iter->first != -1){
+            if ((iter->first != -1) && (iter->first > -1) && ( iter->first <= numOfElements)){
                 outputFile << "Puzzle ID " << iter->first << " has wrong data: " << iter->second << endl;
             }
             iter++;

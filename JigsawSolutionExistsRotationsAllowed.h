@@ -17,15 +17,16 @@
 
 #include "NaiveSolutionExistenceCheck.h"
 #include "PuzzlePiece.h"
-
+#include "PuzzlePieceRotation.h"
 using namespace std;
-
+/* Extension of NaiveSolutionExistenceCheck for rotations, will try to check for legality with rotations */
 class JigsawSolutionExistsRotationsAllowed : public NaiveSolutionExistenceCheck {
 protected:
     int numPieces;
     vector<PuzzlePiece> puzzlePieces;
     vector<string> errorMessages;
     virtual bool isSumEdgesZero();
+    virtual bool hasEnoughEdges();
 public:
     explicit JigsawSolutionExistsRotationsAllowed(vector<PuzzlePiece>& puzzlePieces);
     bool checkIfPuzzleIsLegal() override;

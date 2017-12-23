@@ -13,6 +13,7 @@ protected:
     int ISD;
     int leftEdge, topEdge, rightEdge, bottomEdge;
     bool used;
+    int rotationAngle;
 
 public:
     //constructors and destructor
@@ -35,6 +36,8 @@ public:
     virtual bool isBotRightCorner();
     virtual int countStraightEdges();
     virtual int edgesSum();
+    virtual void rotate();
+    virtual void resetAngle();
 
     //Setters and operations
     void setUsed(bool newUsedStatus);

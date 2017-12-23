@@ -15,7 +15,9 @@
 #include <map>
 
 using namespace std;
-
+/**
+* Class for representing a puzzle pieces map - the 'tree' that holds the different pieces types. Will first sort the types to the different buckets (implemented as a map), and then provide search in 0(1).
+*/
 class PuzzlePiecesMap : public PuzzlePieceMapInterface{
 protected:
     map<PuzzleType,vector<PuzzlePiece>> typesMap;

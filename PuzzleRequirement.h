@@ -27,11 +27,14 @@ class PuzzleRequirement{
  *
  */
 protected:
+    //left,top,right,bot
     int l, t, r, b;
-    vector<PuzzleType> falseTypes;
+    vector<PuzzleType> falseTypes; //types that do not match, for instance, the requirement is 1,*,*,*, and we already checked 1,0,0,0 - this will go here
 public:
     PuzzleRequirement(int l, int t, int r, int b);
     void addFalseType(PuzzleType&& type);
+    
+    //check if type is valid for the req (incl check false types)
     bool typeSatisfiesReq(const PuzzleType& type) const;
 };
 

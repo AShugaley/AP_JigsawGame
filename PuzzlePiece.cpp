@@ -6,7 +6,7 @@
 
 
 PuzzlePiece::PuzzlePiece(int ISD, int l, int t, int r, int b) :
-        ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b), used(false) {}
+        ISD(ISD), leftEdge(l), topEdge(t), rightEdge(r), bottomEdge(b), used(false), rotationAngle(0){}
 
 PuzzlePiece::PuzzlePiece(const PuzzlePiece& otherPiece){
     this->ISD = otherPiece.ISD;
@@ -15,6 +15,7 @@ PuzzlePiece::PuzzlePiece(const PuzzlePiece& otherPiece){
     this->rightEdge = otherPiece.rightEdge;
     this->bottomEdge = otherPiece.bottomEdge;
     this->used = otherPiece.used;
+    this->rotationAngle = otherPiece.rotationAngle;
 }
 
 int PuzzlePiece::getISD() const {
@@ -70,6 +71,28 @@ int PuzzlePiece::countStraightEdges(){
 }
 int PuzzlePiece::edgesSum(){
     return leftEdge + rightEdge + topEdge + bottomEdge;
+}
+
+void PuzzlePiece::rotate(){
+    // switch edges place
+    int temp = topEdge;
+    topEdge = leftEdge;
+    leftEdge = bottomEdge;
+    bottomEdge = rightEdge;
+    rightEdge = temp;
+    
+    // update the current angle
+    if(rotationAngle == 270){
+        rotationAngle = 0;
+    }
+    else{
+        rotationAngle+= 90;
+    }
+}
+
+void PuzzlePiece::resetAngle(){
+    while(this->rotationAngle != 0)
+        rotate();
 }
 
 void operator<<(std::ostream &os, const PuzzlePiece& p){
