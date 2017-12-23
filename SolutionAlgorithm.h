@@ -9,8 +9,7 @@
 #include <memory>
 #include <algorithm>
 
-#include "JigsawGameInterface.h"
-#include "PuzzlePieceMapInterface.h"
+#include "SolutionAlgorithmRunningSuite.h"
 
 using namespace std;
 
@@ -21,7 +20,7 @@ protected:
     virtual bool solveRec(pair<int,int> nextPos);
 public:
     SolutionAlgorithm(unique_ptr<JigsawGameInterface> game, unique_ptr<PuzzlePieceMapInterface> piecesMap);
-    virtual bool solveGame();
+    virtual bool solveGame(int numOfThreads);
     virtual vector<pair<int,int> > getPossibleDimensions(int size);
     virtual void printSolutionToFile(string& outputFilePath, bool solved);
 };
