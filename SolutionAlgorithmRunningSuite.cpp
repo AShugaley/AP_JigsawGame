@@ -10,9 +10,9 @@
 #include "SolutionAlgorithmRunningSuite.h"
 
 
-SolutionAlgorithmRunningSuite::SolutionAlgorithmRunningSuite(JigsawGameInterface* game, PuzzlePieceMapInterface * piecesMap){
-    this->game = game;
-    this->piecesMap = piecesMap;
+SolutionAlgorithmRunningSuite::SolutionAlgorithmRunningSuite(unique_ptr<JigsawGameInterface> game, unique_ptr<PuzzlePieceMapInterface> piecesMap){
+    this->game = std::move(game);
+    this->piecesMap = std::move(piecesMap);
 }
 
 
@@ -53,3 +53,14 @@ bool SolutionAlgorithmRunningSuite::solveGame(vector<pair<int,int> > possibleDim
     return false;
 }
 
+
+pair<bool,unique_ptr<JigsawGameInterface> > SolutionAlgorithmRunningSuite::solveGamePair(int i, int j){
+    pair<int,int> topLeftCorner = pair<int,int>(0,0);
+    this->game->initiateSolutionTry(pair<int,int>(i,j));
+    if(solveRec(topLeftCorner) == true){
+        return pair<bool,unique_ptr<JigsawGameInterface> >(true, move(this->game));
+       // return true;
+    }
+
+    return pair<bool,unique_ptr<JigsawGameInterface> >(false,nullptr);
+}

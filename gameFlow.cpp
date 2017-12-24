@@ -45,8 +45,8 @@ bool gameFlow::runMainFlow(){
     unique_ptr<JigsawGameInterface> game = factory.getJigsawGame(pieces); //now the game itself
     unique_ptr<PuzzlePieceMapInterface> piecesMap = factory.getPuzzleMap(pieces);
 
-    SolutionAlgorithm solutionAlgorithm = SolutionAlgorithm(std::move(game), std::move(piecesMap));
-    bool solved = solutionAlgorithm.solveGame(1); //now we solve the game
+    SolutionAlgorithm solutionAlgorithm = SolutionAlgorithm(std::move(game), std::move(piecesMap),pieces);
+    bool solved = solutionAlgorithm.solveGame(4,rotationAllowed); //now we solve the game
     solutionAlgorithm.printSolutionToFile(outputFilename, solved); //and print to file
     return solved;
 
