@@ -8,13 +8,13 @@
 
 #ifndef JigsawSolutionThread_h
 #define JigsawSolutionThread_h
-#define DELAY = 50
 
+#include <chrono>
+#include <future>
 
 #include "SolutionAlgorithmRunningSuite.h"
-#include <chrono>
 
-#include <future>
+#define DELAY_MILLISECONDS 10
 
 class JigsawSolutionThread{
 public:
@@ -22,15 +22,13 @@ public:
     unique_ptr<JigsawGameInterface> game;
     future<pair<bool,unique_ptr<JigsawGameInterface> > > f;
     std::chrono::milliseconds span;
-    
+
 public:
-    
+
     JigsawSolutionThread(unique_ptr<SolutionAlgorithmRunningSuite> solution, future<pair<bool,unique_ptr<JigsawGameInterface> > > &f);
     bool isFinished();
     bool isSolved();
     unique_ptr<JigsawGameInterface> getGame();
-    unique_ptr<PuzzlePieceMapInterface> getPiecesMap();
-    
 };
 
 #endif /* JigsawSolutionThread_h */

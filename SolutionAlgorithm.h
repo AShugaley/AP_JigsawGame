@@ -8,10 +8,12 @@
 #include <cmath>
 #include <memory>
 #include <algorithm>
-#include "Factory.h"
-#include <future>        
+#include <future>
 #include <chrono>
+
+#include "Factory.h"
 #include "JigsawSolutionThread.h"
+
 using namespace std;
 
 class SolutionAlgorithm {

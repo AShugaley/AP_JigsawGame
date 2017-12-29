@@ -80,7 +80,7 @@ void PuzzlePiece::rotate(){
     leftEdge = bottomEdge;
     bottomEdge = rightEdge;
     rightEdge = temp;
-    
+
     // update the current angle
     if(rotationAngle == 270){
         rotationAngle = 0;

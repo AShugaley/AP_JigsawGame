@@ -6,7 +6,6 @@
 //  Copyright © 2017 Alexander Shugaley. All rights reserved.
 //
 
-#include <stdio.h>
 #include "SolutionAlgorithmRunningSuite.h"
 
 
@@ -14,7 +13,6 @@ SolutionAlgorithmRunningSuite::SolutionAlgorithmRunningSuite(unique_ptr<JigsawGa
     this->game = std::move(game);
     this->piecesMap = std::move(piecesMap);
 }
-
 
 
 bool SolutionAlgorithmRunningSuite::solveRec(pair<int,int> nextPos){
@@ -52,7 +50,6 @@ bool SolutionAlgorithmRunningSuite::solveGame(vector<pair<int,int> > possibleDim
     }
     return false;
 }
-
 
 pair<bool,unique_ptr<JigsawGameInterface> > SolutionAlgorithmRunningSuite::solveGamePair(int i, int j){
     pair<int,int> topLeftCorner = pair<int,int>(0,0);
