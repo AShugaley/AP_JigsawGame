@@ -51,12 +51,7 @@ bool gameFlow::runMainFlow(){
     bool solved = solutionAlgorithm.solveGame(numOfThreads,rotationAllowed); //now we solve the game
     solutionAlgorithm.printSolutionToFile(outputFilename, solved); //and print to file
     return solved;
-
-
-
 }
-
-
 
 bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
     if (argc < 3 || argc > 6){
@@ -65,7 +60,7 @@ bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
     }
     string rotationFlagString = ROTATION_FLAG;
     string threadsFlagName = THREADS_FLAG;
-    int otherchars = 0;
+    int otherChars = 0;
     
     for(int i = 1; i<argc; i++){
         if (rotationFlagString.compare(argv[i]) == 0){
@@ -74,7 +69,7 @@ bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
         }
         if(threadsFlagName.compare(argv[i]) == 0){
             char* nextArg = argv[++i];
-            for(int j = 0; j< strlen(nextArg) - 1; j++){
+            for(int j = 0; j < (int) strlen(nextArg) - 1; j++){
                 if(!isdigit(nextArg[j])){
                     cout << USAGE_MSG << endl;
                     return false;
@@ -84,12 +79,12 @@ bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
             continue;
         }
         
-        otherchars++;
-        if(otherchars == 1)
+        otherChars++;
+        if(otherChars == 1)
             this->infile = argv[i];
-        if(otherchars == 2)
+        if(otherChars == 2)
             this->outfile = argv[i];
-        if(otherchars > 2){
+        if(otherChars > 2){
             cout <<  WRONG_ARGS << endl;
             return false;
         }

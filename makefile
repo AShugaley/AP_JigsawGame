@@ -5,10 +5,10 @@ JigsawSolutionExistsChecks.o JigsawParser.o PuzzleTypeWithRotation.o PuzzleRequi
 PuzzlePiece.o PuzzlePieceRotation.o JigsawSolutionThread.o SolutionAlgorithmRunningSuite.o
 EXEC = ex3
 CPP_COMP_FLAG = -std=c++11 -Wall -Wextra \
--Werror -pedantic-errors -DNDEBUG -pthread
+-Werror -pedantic-errors -DNDEBUG
 
 $(EXEC): $(OBJS)
-	$(COMP) $(OBJS) -o $@
+	$(COMP) $(OBJS) -o $@ -pthread
 #a rule for building a simple c++ source file
 #use g++ -MM main.cpp to see dependencies
 

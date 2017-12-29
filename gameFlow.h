@@ -18,12 +18,12 @@
 
 #define ROTATION_FLAG "-rotate"
 #define THREADS_FLAG "-threads"
-#define USAGE_MSG "The argument after -threads has to be a natural number\n"
-#define WRONG_ARGS "Error: you need to supply input file representing a puzzle game and an output file. '-rotate' flag is optional"
+#define USAGE_MSG "Error: The argument after -threads flag has to be a natural number\n"
+#define WRONG_ARGS "Error: Wrong arguments. You need to supply input file representing a puzzle game and an output file. '-rotate' and -threads flags are optional\n"
 
 using namespace std;
 /**
-* Class for holding the flow function, is the container of the game, runs the parsing and then the algo
+* Class for holding the flow function, is the container of the game, runs the parsing and then the algorithm
 */
 class gameFlow {
 private:
