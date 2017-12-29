@@ -4,9 +4,9 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    RandomSolvableTest t = *new RandomSolvableTest(6,6);
-    t.runRandomTests(6,6,10);
-    return 0;
+//    RandomSolvableTest t = *new RandomSolvableTest(5,5);
+//    t.runRandomTests(5,5,10);
+//    return 0;
     
     
     

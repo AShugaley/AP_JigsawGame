@@ -68,7 +68,7 @@ bool RandomSolvableTest::solvePuzzle(){
     unique_ptr<PuzzlePieceMapInterface> piecesMap = factory.getPuzzleMap(pieces);
     
     SolutionAlgorithm solutionAlgorithm = SolutionAlgorithm(std::move(game), std::move(piecesMap),pieces);
-    bool solved = solutionAlgorithm.solveGame(1,true); //now we solve the game
+    bool solved = solutionAlgorithm.solveGame(8,true); //now we solve the game
     return solved;
 }
 

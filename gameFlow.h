@@ -14,7 +14,7 @@
 #include "JigsawParser.h"
 #include "SolutionAlgorithm.h"
 #include "Factory.h"
-
+#include <ctype.h>
 #define WRONG_ARGS "Error: you need to supply input file representing a puzzle game and an output file. '-rotate' flag is optional"
 
 using namespace std;
@@ -27,6 +27,7 @@ private:
     char* outfile;
     bool validCommandParsing = false; //check if format is ok
     bool rotate = false; //isRotations = true?
+    int numOfThreads = 4; 
 
 public:
     gameFlow(int argc, char* argv[]);
@@ -34,7 +35,6 @@ public:
     
     bool runMainFlow(); //the main function of the flow
     bool parseCommandLineArgs(int argc, char* argv[]); //parse the command line args
-    bool rotateCommandExists(int argc, char* argv[]); //check if "-rotate" applies
     bool getValidCommandParsing(); //getter
 };
 

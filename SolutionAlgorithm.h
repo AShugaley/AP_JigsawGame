@@ -24,6 +24,7 @@ public:
     virtual bool solveGame(int numOfThreads, bool rotate);
     virtual vector<pair<int,int> > getPossibleDimensions(int size);
     virtual void printSolutionToFile(string& outputFilePath, bool solved);
+    virtual bool SolveForOneThread(vector<pair<int,int> > possibleDimensions);
 };
 
 

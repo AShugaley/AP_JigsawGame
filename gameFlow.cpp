@@ -19,6 +19,7 @@ gameFlow::gameFlow(int argc, char* argv[]){
 
 
 bool gameFlow::runMainFlow(){
+
     string inputFilename(this->infile);
     string outputFilename(this->outfile);
 
@@ -33,6 +34,7 @@ bool gameFlow::runMainFlow(){
 
     vector<PuzzlePiece> pieces = parser.getCorrectInputPieces(); //get the pieces vector from the game
     bool rotationAllowed = this->rotate; //check if we are in rotation mode
+    int numOfThreads = this->numOfThreads;
     Factory factory = Factory(rotationAllowed); //deside in which mode do we start the game
 
     unique_ptr<NaiveSolutionExistenceCheck> solutionChecker = factory.getSolutionExistenceChecker(pieces); //
@@ -46,85 +48,50 @@ bool gameFlow::runMainFlow(){
     unique_ptr<PuzzlePieceMapInterface> piecesMap = factory.getPuzzleMap(pieces);
 
     SolutionAlgorithm solutionAlgorithm = SolutionAlgorithm(std::move(game), std::move(piecesMap),pieces);
-    bool solved = solutionAlgorithm.solveGame(4,rotationAllowed); //now we solve the game
+    bool solved = solutionAlgorithm.solveGame(numOfThreads,rotationAllowed); //now we solve the game
     solutionAlgorithm.printSolutionToFile(outputFilename, solved); //and print to file
     return solved;
 
 
-//    if (rotationAllowed){
-//        JigsawSolutionExistsRotationsAllowed puzzleCheck = JigsawSolutionExistsRotationsAllowed(pieces);
-//        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
-//        if (!checkResult){
-//            puzzleCheck.writeToFileFailedTests(outputFilename);
-//            return false;
-//        }
-//
-//        JigsawPuzzleRotations puzzle = JigsawPuzzleRotations(pieces);
-//        bool solved = puzzle.solveGame();
-//        puzzle.printSolutionToFile(outputFilename);
-//        return solved;
-//    }
-//
-//    else{
-//
-//        JigsawSolutionExistsChecks puzzleCheck = JigsawSolutionExistsChecks(pieces);
-//        bool checkResult = puzzleCheck.checkIfPuzzleIsLegal();
-//        if (!checkResult){
-//            puzzleCheck.writeToFileFailedTests(outputFilename);
-//            return false;
-//        }
-//
-//        JigsawPuzzle_OLD puzzle = JigsawPuzzle_OLD(pieces);
-//        bool solved = puzzle.solveGame();
-//        puzzle.printSolutionToFile(outputFilename);
-//        return solved;
-//    }
+
 }
 
-bool gameFlow::rotateCommandExists(int argc, char* argv[]){
-    string rotateCommandString = "-rotate";
-    for (int i = 1; i < argc; i++){
-        if (rotateCommandString.compare(argv[i]) == 0){
-            return true;
-        }
-    }
-    return false;
-}
+
 
 bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
-    if (argc < 3 || argc > 4){
+    if (argc < 3 || argc > 6){
         cout << WRONG_ARGS << endl;
         return false;
     }
-
-    if (argc == 4){
-        bool rotateExists = this->rotateCommandExists(argc, argv);
-        if (!rotateExists){
+    string rotationFlagString = "-rotate";
+    string threadsFlagName = "-threads";
+    int otherchars = 0;
+    for(int i = 1; i<argc; i++){
+        if (rotationFlagString.compare(argv[i]) == 0){
+            this->rotate = true;
+            continue;
+        }
+        if(threadsFlagName.compare(argv[i]) == 0){
+            char* nextArg = argv[++i];
+            for(int j = 0; j< strlen(nextArg) - 1; j++){
+                if(!isdigit(nextArg[j])){
+                    cout << "usage" << endl;
+                    exit(0);
+                }
+            }
+            this->numOfThreads = atoi(nextArg);
+            continue;
+        }
+        otherchars++;
+        if(otherchars == 1)
+            this->infile = argv[i];
+        if(otherchars == 2)
+            this->outfile = argv[i];
+        if(otherchars > 2){
             cout <<  WRONG_ARGS << endl;
             return false;
         }
-
-        this->rotate = true;
-        string rotationFlagString = "-rotate";
-        if (rotationFlagString.compare(argv[1]) == 0){
-            this->infile = argv[2];
-            this->outfile = argv[3];
-
-        } else if (rotationFlagString.compare(argv[2]) == 0){
-            this->infile = argv[1];
-            this->outfile = argv[3];
-
-        } else{
-            this->infile = argv[1];
-            this->outfile = argv[2];
-        }
     }
-
-    else{
-        this->infile = argv[1];
-        this->outfile = argv[2];
-    }
-
     return true;
 }
 
