@@ -59,7 +59,7 @@ void RandomSolvableTest::generateRandomPuzzle(int x, int y){
 
 bool RandomSolvableTest::solvePuzzle(){
     vector<PuzzlePiece> pieces = this->puzzlePieces; //get the pieces vector from the game
-    bool rotationAllowed = true; //check if we are in rotation mode
+    bool rotationAllowed = false; //check if we are in rotation mode
     Factory factory = Factory(rotationAllowed); //deside in which mode do we start the game
     
 
@@ -68,7 +68,7 @@ bool RandomSolvableTest::solvePuzzle(){
     unique_ptr<PuzzlePieceMapInterface> piecesMap = factory.getPuzzleMap(pieces);
     
     SolutionAlgorithm solutionAlgorithm = SolutionAlgorithm(std::move(game), std::move(piecesMap),pieces);
-    bool solved = solutionAlgorithm.solveGame(8,true); //now we solve the game
+    bool solved = solutionAlgorithm.solveGame(1,false); //now we solve the game
     return solved;
 }
 

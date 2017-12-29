@@ -15,6 +15,10 @@
 #include "SolutionAlgorithm.h"
 #include "Factory.h"
 #include <ctype.h>
+
+#define ROTATION_FLAG "-rotate"
+#define THREADS_FLAG "-threads"
+#define USAGE_MSG "The argument after -threads has to be a natural number\n"
 #define WRONG_ARGS "Error: you need to supply input file representing a puzzle game and an output file. '-rotate' flag is optional"
 
 using namespace std;

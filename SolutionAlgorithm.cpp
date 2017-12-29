@@ -42,8 +42,9 @@ bool SolutionAlgorithm::solveGame(int numOfThreads, bool rotate){
     Factory factory = Factory(rotate); //deside in which mode do we start the game
     vector<JigsawSolutionThread> threads;
     int currentNumOfThreads = 1;
-    std::chrono::milliseconds span (50);
+    //std::chrono::milliseconds span (50);
     while(!possibleDimensions.empty() || !threads.empty()){
+        
         while((currentNumOfThreads < numOfThreads) && !possibleDimensions.empty()){
             
             future<pair<bool,unique_ptr<JigsawGameInterface> > > f;
@@ -52,7 +53,10 @@ bool SolutionAlgorithm::solveGame(int numOfThreads, bool rotate){
             possibleDimensions.pop_back();
             threads.back().f = std::async(std::launch::async, &SolutionAlgorithmRunningSuite::solveGamePair,SolutionAlgorithmRunningSuite(factory.getJigsawGame(pieces), factory.getPuzzleMap(pieces)) , p.first, p.second);
             currentNumOfThreads++;
+            
         }
+        
+        
         int i = 0;
         for(auto it = threads.begin(); it < threads.end(); it++,i++ ){
             auto &t = threads[i];

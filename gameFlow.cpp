@@ -63,9 +63,10 @@ bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
         cout << WRONG_ARGS << endl;
         return false;
     }
-    string rotationFlagString = "-rotate";
-    string threadsFlagName = "-threads";
+    string rotationFlagString = ROTATION_FLAG;
+    string threadsFlagName = THREADS_FLAG;
     int otherchars = 0;
+    
     for(int i = 1; i<argc; i++){
         if (rotationFlagString.compare(argv[i]) == 0){
             this->rotate = true;
@@ -75,13 +76,14 @@ bool gameFlow::parseCommandLineArgs(int argc, char* argv[]){
             char* nextArg = argv[++i];
             for(int j = 0; j< strlen(nextArg) - 1; j++){
                 if(!isdigit(nextArg[j])){
-                    cout << "usage" << endl;
-                    exit(0);
+                    cout << USAGE_MSG << endl;
+                    return false;
                 }
             }
             this->numOfThreads = atoi(nextArg);
             continue;
         }
+        
         otherchars++;
         if(otherchars == 1)
             this->infile = argv[i];

@@ -11,7 +11,7 @@
 JigsawSolutionThread::JigsawSolutionThread(unique_ptr<SolutionAlgorithmRunningSuite> solution, future<pair<bool,unique_ptr<JigsawGameInterface> > > &f){
     this->solution = std::move(solution);
     this->f = std::move(f);
-    span = std::chrono::milliseconds (50);
+    span = std::chrono::milliseconds (10);
 
 }
 
