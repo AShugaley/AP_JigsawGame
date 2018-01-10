@@ -17,7 +17,8 @@ private:
 public:
     PuzzleCondition() = default;
     PuzzleCondition(std::initializer_list<int> edges);
-    PuzzleCondition<K>& operator=(const PuzzleCondition& otherCond);
+//    PuzzleCondition<K>& operator=(const PuzzleCondition<K>& otherCond);
+//    PuzzleCondition<K>& operator=(std::initializer_list<int> edges);
     bool operator <(const PuzzleCondition& cond) const;
 
 };
@@ -49,13 +50,24 @@ bool PuzzleCondition<K>::operator<(const PuzzleCondition<K>& cond) const{
     return this->edges[3] < cond.edges[3];
 }
 
-template <int K>
-PuzzleCondition<K>& PuzzleCondition<K>::operator=(const PuzzleCondition& otherCond){
-    this->edges[0] = otherCond.edges[0];
-    this->edges[1] = otherCond.edges[1];
-    this->edges[2] = otherCond.edges[2];
-    this->edges[3] = otherCond.edges[3];
-    return *this;
-}
+//template <int K>
+//PuzzleCondition<K>& PuzzleCondition<K>::operator=(const PuzzleCondition<K>& otherCond){
+//    this->edges[0] = otherCond.edges[0];
+//    this->edges[1] = otherCond.edges[1];
+//    this->edges[2] = otherCond.edges[2];
+//    this->edges[3] = otherCond.edges[3];
+//    return *this;
+//}
+//
+//template <int K>
+//PuzzleCondition<K>& PuzzleCondition<K>::operator=(std::initializer_list<int> edges){
+//    PuzzleCondition<K> tmpPuzzleCond(edges);
+//    this->edges[0] = tmpPuzzleCond.edges[0];
+//    this->edges[1] = tmpPuzzleCond.edges[1];
+//    this->edges[2] = tmpPuzzleCond.edges[2];
+//    this->edges[3] = tmpPuzzleCond.edges[3];
+//    return *this;
+//}
+
 
 #endif //AP_JIGSAWGAME_PUZZLECONDITION_H
