@@ -9,14 +9,18 @@
 #include <vector>
 #include <ostream>
 
+using namespace std;
+
 template <int K>
 class Puzzle2dPiece{
 private:
-    std::vector<BoundedInt<-K,K>> edges;
+    vector<BoundedInt<-K,K>> edges;
 public:
     Puzzle2dPiece(std::initializer_list<int> edges);
+    const typename vector<BoundedInt<-K,K> >::iterator begin() {return this->edges.begin();}
+    const typename vector<BoundedInt<-K,K> >::iterator end() {return this->edges.end();}
     template <int K_val>
-    friend std::ostream& operator << (std::ostream& os, const Puzzle2dPiece<K_val>& piece);
+    friend ostream& operator << (ostream& os, const Puzzle2dPiece<K_val>& piece);
 };
 
 template <int K>
@@ -31,11 +35,13 @@ Puzzle2dPiece<K>::Puzzle2dPiece(std::initializer_list<int> edges) {
     }
 }
 
+
 template <int K>
-std::ostream& operator << (std::ostream& os, const Puzzle2dPiece<K>& piece){
+std::ostream& operator << (ostream& os, const Puzzle2dPiece<K>& piece){
     os << "(" << piece.edges[0] << ", " << piece.edges[1] << ", " << piece.edges[2] << ", " << piece.edges[3] << ")";
     return os;
 }
+
 
 
 #endif //PUZZLETEMPLATE_PUZZLE2DPIECE_H

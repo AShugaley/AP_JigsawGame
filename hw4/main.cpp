@@ -9,7 +9,10 @@ int main() {
 //    int j = i;
 //    cout << j << endl;
 //    cout << i << endl;
-//    Puzzle2dPiece<5> piece = {1,2,3,0};
+    Puzzle2dPiece<5> piece = {1,2,3,0};
+    for (auto& e : piece){
+        cout << e << endl;
+    }
 //    cout << piece << endl;
 //    list<Puzzle2dPiece<5>> pieces = {{0, 3, 2, -5}, {0, -2, 2, -5}};
 //    for (auto& p : pieces){
