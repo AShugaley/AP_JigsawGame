@@ -13,12 +13,12 @@ using namespace std;
 
 template <int K>
 class Puzzle2dPiece{
-private:
-    vector<BoundedInt<-K,K>> edges;
 public:
+    vector<BoundedInt<-K,K>> edges;
     Puzzle2dPiece(std::initializer_list<int> edges);
     const typename vector<BoundedInt<-K,K> >::iterator begin() {return this->edges.begin();}
     const typename vector<BoundedInt<-K,K> >::iterator end() {return this->edges.end();}
+
     template <int K_val>
     friend ostream& operator << (ostream& os, const Puzzle2dPiece<K_val>& piece);
 };

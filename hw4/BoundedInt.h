@@ -12,7 +12,9 @@ class BoundedInt{
 public:
     int value;
     BoundedInt(int value);
-    operator int() const;
+    BoundedInt() = default;
+    virtual ~BoundedInt() = default;
+    operator int() const {return this->value;}
 };
 
 template <int MinInt, int MaxInt>
@@ -22,10 +24,8 @@ BoundedInt<MinInt, MaxInt>::BoundedInt(int value) {
     }
     this->value = value;
 }
-//
-template <int MinInt, int MaxInt>
-BoundedInt<MinInt, MaxInt>::operator int() const {
-    return this->value;
-};
+
+
+
 
 #endif //PUZZLETEMPLATE_BOUNDEDINT_H
