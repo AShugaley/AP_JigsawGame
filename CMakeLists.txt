@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(AP_JigsawGame)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 set(SOURCE_FILES
 #        PuzzlePiece.h
@@ -37,9 +37,10 @@ set(SOURCE_FILES
 #        alex_test_files/in6-Solvable.txt
 #        alex_test_files/in7-format-error.txt
 #        JigsawParser.cpp JigsawParser.h JigsawSolutionExistsChecks.cpp JigsawSolutionExistsChecks.h JigsawPuzzle.cpp JigsawPuzzle.h RandomSolvableTest.cpp RandomSolvableTest.h PuzzlePiecesMapWithRotate.cpp PuzzlePiecesMapWithRotate.h PuzzleTypeWithRotation.cpp PuzzleTypeWithRotation.h JigsawPuzzleRotations.cpp JigsawPuzzleRotations.h JigsawSolutionExistsRotationsAllowed.cpp JigsawSolutionExistsRotationsAllowed.h
-        hw4/BoundedInt.h
-        hw4/Puzzle2dPiece.h
+#        hw4/BoundedInt.h
+#        hw4/BoundedIntCondition.h
         hw4/main.cpp
-        hw4/BoundedIntCondition.h hw4/PuzzleCondition.h hw4/PuzzleGroups.h)
+        hw4/AbstractPuzzlePiece.h
+        hw4/Puzzle2dPiece.h hw4/PuzzleGroups.h)
 
 add_executable(AP_JigsawGame ${SOURCE_FILES})
