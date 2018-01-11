@@ -23,7 +23,7 @@ public:
     const typename vector<int>::iterator begin() {return this->edges.begin();}
     const typename vector<int>::iterator end() {return this->edges.end();}
     virtual void print(ostream& os) const;
-    virtual bool operator<(const AbstractPuzzlePiece<K> otherPiece) const;
+    virtual bool operator<(const AbstractPuzzlePiece<K>& otherPiece) const;
 
     template <int K_val>
     friend ostream& operator << (ostream& os, const AbstractPuzzlePiece<K_val>& piece);
@@ -58,7 +58,7 @@ void AbstractPuzzlePiece<K>::print(ostream &os) const {
 }
 
 template <int K>
-bool AbstractPuzzlePiece<K>::operator<(const AbstractPuzzlePiece<K> otherPiece) const {
+bool AbstractPuzzlePiece<K>::operator<(const AbstractPuzzlePiece<K>& otherPiece) const {
     int numEdges = (int) otherPiece.edges.size();
     for (int i = 0; i < numEdges; i++){
         auto thisEdge = this->edges[i];

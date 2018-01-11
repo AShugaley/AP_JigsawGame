@@ -11,6 +11,8 @@
 
 template <int K>
 class Puzzle2dPiece : public AbstractPuzzlePiece<K>{
+private:
+    static const unsigned numEdges = 4;
 public:
     Puzzle2dPiece(std::initializer_list<int> edges);
     vector<Puzzle2dPiece<K>> getAllPosibleGroups();
@@ -25,41 +27,43 @@ Puzzle2dPiece<K>::Puzzle2dPiece(std::initializer_list<int> edges) : AbstractPuzz
 
 template <int K>
 vector<Puzzle2dPiece<K>> Puzzle2dPiece<K>::getAllPosibleGroups() {
-    int left = this->edges[0];
-    int top = this->edges[1];
-    int right = this->edges[2];
-    int bottom = this->edges[3];
+    unsigned numPossibleGroups = (unsigned) 0x01 << this->numEdges;
+    unsigned leftMask = numPossibleGroups >> 1;
+    unsigned topMask = numPossibleGroups >> 2;
+    unsigned rightMask = numPossibleGroups >> 3;
+    unsigned bottomMask = numPossibleGroups >> 4;
+
+    int left;
+    int top;
+    int right;
+    int bottom;
 
     vector<Puzzle2dPiece<K>> pieceGroup;
 
-    // Exact condition
-    pieceGroup.push_back({left, top, right, bottom});
+    for (unsigned i = 0; i < numPossibleGroups; i++) {
+        left = this->edges[0];
+        top = this->edges[1];
+        right = this->edges[2];
+        bottom = this->edges[3];
 
-    // Joker on 1 edge - 4 options
-    pieceGroup.push_back({JOKER, top, right, bottom});
-    pieceGroup.push_back({left, JOKER, right, bottom});
-    pieceGroup.push_back({left, top, JOKER, bottom});
-    pieceGroup.push_back({left, top, right, JOKER});
+        if (i & leftMask) {
+            left = JOKER;
+        }
+        if (i & topMask) {
+            top = JOKER;
+        }
+        if (i & rightMask) {
+            right = JOKER;
+        }
+        if (i & bottomMask) {
+            bottom = JOKER;
+        }
 
-    // Joker on 2 edges - 6 options
-    pieceGroup.push_back({JOKER, JOKER, right, bottom});
-    pieceGroup.push_back({JOKER, top, JOKER, bottom});
-    pieceGroup.push_back({JOKER, top, right, JOKER});
-    pieceGroup.push_back({left, JOKER, JOKER, bottom});
-    pieceGroup.push_back({left, JOKER, right, JOKER});
-    pieceGroup.push_back({left, top, JOKER, JOKER});
-
-    // Joker on 3 edges - 4 options
-    pieceGroup.push_back({JOKER, JOKER, JOKER, bottom});
-    pieceGroup.push_back({left, JOKER, JOKER, JOKER});
-    pieceGroup.push_back({JOKER, top, JOKER, JOKER});
-    pieceGroup.push_back({JOKER, JOKER, right, JOKER});
-
-    // Joker on 4 edges - 1 option
-    pieceGroup.push_back({JOKER, JOKER, JOKER, JOKER});
-
+        pieceGroup.push_back({left, top, right, bottom});
+    }
     return pieceGroup;
 }
+
 
 
 #endif //AP_JIGSAWGAME_PUZZLE2DPIECE_H
