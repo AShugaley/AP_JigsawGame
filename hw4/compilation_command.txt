@@ -1,0 +1,1 @@
+g++ -std=c++14 -Wall -Wextra -Werror -pedantic-errors -DNDEBUG main.cpp -o hw4_main
