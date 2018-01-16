@@ -41,6 +41,6 @@ set(SOURCE_FILES
 #        hw4/BoundedIntCondition.h
         hw4/main.cpp
         hw4/AbstractPuzzlePiece.h
-        hw4/Puzzle2dPiece.h hw4/PuzzleGroups.h hw4/Puzzle3dPiece.h)
+        hw4/Puzzle2dPiece.h hw4/PuzzleGroups.h hw4/Puzzle3dPiece.h hw4/ex4headers.h)
 
 add_executable(AP_JigsawGame ${SOURCE_FILES})
