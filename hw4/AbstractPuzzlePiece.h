@@ -9,14 +9,17 @@
 #include <iostream>
 #include <stdexcept>
 #include <limits>
+#include <algorithm>    // std::rotate
+
+
 
 using namespace std;
 
 template <int K>
 class AbstractPuzzlePiece{
-protected:
-    vector<int> edges;
 public:
+    vector<int> edges;
+
     AbstractPuzzlePiece() = default;
     AbstractPuzzlePiece(std::initializer_list<int> edgesList);
     virtual ~AbstractPuzzlePiece() = default;
@@ -24,10 +27,12 @@ public:
     const typename vector<int>::iterator end() {return this->edges.end();}
     virtual void print(ostream& os) const;
     virtual bool operator<(const AbstractPuzzlePiece<K>& otherPiece) const;
+    void rotate();
 
     template <int K_val>
     friend ostream& operator << (ostream& os, const AbstractPuzzlePiece<K_val>& piece);
 };
+
 
 template <int K>
 AbstractPuzzlePiece<K>::AbstractPuzzlePiece(std::initializer_list<int> edgesList) {
@@ -39,6 +44,11 @@ AbstractPuzzlePiece<K>::AbstractPuzzlePiece(std::initializer_list<int> edgesList
         this->edges.emplace_back(e);
         numEdges++;
     }
+}
+
+template <int K>
+void AbstractPuzzlePiece<K>::rotate(){
+    std::rotate(edges.begin(),edges.begin()+1,edges.end());
 }
 
 template <int K>

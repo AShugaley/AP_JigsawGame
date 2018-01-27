@@ -8,6 +8,7 @@
 #include <map>
 #include <iostream>
 #include "AbstractPuzzlePiece.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ protected:
     using T = deref_iter_t<Iterator>;
     map<T, vector<T*>> groups;
 public:
-    PuzzleGroups(Iterator begin, Iterator end);
+    PuzzleGroups(Iterator begin, Iterator end, bool rotate);
     void addPairToGroup(pair<T,T*> pair);
     void addPuzzlePiecesToMap(T* piece);
     vector<T*> get(T condition) {
@@ -33,9 +34,22 @@ public:
 };
 
 template <class Iterator>
-PuzzleGroups<Iterator>::PuzzleGroups(Iterator begin, Iterator end) {
+PuzzleGroups<Iterator>::PuzzleGroups(Iterator begin, Iterator end, bool rotate) {
     while (begin != end){
-        this->addPuzzlePiecesToMap(&(*begin));
+        auto piece = &(*begin);
+        if(!rotate){
+            this->addPuzzlePiecesToMap(piece);
+        }
+        else{
+            vector<vector<int> > shapes;
+            for(unsigned i = 0; i< piece->numEdges; i++){
+                piece->rotate();
+                if(!(std::find(shapes.begin(), shapes.end(), piece->edges) != shapes.end())) {
+                    shapes.push_back(piece->edges);
+                    this->addPuzzlePiecesToMap(piece);
+                }
+            }
+        }
         begin++;
     }
 }
@@ -63,8 +77,14 @@ void PuzzleGroups<Iterator>::addPuzzlePiecesToMap(T* piece) {
 
 template <class Iterator>
 PuzzleGroups<Iterator> groupPuzzlePieces(Iterator begin, Iterator end){
-    return PuzzleGroups<Iterator>(begin, end);
+    return PuzzleGroups<Iterator>(begin, end, false);
 }
+
+template <class Iterator>
+PuzzleGroups<Iterator> groupPuzzlePiecesWithRotate(Iterator begin, Iterator end){
+    return PuzzleGroups<Iterator>(begin, end, true);
+}
+
 
 
 #endif //AP_JIGSAWGAME_PUZZLEGROUPS_H

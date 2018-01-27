@@ -11,9 +11,8 @@
 
 template <int K>
 class Puzzle2dPiece : public AbstractPuzzlePiece<K>{
-private:
-    static const unsigned numEdges = 4;
 public:
+    static const unsigned numEdges = 4;
     Puzzle2dPiece(std::initializer_list<int> edges);
     vector<Puzzle2dPiece<K>> getAllPosibleGroups();
 };
@@ -63,6 +62,7 @@ vector<Puzzle2dPiece<K>> Puzzle2dPiece<K>::getAllPosibleGroups() {
     }
     return pieceGroup;
 }
+
 
 
 

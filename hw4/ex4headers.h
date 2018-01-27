@@ -8,5 +8,7 @@
 #include "Puzzle2dPiece.h"
 #include "Puzzle3dPiece.h"
 #include "PuzzleGroups.h"
-
+#include <iostream>
+#include <list>
+#include <vector>
 #endif //AP_JIGSAWGAME_EX4HEADERS_H
